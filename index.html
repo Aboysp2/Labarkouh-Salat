@@ -1,0 +1,7850 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-title" content="Labarkouh Salat" />
+  <meta name="theme-color" content="#0a3d2a" />
+  <meta name="description" content="لاباركوه صلاة - أوقات الصلاة لكل دول العالم" />
+  <title>لاباركوه صلاة | أوقات الصلاة</title>
+  <style>
+:root {
+  --bg: #064e3b;
+  --card: #0a3d2a;
+  --card2: #0d4a35;
+  --accent: #10b981;
+  --accent-light: #34d399;
+  --text: #ecfdf5;
+  --text-muted: #a7f3d0;
+  --border: #065f46;
+  --green-btn: #059669;
+  --green-btn-hover: #10b981;
+  --radius: 16px;
+  --shadow: 0 4px 24px rgba(0,0,0,0.35);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html, body {
+  height: 100%;
+  font-family: 'Cairo', system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  overflow-x: hidden;
+}
+
+body {
+  background:
+    radial-gradient(ellipse at 30% 20%, #047857 0%, transparent 50%),
+    radial-gradient(ellipse at 70% 80%, #065f46 0%, transparent 45%),
+    linear-gradient(160deg, #064e3b 0%, #022c22 50%, #064e3b 100%);
+  background-attachment: fixed;
+}
+
+.app {
+  max-width: 480px;
+  margin: 0 auto;
+  padding: 12px 14px 40px;
+  min-height: 100vh;
+}
+
+/* Header */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 0 12px;
+}
+
+.icon-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  background: var(--card);
+  color: var(--text);
+  font-size: 18px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.title-area {
+  text-align: center;
+}
+
+.title-area h1 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+.subtitle {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+/* Language tabs */
+.lang-tabs {
+  display: flex;
+  gap: 6px;
+  overflow-x: auto;
+  padding: 8px 0 14px;
+  scrollbar-width: none;
+}
+
+.lang-tabs::-webkit-scrollbar { display: none; }
+
+.lang-tabs button {
+  flex-shrink: 0;
+  padding: 7px 14px;
+  border-radius: 20px;
+  border: 1px solid var(--border);
+  background: var(--card);
+  color: var(--text-muted);
+  font-family: inherit;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.lang-tabs button.active {
+  background: var(--accent-light);
+  color: #fff;
+  border-color: var(--accent-light);
+}
+
+/* Cards */
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 16px 18px;
+  margin-bottom: 12px;
+  box-shadow: var(--shadow);
+}
+
+.label {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin-bottom: 6px;
+  text-align: right;
+}
+
+/* Time card */
+.time-card {
+  text-align: center;
+}
+
+.current-time {
+  font-size: 2.8rem;
+  font-weight: 600;
+  letter-spacing: 2px;
+  direction: ltr;
+  margin: 4px 0;
+}
+
+.date-line {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  margin-bottom: 6px;
+}
+
+.location-line {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-size: 0.9rem;
+  flex-wrap: wrap;
+}
+
+.coords {
+  direction: ltr;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+}
+
+/* Next prayer */
+.next-card {
+  text-align: center;
+}
+
+.next-prayer-name {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  font-size: 1.4rem;
+  font-weight: 600;
+  margin: 4px 0;
+}
+
+.next-time {
+  direction: ltr;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+.countdown {
+  font-size: 2.2rem;
+  font-weight: 500;
+  direction: ltr;
+  letter-spacing: 1px;
+  margin-top: 4px;
+}
+
+/* Prayers grid */
+.prayers-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.prayer-box {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 14px 12px;
+  text-align: center;
+  position: relative;
+  transition: border-color 0.2s;
+}
+
+.prayer-box.active {
+  border-color: var(--accent-light);
+  background: var(--card2);
+}
+
+.p-name {
+  display: block;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  margin-bottom: 4px;
+}
+
+.p-time {
+  font-size: 1.5rem;
+  font-weight: 600;
+  direction: ltr;
+}
+
+.now-badge {
+  position: absolute;
+  bottom: 6px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.7rem;
+  background: var(--accent);
+  color: #fff;
+  padding: 1px 8px;
+  border-radius: 8px;
+}
+
+/* Selectors */
+.selectors-card .field {
+  margin-bottom: 12px;
+}
+
+.selectors-card label {
+  display: block;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin-bottom: 5px;
+  text-align: right;
+}
+
+.select-wrap {
+  position: relative;
+}
+
+.select-wrap::after {
+  content: "▾";
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-muted);
+  pointer-events: none;
+}
+
+select {
+  width: 100%;
+  padding: 12px 14px 12px 36px;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  background: var(--card2);
+  color: var(--text);
+  font-family: inherit;
+  font-size: 1rem;
+  appearance: none;
+  cursor: pointer;
+  text-align: right;
+}
+
+.btn-primary {
+  width: 100%;
+  padding: 14px;
+  border: none;
+  border-radius: 12px;
+  background: var(--green-btn);
+  color: #fff;
+  font-family: inherit;
+  font-size: 1.05rem;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 6px;
+  transition: background 0.2s;
+}
+
+.btn-primary:hover {
+  background: var(--green-btn-hover);
+}
+
+.btn-secondary {
+  width: 100%;
+  padding: 12px;
+  margin-top: 10px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: transparent;
+  color: var(--text);
+  font-family: inherit;
+  font-size: 0.95rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+/* Notification */
+.notif-options {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 8px;
+}
+
+.notif-btn {
+  flex: 1;
+  min-width: 70px;
+  padding: 10px 8px;
+  border-radius: 20px;
+  border: 1px solid var(--border);
+  background: var(--card2);
+  color: var(--text-muted);
+  font-family: inherit;
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+
+.notif-btn.active {
+  background: var(--accent-light);
+  color: #fff;
+  border-color: var(--accent-light);
+}
+
+/* Search */
+.search-box {
+  display: flex;
+  gap: 8px;
+}
+
+.search-box input {
+  flex: 1;
+  padding: 12px 14px;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  background: var(--card2);
+  color: var(--text);
+  font-family: inherit;
+  font-size: 0.95rem;
+  text-align: right;
+}
+
+.search-box input::placeholder {
+  color: var(--text-muted);
+}
+
+.search-box button {
+  padding: 12px 18px;
+  border: none;
+  border-radius: 12px;
+  background: var(--green-btn);
+  color: #fff;
+  font-family: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+/* Map */
+.map-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+
+.qibla-badge {
+  background: var(--card2);
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 0.85rem;
+  direction: ltr;
+}
+
+.qibla-text {
+  text-align: center;
+  margin-top: 10px;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+
+/* Footer */
+.footer {
+  text-align: center;
+  padding: 20px 0 10px;
+  color: var(--text-muted);
+  font-size: 0.8rem;
+}
+
+.footer .small {
+  font-size: 0.7rem;
+  margin-top: 4px;
+  opacity: 0.7;
+}
+
+/* Loading state */
+.loading .p-time,
+.loading .current-time,
+.loading .countdown {
+  opacity: 0.4;
+}
+
+/* Leaflet dark tweak */
+.leaflet-container {
+  background: #1a2e22;
+}
+
+/* Responsive */
+@media (max-width: 360px) {
+  .current-time { font-size: 2.3rem; }
+  .countdown { font-size: 1.8rem; }
+  .p-time { font-size: 1.3rem; }
+}
+
+
+/* Adhkar section */
+.adhkar-tabs {
+  display: flex;
+  gap: 6px;
+  overflow-x: auto;
+  padding: 4px 0 12px;
+  scrollbar-width: none;
+}
+.adhkar-tabs::-webkit-scrollbar { display: none; }
+.adhkar-tab {
+  flex-shrink: 0;
+  padding: 8px 14px;
+  border-radius: 20px;
+  border: 1px solid var(--border);
+  background: var(--card2);
+  color: var(--text-muted);
+  font-family: inherit;
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+.adhkar-tab.active {
+  background: var(--accent-light);
+  color: #022c22;
+  border-color: var(--accent-light);
+  font-weight: 600;
+}
+.adhkar-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.adhkar-item {
+  background: var(--card2);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 14px;
+  text-align: right;
+}
+.adhkar-text {
+  font-size: 1.05rem;
+  line-height: 1.7;
+  margin-bottom: 8px;
+}
+.adhkar-count {
+  display: inline-block;
+  background: var(--accent);
+  color: #fff;
+  font-size: 0.75rem;
+  padding: 2px 10px;
+  border-radius: 10px;
+}
+.adhkar-ref {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  margin-top: 6px;
+}
+
+
+/* Themes */
+body.theme-green {
+  --bg: #064e3b; --card: #0a3d2a; --card2: #0d4a35; --accent: #10b981; --accent-light: #34d399;
+  --text: #ecfdf5; --text-muted: #a7f3d0; --border: #065f46; --green-btn: #059669; --green-btn-hover: #10b981;
+}
+body.theme-blue {
+  --bg: #0c1a2e; --card: #132743; --card2: #1a3358; --accent: #3b82f6; --accent-light: #60a5fa;
+  --text: #e0f2fe; --text-muted: #93c5fd; --border: #1e3a5f; --green-btn: #2563eb; --green-btn-hover: #3b82f6;
+}
+body.theme-purple {
+  --bg: #1e1033; --card: #2a1848; --card2: #351e5a; --accent: #a855f7; --accent-light: #c084fc;
+  --text: #f3e8ff; --text-muted: #d8b4fe; --border: #3b2666; --green-btn: #7e22ce; --green-btn-hover: #a855f7;
+}
+body.theme-dark {
+  --bg: #0a0a0a; --card: #171717; --card2: #262626; --accent: #eab308; --accent-light: #facc15;
+  --text: #fafafa; --text-muted: #a3a3a3; --border: #404040; --green-btn: #ca8a04; --green-btn-hover: #eab308;
+}
+
+/* Layout variants */
+.prayers-grid.layout-list {
+  grid-template-columns: 1fr;
+}
+.prayers-grid.layout-compact .p-time { font-size: 1.2rem; }
+.prayers-grid.layout-large .p-time { font-size: 1.8rem; }
+
+/* Menu dropdown */
+.menu-dropdown {
+  display: none;
+  position: absolute;
+  top: 50px;
+  left: 12px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 8px;
+  z-index: 100;
+  min-width: 200px;
+  box-shadow: var(--shadow);
+}
+.menu-dropdown.open { display: block; }
+.menu-item {
+  display: block;
+  width: 100%;
+  text-align: right;
+  padding: 12px 14px;
+  border: none;
+  background: transparent;
+  color: var(--text);
+  font-family: inherit;
+  font-size: 0.95rem;
+  border-radius: 10px;
+  cursor: pointer;
+}
+.menu-item:hover { background: var(--card2); }
+.theme-swatches {
+  display: flex;
+  gap: 8px;
+  padding: 8px 14px;
+  justify-content: flex-end;
+}
+.theme-dot {
+  width: 28px; height: 28px; border-radius: 50%;
+  border: 2px solid transparent; cursor: pointer;
+}
+.theme-dot.active { border-color: #fff; }
+.theme-dot.green { background: #059669; }
+.theme-dot.blue { background: #2563eb; }
+.theme-dot.purple { background: #7e22ce; }
+.theme-dot.dark { background: #eab308; }
+
+
+#nearestToggleUI:before {
+  position: absolute; content: ""; height: 20px; width: 20px; left: 3px; bottom: 3px;
+  background: white; border-radius: 50%; transition: 0.3s;
+}
+#nearestMosqueToggle:checked + #nearestToggleUI { background: var(--accent-light); }
+#nearestMosqueToggle:checked + #nearestToggleUI:before { transform: translateX(22px); }
+
+</style>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <!-- Leaflet for map -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+</head>
+<body>
+  <div class="app">
+    <!-- Header -->
+    <header class="header">
+      <button class="icon-btn" id="closeBtn" title="إغلاق">✕</button>
+      <div class="title-area">
+        <h1 id="appTitle">لاباركوه لأوقات الصلاة</h1>
+        <p class="subtitle" id="appSubtitle" style="display:none">أوقات الصلاة</p>
+      </div>
+      <button class="icon-btn" id="menuBtn">⋮</button>
+      <div class="menu-dropdown" id="menuDropdown">
+        <button class="menu-item" id="menuTheme">تغيير اللون</button>
+        <div class="theme-swatches" id="themeSwatches">
+          <span class="theme-dot green active" data-theme="green"></span>
+          <span class="theme-dot blue" data-theme="blue"></span>
+          <span class="theme-dot purple" data-theme="purple"></span>
+          <span class="theme-dot dark" data-theme="dark"></span>
+        </div>
+        <button class="menu-item" id="menuLayout">تغيير شكل العرض</button>
+        <button class="menu-item" id="menuWidget">إضافة للشاشة الرئيسية (Widget)</button>
+      </div>
+    </header>
+
+    <!-- Language Tabs -->
+    <div class="lang-tabs" id="langTabs">
+      <button data-lang="ar" class="active">العربية</button>
+      <button data-lang="fr">Français</button>
+      <button data-lang="en">English</button>
+      <button data-lang="tr">Türkçe</button>
+      <button data-lang="ur">اردو</button>
+      <button data-lang="id">Indonesia</button>
+      <button data-lang="de">Deutsch</button>
+      <button data-lang="es">Español</button>
+      <button data-lang="ru">Русский</button>
+      <button data-lang="ha">Hausa</button>
+      <button data-lang="so">Soomaali</button>
+      <button data-lang="bn">বাংলা</button>
+      <button data-lang="fa">فارسی</button>
+      <button data-lang="it">Italiano</button>
+      <button data-lang="nl">Nederlands</button>
+      <button data-lang="pt">Português</button>
+    </div>
+
+        <!-- hidden helpers -->
+    <div class="current-time" id="currentTime" style="display:none">--:--:--</div>
+    <span id="cityName" style="display:none">—</span>
+    <span id="coords" style="display:none">—</span>
+
+
+    <!-- Next Prayer + Date -->
+    <section class="card next-card">
+      <p class="label" data-i18n="next_prayer">الصلاة القادمة</p>
+      <div class="next-prayer-name">
+        <span id="nextPrayerName">—</span>
+        <span class="next-time" id="nextPrayerTime">--:--</span>
+      </div>
+      <div class="countdown" id="countdown">00:00:00</div>
+      <p class="date-line" id="dateLine" style="margin-top:12px;font-size:0.95rem;color:var(--text-muted);text-align:center;line-height:1.5;">—</p>
+      <p class="location-line" id="locationLine2" style="margin-top:6px;font-size:0.85rem;justify-content:center;display:flex;gap:8px;align-items:center;">
+        <span class="pin">📍</span>
+        <span class="city-name" id="cityName2">—</span>
+      </p>
+    </section>
+
+    <!-- Prayer Times Grid -->
+    <section class="prayers-grid" id="prayersGrid">
+      <div class="prayer-box" data-prayer="Sunrise">
+        <span class="p-name" data-i18n="sunrise">الشروق</span>
+        <span class="p-time" id="timeSunrise">--:--</span>
+      </div>
+      <div class="prayer-box" data-prayer="Fajr">
+        <span class="p-name" data-i18n="fajr">الفجر</span>
+        <span class="p-time" id="timeFajr">--:--</span>
+      </div>
+      <div class="prayer-box" data-prayer="Asr">
+        <span class="p-name" data-i18n="asr">العصر</span>
+        <span class="p-time" id="timeAsr">--:--</span>
+      </div>
+      <div class="prayer-box" data-prayer="Dhuhr">
+        <span class="p-name" data-i18n="dhuhr">الظهر</span>
+        <span class="p-time" id="timeDhuhr">--:--</span>
+      </div>
+      <div class="prayer-box" data-prayer="Isha">
+        <span class="p-name" data-i18n="isha">العشاء</span>
+        <span class="p-time" id="timeIsha">--:--</span>
+        <span class="now-badge" id="nowBadge" style="display:none" data-i18n="now">الآن</span>
+      </div>
+      <div class="prayer-box" data-prayer="Maghrib">
+        <span class="p-name" data-i18n="maghrib">المغرب</span>
+        <span class="p-time" id="timeMaghrib">--:--</span>
+      </div>
+    </section>
+
+    <!-- Location Selectors -->
+    <section class="card selectors-card">
+      <div class="field">
+        <label data-i18n="select_country">اختر الدولة</label>
+        <div class="select-wrap">
+          <select id="countrySelect" size="6" style="height:auto;max-height:180px;"></select>
+        </div>
+      </div>
+      <div class="field">
+        <label data-i18n="select_city">اختر المدينة</label>
+        <div class="select-wrap">
+          <select id="citySelect"></select>
+        </div>
+      </div>
+      <div class="field">
+        <label data-i18n="select_mosque">اختر المسجد</label>
+        <div class="select-wrap">
+          <select id="mosqueSelect">
+            <option value="all" data-i18n="all_mosques">كل المساجد</option>
+          </select>
+        </div>
+      </div>
+      <button class="btn-primary" id="showBtn" data-i18n="show">عرض</button>
+      <button class="btn-secondary" id="useLocationBtn">
+        <span>📍</span> <span data-i18n="use_my_location">استخدم موقعي</span>
+      </button>
+    </section>
+
+    <!-- Notification + nearest mosque -->
+    <section class="card notif-card">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;">
+        <span style="font-size:0.9rem;" data-i18n="nearest_mosque">اقتراح أقرب مسجد تلقائياً</span>
+        <label style="position:relative;display:inline-block;width:48px;height:26px;">
+          <input type="checkbox" id="nearestMosqueToggle" style="opacity:0;width:0;height:0;" />
+          <span id="nearestToggleUI" style="position:absolute;cursor:pointer;top:0;left:0;right:0;bottom:0;background:var(--border);border-radius:26px;transition:0.3s;"></span>
+        </label>
+      </div>
+      <p class="label" data-i18n="notify_before">تنبيه قبل الأذان</p>
+      <div class="notif-options">
+        <button class="notif-btn" data-min="0" data-i18n="none">بدون</button>
+        <button class="notif-btn" data-min="15" data-i18n="quarter">ربع ساعة</button>
+        <button class="notif-btn" data-min="10">10 دقائق</button>
+        <button class="notif-btn active" data-min="5">5 دقائق</button>
+      </div>
+    </section>
+
+    <!-- Search -->
+    <section class="card search-card">
+      <div class="search-box">
+        <input type="text" id="searchInput" placeholder="ابحث بأي مدينة في العالم" data-i18n-placeholder="search_placeholder" />
+        <button id="searchBtn" data-i18n="search">بحث</button>
+      </div>
+    </section>
+
+    <!-- Qibla + Map -->
+    <section class="card map-card">
+      <div class="map-header">
+        <span data-i18n="map">الخريطة</span>
+        <span class="qibla-badge" id="qiblaBadge">القبلة 0°</span>
+      </div>
+      <div id="map" style="height:220px;border-radius:12px;overflow:hidden;"></div>
+      <p class="qibla-text" id="qiblaText">القبلة • —</p>
+    </section>
+
+    
+    <!-- الأذكار -->
+    <section class="card adhkar-card">
+      <p class="label" data-i18n="adhkar_title">الأذكار</p>
+      <div class="adhkar-tabs" id="adhkarTabs">
+        <button class="adhkar-tab active" data-cat="daily" data-i18n="adhkar_daily">يومية</button>
+        <button class="adhkar-tab" data-cat="ramadan" data-i18n="adhkar_ramadan">رمضان</button>
+        <button class="adhkar-tab" data-cat="hajj" data-i18n="adhkar_hajj">الحج</button>
+        <button class="adhkar-tab" data-cat="arafa" data-i18n="adhkar_arafa">عرفة</button>
+        <button class="adhkar-tab" data-cat="ashura" data-i18n="adhkar_ashura">عاشوراء</button>
+      </div>
+      <div id="adhkarList" class="adhkar-list"></div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <p>لاباركوه صلاة 2026 | صُنع للأمة</p>
+      <p class="small">AlAdhan · OpenStreetMap + أوقات محلية</p>
+    </footer>
+  </div>
+
+  <script>
+// جميع دول العالم + العواصم
+const WORLD_COUNTRIES = [
+  {
+    "code": "SA",
+    "name": {
+      "ar": "السعودية",
+      "en": "Saudi Arabia",
+      "fr": "Arabie Saoudite",
+      "ha": "Saudi Arabia",
+      "so": "Saudi Arabia"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Riyadh",
+          "en": "Riyadh",
+          "fr": "Riyadh",
+          "ha": "Riyadh",
+          "so": "Riyadh"
+        },
+        "lat": 25.0,
+        "lng": 45.0
+      }
+    ]
+  },
+  {
+    "code": "TD",
+    "name": {
+      "ar": "تشاد",
+      "en": "Chad",
+      "fr": "Tchad",
+      "ha": "Chad",
+      "so": "Chad"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "N'Djamena",
+          "en": "N'Djamena",
+          "fr": "N'Djamena",
+          "ha": "N'Djamena",
+          "so": "N'Djamena"
+        },
+        "lat": 15.0,
+        "lng": 19.0
+      }
+    ]
+  },
+  {
+    "code": "EG",
+    "name": {
+      "ar": "مصر",
+      "en": "Egypt",
+      "fr": "Égypte",
+      "ha": "Egypt",
+      "so": "Egypt"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Cairo",
+          "en": "Cairo",
+          "fr": "Cairo",
+          "ha": "Cairo",
+          "so": "Cairo"
+        },
+        "lat": 27.0,
+        "lng": 30.0
+      }
+    ]
+  },
+  {
+    "code": "MA",
+    "name": {
+      "ar": "المغرب",
+      "en": "Morocco",
+      "fr": "Maroc",
+      "ha": "Morocco",
+      "so": "Morocco"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Rabat",
+          "en": "Rabat",
+          "fr": "Rabat",
+          "ha": "Rabat",
+          "so": "Rabat"
+        },
+        "lat": 32.0,
+        "lng": -5.0
+      }
+    ]
+  },
+  {
+    "code": "NG",
+    "name": {
+      "ar": "نيجيريا",
+      "en": "Nigeria",
+      "fr": "Nigéria",
+      "ha": "Nigeria",
+      "so": "Nigeria"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Abuja",
+          "en": "Abuja",
+          "fr": "Abuja",
+          "ha": "Abuja",
+          "so": "Abuja"
+        },
+        "lat": 10.0,
+        "lng": 8.0
+      }
+    ]
+  },
+  {
+    "code": "DZ",
+    "name": {
+      "ar": "الجزائر",
+      "en": "Algeria",
+      "fr": "Algérie",
+      "ha": "Algeria",
+      "so": "Algeria"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Algiers",
+          "en": "Algiers",
+          "fr": "Algiers",
+          "ha": "Algiers",
+          "so": "Algiers"
+        },
+        "lat": 28.0,
+        "lng": 3.0
+      }
+    ]
+  },
+  {
+    "code": "TN",
+    "name": {
+      "ar": "تونس",
+      "en": "Tunisia",
+      "fr": "Tunisie",
+      "ha": "Tunisia",
+      "so": "Tunisia"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Tunis",
+          "en": "Tunis",
+          "fr": "Tunis",
+          "ha": "Tunis",
+          "so": "Tunis"
+        },
+        "lat": 34.0,
+        "lng": 9.0
+      }
+    ]
+  },
+  {
+    "code": "LY",
+    "name": {
+      "ar": "ليبيا",
+      "en": "Libya",
+      "fr": "Libye",
+      "ha": "Libya",
+      "so": "Libya"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Tripolis",
+          "en": "Tripolis",
+          "fr": "Tripolis",
+          "ha": "Tripolis",
+          "so": "Tripolis"
+        },
+        "lat": 25.0,
+        "lng": 17.0
+      }
+    ]
+  },
+  {
+    "code": "SD",
+    "name": {
+      "ar": "السودان",
+      "en": "Sudan",
+      "fr": "Soudan",
+      "ha": "Sudan",
+      "so": "Sudan"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Khartoum",
+          "en": "Khartoum",
+          "fr": "Khartoum",
+          "ha": "Khartoum",
+          "so": "Khartoum"
+        },
+        "lat": 15.0,
+        "lng": 30.0
+      }
+    ]
+  },
+  {
+    "code": "SN",
+    "name": {
+      "ar": "السنغال",
+      "en": "Senegal",
+      "fr": "Sénégal",
+      "ha": "Senegal",
+      "so": "Senegal"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Dakar",
+          "en": "Dakar",
+          "fr": "Dakar",
+          "ha": "Dakar",
+          "so": "Dakar"
+        },
+        "lat": 14.0,
+        "lng": -14.0
+      }
+    ]
+  },
+  {
+    "code": "KE",
+    "name": {
+      "ar": "كينيا",
+      "en": "Kenya",
+      "fr": "Kenya",
+      "ha": "Kenya",
+      "so": "Kenya"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Nairobi",
+          "en": "Nairobi",
+          "fr": "Nairobi",
+          "ha": "Nairobi",
+          "so": "Nairobi"
+        },
+        "lat": 1.0,
+        "lng": 38.0
+      }
+    ]
+  },
+  {
+    "code": "ET",
+    "name": {
+      "ar": "إثيوبيا",
+      "en": "Ethiopia",
+      "fr": "Éthiopie",
+      "ha": "Ethiopia",
+      "so": "Ethiopia"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Addis Ababa",
+          "en": "Addis Ababa",
+          "fr": "Addis Ababa",
+          "ha": "Addis Ababa",
+          "so": "Addis Ababa"
+        },
+        "lat": 8.0,
+        "lng": 38.0
+      }
+    ]
+  },
+  {
+    "code": "SO",
+    "name": {
+      "ar": "الصومال",
+      "en": "Somalia",
+      "fr": "Somalie",
+      "ha": "Somalia",
+      "so": "Somalia"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Mogadishu",
+          "en": "Mogadishu",
+          "fr": "Mogadishu",
+          "ha": "Mogadishu",
+          "so": "Mogadishu"
+        },
+        "lat": 10.0,
+        "lng": 49.0
+      }
+    ]
+  },
+  {
+    "code": "AE",
+    "name": {
+      "ar": "الإمارات",
+      "en": "United Arab Emirates",
+      "fr": "Émirats arabes unis",
+      "ha": "United Arab Emirates",
+      "so": "United Arab Emirates"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Abu Dhabi",
+          "en": "Abu Dhabi",
+          "fr": "Abu Dhabi",
+          "ha": "Abu Dhabi",
+          "so": "Abu Dhabi"
+        },
+        "lat": 24.0,
+        "lng": 54.0
+      }
+    ]
+  },
+  {
+    "code": "QA",
+    "name": {
+      "ar": "قطر",
+      "en": "Qatar",
+      "fr": "Qatar",
+      "ha": "Qatar",
+      "so": "Qatar"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Doha",
+          "en": "Doha",
+          "fr": "Doha",
+          "ha": "Doha",
+          "so": "Doha"
+        },
+        "lat": 25.5,
+        "lng": 51.25
+      }
+    ]
+  },
+  {
+    "code": "KW",
+    "name": {
+      "ar": "الكويت",
+      "en": "Kuwait",
+      "fr": "Koweït",
+      "ha": "Kuwait",
+      "so": "Kuwait"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Kuwait City",
+          "en": "Kuwait City",
+          "fr": "Kuwait City",
+          "ha": "Kuwait City",
+          "so": "Kuwait City"
+        },
+        "lat": 29.5,
+        "lng": 45.75
+      }
+    ]
+  },
+  {
+    "code": "BH",
+    "name": {
+      "ar": "البحرين",
+      "en": "Bahrain",
+      "fr": "Bahreïn",
+      "ha": "Bahrain",
+      "so": "Bahrain"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Manama",
+          "en": "Manama",
+          "fr": "Manama",
+          "ha": "Manama",
+          "so": "Manama"
+        },
+        "lat": 26.0,
+        "lng": 50.55
+      }
+    ]
+  },
+  {
+    "code": "OM",
+    "name": {
+      "ar": "عمان",
+      "en": "Oman",
+      "fr": "Oman",
+      "ha": "Oman",
+      "so": "Oman"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Muscat",
+          "en": "Muscat",
+          "fr": "Muscat",
+          "ha": "Muscat",
+          "so": "Muscat"
+        },
+        "lat": 21.0,
+        "lng": 57.0
+      }
+    ]
+  },
+  {
+    "code": "JO",
+    "name": {
+      "ar": "الأردن",
+      "en": "Jordan",
+      "fr": "Jordanie",
+      "ha": "Jordan",
+      "so": "Jordan"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Amman",
+          "en": "Amman",
+          "fr": "Amman",
+          "ha": "Amman",
+          "so": "Amman"
+        },
+        "lat": 31.0,
+        "lng": 36.0
+      }
+    ]
+  },
+  {
+    "code": "PS",
+    "name": {
+      "ar": "احتلت الأراضي الفلسطينية",
+      "en": "Palestinian Territory Occupied",
+      "fr": "Palestine",
+      "ha": "Palestinian Territory Occupied",
+      "so": "Palestinian Territory Occupied"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "East Jerusalem",
+          "en": "East Jerusalem",
+          "fr": "East Jerusalem",
+          "ha": "East Jerusalem",
+          "so": "East Jerusalem"
+        },
+        "lat": 31.9,
+        "lng": 35.2
+      }
+    ]
+  },
+  {
+    "code": "IQ",
+    "name": {
+      "ar": "العراق",
+      "en": "Iraq",
+      "fr": "Irak",
+      "ha": "Iraq",
+      "so": "Iraq"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Baghdad",
+          "en": "Baghdad",
+          "fr": "Baghdad",
+          "ha": "Baghdad",
+          "so": "Baghdad"
+        },
+        "lat": 33.0,
+        "lng": 44.0
+      }
+    ]
+  },
+  {
+    "code": "SY",
+    "name": {
+      "ar": "سوريا",
+      "en": "Syria",
+      "fr": "Syrie",
+      "ha": "Syria",
+      "so": "Syria"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Damascus",
+          "en": "Damascus",
+          "fr": "Damascus",
+          "ha": "Damascus",
+          "so": "Damascus"
+        },
+        "lat": 35.0,
+        "lng": 38.0
+      }
+    ]
+  },
+  {
+    "code": "LB",
+    "name": {
+      "ar": "لبنان",
+      "en": "Lebanon",
+      "fr": "Liban",
+      "ha": "Lebanon",
+      "so": "Lebanon"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Beirut",
+          "en": "Beirut",
+          "fr": "Beirut",
+          "ha": "Beirut",
+          "so": "Beirut"
+        },
+        "lat": 33.83333333,
+        "lng": 35.83333333
+      }
+    ]
+  },
+  {
+    "code": "YE",
+    "name": {
+      "ar": "اليمن",
+      "en": "Yemen",
+      "fr": "Yémen",
+      "ha": "Yemen",
+      "so": "Yemen"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Sanaa",
+          "en": "Sanaa",
+          "fr": "Sanaa",
+          "ha": "Sanaa",
+          "so": "Sanaa"
+        },
+        "lat": 15.0,
+        "lng": 48.0
+      }
+    ]
+  },
+  {
+    "code": "TR",
+    "name": {
+      "ar": "تركيا",
+      "en": "Turkey",
+      "fr": "Turquie",
+      "ha": "Turkey",
+      "so": "Turkey"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Ankara",
+          "en": "Ankara",
+          "fr": "Ankara",
+          "ha": "Ankara",
+          "so": "Ankara"
+        },
+        "lat": 39.0,
+        "lng": 35.0
+      }
+    ]
+  },
+  {
+    "code": "US",
+    "name": {
+      "ar": "الولايات المتحدة",
+      "en": "United States",
+      "fr": "États-Unis",
+      "ha": "United States",
+      "so": "United States"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Washington",
+          "en": "Washington",
+          "fr": "Washington",
+          "ha": "Washington",
+          "so": "Washington"
+        },
+        "lat": 38.0,
+        "lng": -97.0
+      }
+    ]
+  },
+  {
+    "code": "GB",
+    "name": {
+      "ar": "المملكة المتحدة",
+      "en": "United Kingdom",
+      "fr": "Royaume-Uni",
+      "ha": "United Kingdom",
+      "so": "United Kingdom"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "London",
+          "en": "London",
+          "fr": "London",
+          "ha": "London",
+          "so": "London"
+        },
+        "lat": 54.0,
+        "lng": -2.0
+      }
+    ]
+  },
+  {
+    "code": "FR",
+    "name": {
+      "ar": "فرنسا",
+      "en": "France",
+      "fr": "France",
+      "ha": "France",
+      "so": "France"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Paris",
+          "en": "Paris",
+          "fr": "Paris",
+          "ha": "Paris",
+          "so": "Paris"
+        },
+        "lat": 46.0,
+        "lng": 2.0
+      }
+    ]
+  },
+  {
+    "code": "DE",
+    "name": {
+      "ar": "ألمانيا",
+      "en": "Germany",
+      "fr": "Allemagne",
+      "ha": "Germany",
+      "so": "Germany"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Berlin",
+          "en": "Berlin",
+          "fr": "Berlin",
+          "ha": "Berlin",
+          "so": "Berlin"
+        },
+        "lat": 51.0,
+        "lng": 9.0
+      }
+    ]
+  },
+  {
+    "code": "IS",
+    "name": {
+      "ar": "آيسلندا",
+      "en": "Iceland",
+      "fr": "Islande",
+      "ha": "Iceland",
+      "so": "Iceland"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Reykjavik",
+          "en": "Reykjavik",
+          "fr": "Reykjavik",
+          "ha": "Reykjavik",
+          "so": "Reykjavik"
+        },
+        "lat": 65.0,
+        "lng": -18.0
+      }
+    ]
+  },
+  {
+    "code": "AF",
+    "name": {
+      "ar": "أفغانستان",
+      "en": "Afghanistan",
+      "fr": "Afghanistan",
+      "ha": "Afghanistan",
+      "so": "Afghanistan"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Kabul",
+          "en": "Kabul",
+          "fr": "Kabul",
+          "ha": "Kabul",
+          "so": "Kabul"
+        },
+        "lat": 33.0,
+        "lng": 65.0
+      }
+    ]
+  },
+  {
+    "code": "AL",
+    "name": {
+      "ar": "ألبانيا",
+      "en": "Albania",
+      "fr": "Albanie",
+      "ha": "Albania",
+      "so": "Albania"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Tirana",
+          "en": "Tirana",
+          "fr": "Tirana",
+          "ha": "Tirana",
+          "so": "Tirana"
+        },
+        "lat": 41.0,
+        "lng": 20.0
+      }
+    ]
+  },
+  {
+    "code": "AD",
+    "name": {
+      "ar": "أندورا",
+      "en": "Andorra",
+      "fr": "Andorre",
+      "ha": "Andorra",
+      "so": "Andorra"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Andorra la Vella",
+          "en": "Andorra la Vella",
+          "fr": "Andorra la Vella",
+          "ha": "Andorra la Vella",
+          "so": "Andorra la Vella"
+        },
+        "lat": 42.5,
+        "lng": 1.5
+      }
+    ]
+  },
+  {
+    "code": "AO",
+    "name": {
+      "ar": "أنغولا",
+      "en": "Angola",
+      "fr": "Angola",
+      "ha": "Angola",
+      "so": "Angola"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Luanda",
+          "en": "Luanda",
+          "fr": "Luanda",
+          "ha": "Luanda",
+          "so": "Luanda"
+        },
+        "lat": -12.5,
+        "lng": 18.5
+      }
+    ]
+  },
+  {
+    "code": "AI",
+    "name": {
+      "ar": "أنغيلا",
+      "en": "Anguilla",
+      "fr": "Anguilla",
+      "ha": "Anguilla",
+      "so": "Anguilla"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "The Valley",
+          "en": "The Valley",
+          "fr": "The Valley",
+          "ha": "The Valley",
+          "so": "The Valley"
+        },
+        "lat": 18.25,
+        "lng": -63.16666666
+      }
+    ]
+  },
+  {
+    "code": "AQ",
+    "name": {
+      "ar": "أنتاركتيكا",
+      "en": "Antarctica",
+      "fr": "Antarctique",
+      "ha": "Antarctica",
+      "so": "Antarctica"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Antarctica",
+          "en": "Antarctica",
+          "fr": "Antarctica",
+          "ha": "Antarctica",
+          "so": "Antarctica"
+        },
+        "lat": -74.65,
+        "lng": 4.48
+      }
+    ]
+  },
+  {
+    "code": "AG",
+    "name": {
+      "ar": "أنتيغوا وبربودا",
+      "en": "Antigua and Barbuda",
+      "fr": "Antigua-et-Barbuda",
+      "ha": "Antigua and Barbuda",
+      "so": "Antigua and Barbuda"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "St. John's",
+          "en": "St. John's",
+          "fr": "St. John's",
+          "ha": "St. John's",
+          "so": "St. John's"
+        },
+        "lat": 17.05,
+        "lng": -61.8
+      }
+    ]
+  },
+  {
+    "code": "AM",
+    "name": {
+      "ar": "أرمينيا",
+      "en": "Armenia",
+      "fr": "Arménie",
+      "ha": "Armenia",
+      "so": "Armenia"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Yerevan",
+          "en": "Yerevan",
+          "fr": "Yerevan",
+          "ha": "Yerevan",
+          "so": "Yerevan"
+        },
+        "lat": 40.0,
+        "lng": 45.0
+      }
+    ]
+  },
+  {
+    "code": "AW",
+    "name": {
+      "ar": "أروبا",
+      "en": "Aruba",
+      "fr": "Aruba",
+      "ha": "Aruba",
+      "so": "Aruba"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Oranjestad",
+          "en": "Oranjestad",
+          "fr": "Oranjestad",
+          "ha": "Oranjestad",
+          "so": "Oranjestad"
+        },
+        "lat": 12.5,
+        "lng": -69.96666666
+      }
+    ]
+  },
+  {
+    "code": "AU",
+    "name": {
+      "ar": "أستراليا",
+      "en": "Australia",
+      "fr": "Australie",
+      "ha": "Australia",
+      "so": "Australia"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Canberra",
+          "en": "Canberra",
+          "fr": "Canberra",
+          "ha": "Canberra",
+          "so": "Canberra"
+        },
+        "lat": -27.0,
+        "lng": 133.0
+      }
+    ]
+  },
+  {
+    "code": "AZ",
+    "name": {
+      "ar": "أذربيجان",
+      "en": "Azerbaijan",
+      "fr": "Azerbaïdjan",
+      "ha": "Azerbaijan",
+      "so": "Azerbaijan"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Baku",
+          "en": "Baku",
+          "fr": "Baku",
+          "ha": "Baku",
+          "so": "Baku"
+        },
+        "lat": 40.5,
+        "lng": 47.5
+      }
+    ]
+  },
+  {
+    "code": "IO",
+    "name": {
+      "ar": "أراضي المحيط الهندي البريطاني",
+      "en": "British Indian Ocean Territory",
+      "fr": "Territoire britannique de l'océan Indien",
+      "ha": "British Indian Ocean Territory",
+      "so": "British Indian Ocean Territory"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Diego Garcia",
+          "en": "Diego Garcia",
+          "fr": "Diego Garcia",
+          "ha": "Diego Garcia",
+          "so": "Diego Garcia"
+        },
+        "lat": -6.0,
+        "lng": 71.5
+      }
+    ]
+  },
+  {
+    "code": "IE",
+    "name": {
+      "ar": "أيرلندا",
+      "en": "Ireland",
+      "fr": "Irlande",
+      "ha": "Ireland",
+      "so": "Ireland"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Dublin",
+          "en": "Dublin",
+          "fr": "Dublin",
+          "ha": "Dublin",
+          "so": "Dublin"
+        },
+        "lat": 53.0,
+        "lng": -8.0
+      }
+    ]
+  },
+  {
+    "code": "UG",
+    "name": {
+      "ar": "أوغندا",
+      "en": "Uganda",
+      "fr": "Uganda",
+      "ha": "Uganda",
+      "so": "Uganda"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Kampala",
+          "en": "Kampala",
+          "fr": "Kampala",
+          "ha": "Kampala",
+          "so": "Kampala"
+        },
+        "lat": 1.0,
+        "lng": 32.0
+      }
+    ]
+  },
+  {
+    "code": "UA",
+    "name": {
+      "ar": "أوكرانيا",
+      "en": "Ukraine",
+      "fr": "Ukraine",
+      "ha": "Ukraine",
+      "so": "Ukraine"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Kyiv",
+          "en": "Kyiv",
+          "fr": "Kyiv",
+          "ha": "Kyiv",
+          "so": "Kyiv"
+        },
+        "lat": 49.0,
+        "lng": 32.0
+      }
+    ]
+  },
+  {
+    "code": "UZ",
+    "name": {
+      "ar": "أوزبكستان",
+      "en": "Uzbekistan",
+      "fr": "Ouzbékistan",
+      "ha": "Uzbekistan",
+      "so": "Uzbekistan"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Tashkent",
+          "en": "Tashkent",
+          "fr": "Tashkent",
+          "ha": "Tashkent",
+          "so": "Tashkent"
+        },
+        "lat": 41.0,
+        "lng": 64.0
+      }
+    ]
+  },
+  {
+    "code": "ER",
+    "name": {
+      "ar": "إريتريا",
+      "en": "Eritrea",
+      "fr": "Érythrée",
+      "ha": "Eritrea",
+      "so": "Eritrea"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Asmara",
+          "en": "Asmara",
+          "fr": "Asmara",
+          "ha": "Asmara",
+          "so": "Asmara"
+        },
+        "lat": 15.0,
+        "lng": 39.0
+      }
+    ]
+  },
+  {
+    "code": "EE",
+    "name": {
+      "ar": "إستونيا",
+      "en": "Estonia",
+      "fr": "Estonie",
+      "ha": "Estonia",
+      "so": "Estonia"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Tallinn",
+          "en": "Tallinn",
+          "fr": "Tallinn",
+          "ha": "Tallinn",
+          "so": "Tallinn"
+        },
+        "lat": 59.0,
+        "lng": 26.0
+      }
+    ]
+  },
+  {
+    "code": "SZ",
+    "name": {
+      "ar": "إسواتيني",
+      "en": "Eswatini",
+      "fr": "Swaziland",
+      "ha": "Eswatini",
+      "so": "Eswatini"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Mbabane",
+          "en": "Mbabane",
+          "fr": "Mbabane",
+          "ha": "Mbabane",
+          "so": "Mbabane"
+        },
+        "lat": -26.5,
+        "lng": 31.5
+      }
+    ]
+  },
+  {
+    "code": "ID",
+    "name": {
+      "ar": "إندونيسيا",
+      "en": "Indonesia",
+      "fr": "Indonésie",
+      "ha": "Indonesia",
+      "so": "Indonesia"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Jakarta",
+          "en": "Jakarta",
+          "fr": "Jakarta",
+          "ha": "Jakarta",
+          "so": "Jakarta"
+        },
+        "lat": -5.0,
+        "lng": 120.0
+      }
+    ]
+  },
+  {
+    "code": "IR",
+    "name": {
+      "ar": "إيران",
+      "en": "Iran",
+      "fr": "Iran",
+      "ha": "Iran",
+      "so": "Iran"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Tehran",
+          "en": "Tehran",
+          "fr": "Tehran",
+          "ha": "Tehran",
+          "so": "Tehran"
+        },
+        "lat": 32.0,
+        "lng": 53.0
+      }
+    ]
+  },
+  {
+    "code": "IL",
+    "name": {
+      "ar": "إسرائيل",
+      "en": "Israel",
+      "fr": "Israël",
+      "ha": "Israel",
+      "so": "Israel"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Jerusalem",
+          "en": "Jerusalem",
+          "fr": "Jerusalem",
+          "ha": "Jerusalem",
+          "so": "Jerusalem"
+        },
+        "lat": 31.5,
+        "lng": 34.75
+      }
+    ]
+  },
+  {
+    "code": "IT",
+    "name": {
+      "ar": "إيطاليا",
+      "en": "Italy",
+      "fr": "Italie",
+      "ha": "Italy",
+      "so": "Italy"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Rome",
+          "en": "Rome",
+          "fr": "Rome",
+          "ha": "Rome",
+          "so": "Rome"
+        },
+        "lat": 42.83333333,
+        "lng": 12.83333333
+      }
+    ]
+  },
+  {
+    "code": "ES",
+    "name": {
+      "ar": "إسبانيا",
+      "en": "Spain",
+      "fr": "Espagne",
+      "ha": "Spain",
+      "so": "Spain"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Madrid",
+          "en": "Madrid",
+          "fr": "Madrid",
+          "ha": "Madrid",
+          "so": "Madrid"
+        },
+        "lat": 40.0,
+        "lng": -4.0
+      }
+    ]
+  },
+  {
+    "code": "AR",
+    "name": {
+      "ar": "الأرجنتين",
+      "en": "Argentina",
+      "fr": "Argentine",
+      "ha": "Argentina",
+      "so": "Argentina"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Buenos Aires",
+          "en": "Buenos Aires",
+          "fr": "Buenos Aires",
+          "ha": "Buenos Aires",
+          "so": "Buenos Aires"
+        },
+        "lat": -34.0,
+        "lng": -64.0
+      }
+    ]
+  },
+  {
+    "code": "AT",
+    "name": {
+      "ar": "النمسا",
+      "en": "Austria",
+      "fr": "Autriche",
+      "ha": "Austria",
+      "so": "Austria"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Vienna",
+          "en": "Vienna",
+          "fr": "Vienna",
+          "ha": "Vienna",
+          "so": "Vienna"
+        },
+        "lat": 47.33333333,
+        "lng": 13.33333333
+      }
+    ]
+  },
+  {
+    "code": "BA",
+    "name": {
+      "ar": "البوسنة والهرسك",
+      "en": "Bosnia and Herzegovina",
+      "fr": "Bosnie-Herzégovine",
+      "ha": "Bosnia and Herzegovina",
+      "so": "Bosnia and Herzegovina"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Sarajevo",
+          "en": "Sarajevo",
+          "fr": "Sarajevo",
+          "ha": "Sarajevo",
+          "so": "Sarajevo"
+        },
+        "lat": 44.0,
+        "lng": 18.0
+      }
+    ]
+  },
+  {
+    "code": "BR",
+    "name": {
+      "ar": "البرازيل",
+      "en": "Brazil",
+      "fr": "Brésil",
+      "ha": "Brazil",
+      "so": "Brazil"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Brasilia",
+          "en": "Brasilia",
+          "fr": "Brasilia",
+          "ha": "Brasilia",
+          "so": "Brasilia"
+        },
+        "lat": -10.0,
+        "lng": -55.0
+      }
+    ]
+  },
+  {
+    "code": "CM",
+    "name": {
+      "ar": "الكاميرون",
+      "en": "Cameroon",
+      "fr": "Cameroun",
+      "ha": "Cameroon",
+      "so": "Cameroon"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Yaounde",
+          "en": "Yaounde",
+          "fr": "Yaounde",
+          "ha": "Yaounde",
+          "so": "Yaounde"
+        },
+        "lat": 6.0,
+        "lng": 12.0
+      }
+    ]
+  },
+  {
+    "code": "CV",
+    "name": {
+      "ar": "الرأس الأخضر",
+      "en": "Cape Verde",
+      "fr": "Cap Vert",
+      "ha": "Cape Verde",
+      "so": "Cape Verde"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Praia",
+          "en": "Praia",
+          "fr": "Praia",
+          "ha": "Praia",
+          "so": "Praia"
+        },
+        "lat": 16.0,
+        "lng": -24.0
+      }
+    ]
+  },
+  {
+    "code": "CN",
+    "name": {
+      "ar": "الصين",
+      "en": "China",
+      "fr": "Chine",
+      "ha": "China",
+      "so": "China"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Beijing",
+          "en": "Beijing",
+          "fr": "Beijing",
+          "ha": "Beijing",
+          "so": "Beijing"
+        },
+        "lat": 35.0,
+        "lng": 105.0
+      }
+    ]
+  },
+  {
+    "code": "CG",
+    "name": {
+      "ar": "الكونغو",
+      "en": "Congo",
+      "fr": "Congo",
+      "ha": "Congo",
+      "so": "Congo"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Brazzaville",
+          "en": "Brazzaville",
+          "fr": "Brazzaville",
+          "ha": "Brazzaville",
+          "so": "Brazzaville"
+        },
+        "lat": -1.0,
+        "lng": 15.0
+      }
+    ]
+  },
+  {
+    "code": "CZ",
+    "name": {
+      "ar": "التشيك",
+      "en": "Czech Republic",
+      "fr": "République tchèque",
+      "ha": "Czech Republic",
+      "so": "Czech Republic"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Prague",
+          "en": "Prague",
+          "fr": "Prague",
+          "ha": "Prague",
+          "so": "Prague"
+        },
+        "lat": 49.75,
+        "lng": 15.5
+      }
+    ]
+  },
+  {
+    "code": "DK",
+    "name": {
+      "ar": "الدنمارك",
+      "en": "Denmark",
+      "fr": "Danemark",
+      "ha": "Denmark",
+      "so": "Denmark"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Copenhagen",
+          "en": "Copenhagen",
+          "fr": "Copenhagen",
+          "ha": "Copenhagen",
+          "so": "Copenhagen"
+        },
+        "lat": 56.0,
+        "lng": 10.0
+      }
+    ]
+  },
+  {
+    "code": "EC",
+    "name": {
+      "ar": "الإكوادور",
+      "en": "Ecuador",
+      "fr": "Équateur",
+      "ha": "Ecuador",
+      "so": "Ecuador"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Quito",
+          "en": "Quito",
+          "fr": "Quito",
+          "ha": "Quito",
+          "so": "Quito"
+        },
+        "lat": -2.0,
+        "lng": -77.5
+      }
+    ]
+  },
+  {
+    "code": "SV",
+    "name": {
+      "ar": "السلفادور",
+      "en": "El Salvador",
+      "fr": "Salvador",
+      "ha": "El Salvador",
+      "so": "El Salvador"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "San Salvador",
+          "en": "San Salvador",
+          "fr": "San Salvador",
+          "ha": "San Salvador",
+          "so": "San Salvador"
+        },
+        "lat": 13.83333333,
+        "lng": -88.91666666
+      }
+    ]
+  },
+  {
+    "code": "TF",
+    "name": {
+      "ar": "الأقاليم الجنوبية الفرنسية",
+      "en": "French Southern Territories",
+      "fr": "Terres australes et antarctiques françaises",
+      "ha": "French Southern Territories",
+      "so": "French Southern Territories"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Port-aux-Francais",
+          "en": "Port-aux-Francais",
+          "fr": "Port-aux-Francais",
+          "ha": "Port-aux-Francais",
+          "so": "Port-aux-Francais"
+        },
+        "lat": -49.25,
+        "lng": 69.167
+      }
+    ]
+  },
+  {
+    "code": "GA",
+    "name": {
+      "ar": "الغابون",
+      "en": "Gabon",
+      "fr": "Gabon",
+      "ha": "Gabon",
+      "so": "Gabon"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Libreville",
+          "en": "Libreville",
+          "fr": "Libreville",
+          "ha": "Libreville",
+          "so": "Libreville"
+        },
+        "lat": -1.0,
+        "lng": 11.75
+      }
+    ]
+  },
+  {
+    "code": "GR",
+    "name": {
+      "ar": "اليونان",
+      "en": "Greece",
+      "fr": "Grèce",
+      "ha": "Greece",
+      "so": "Greece"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Athens",
+          "en": "Athens",
+          "fr": "Athens",
+          "ha": "Athens",
+          "so": "Athens"
+        },
+        "lat": 39.0,
+        "lng": 22.0
+      }
+    ]
+  },
+  {
+    "code": "HU",
+    "name": {
+      "ar": "المجر",
+      "en": "Hungary",
+      "fr": "Hongrie",
+      "ha": "Hungary",
+      "so": "Hungary"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Budapest",
+          "en": "Budapest",
+          "fr": "Budapest",
+          "ha": "Budapest",
+          "so": "Budapest"
+        },
+        "lat": 47.0,
+        "lng": 20.0
+      }
+    ]
+  },
+  {
+    "code": "IN",
+    "name": {
+      "ar": "الهند",
+      "en": "India",
+      "fr": "Inde",
+      "ha": "India",
+      "so": "India"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "New Delhi",
+          "en": "New Delhi",
+          "fr": "New Delhi",
+          "ha": "New Delhi",
+          "so": "New Delhi"
+        },
+        "lat": 20.0,
+        "lng": 77.0
+      }
+    ]
+  },
+  {
+    "code": "JP",
+    "name": {
+      "ar": "اليابان",
+      "en": "Japan",
+      "fr": "Japon",
+      "ha": "Japan",
+      "so": "Japan"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Tokyo",
+          "en": "Tokyo",
+          "fr": "Tokyo",
+          "ha": "Tokyo",
+          "so": "Tokyo"
+        },
+        "lat": 36.0,
+        "lng": 138.0
+      }
+    ]
+  },
+  {
+    "code": "MV",
+    "name": {
+      "ar": "المالديف",
+      "en": "Maldives",
+      "fr": "Maldives",
+      "ha": "Maldives",
+      "so": "Maldives"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Male",
+          "en": "Male",
+          "fr": "Male",
+          "ha": "Male",
+          "so": "Male"
+        },
+        "lat": 3.25,
+        "lng": 73.0
+      }
+    ]
+  },
+  {
+    "code": "MX",
+    "name": {
+      "ar": "المكسيك",
+      "en": "Mexico",
+      "fr": "Mexique",
+      "ha": "Mexico",
+      "so": "Mexico"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Ciudad de México",
+          "en": "Ciudad de México",
+          "fr": "Ciudad de México",
+          "ha": "Ciudad de México",
+          "so": "Ciudad de México"
+        },
+        "lat": 23.0,
+        "lng": -102.0
+      }
+    ]
+  },
+  {
+    "code": "ME",
+    "name": {
+      "ar": "الجبل الأسود",
+      "en": "Montenegro",
+      "fr": "Monténégro",
+      "ha": "Montenegro",
+      "so": "Montenegro"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Podgorica",
+          "en": "Podgorica",
+          "fr": "Podgorica",
+          "ha": "Podgorica",
+          "so": "Podgorica"
+        },
+        "lat": 42.5,
+        "lng": 19.3
+      }
+    ]
+  },
+  {
+    "code": "NE",
+    "name": {
+      "ar": "النيجر",
+      "en": "Niger",
+      "fr": "Niger",
+      "ha": "Niger",
+      "so": "Niger"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Niamey",
+          "en": "Niamey",
+          "fr": "Niamey",
+          "ha": "Niamey",
+          "so": "Niamey"
+        },
+        "lat": 16.0,
+        "lng": 8.0
+      }
+    ]
+  },
+  {
+    "code": "NO",
+    "name": {
+      "ar": "النرويج",
+      "en": "Norway",
+      "fr": "Norvège",
+      "ha": "Norway",
+      "so": "Norway"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Oslo",
+          "en": "Oslo",
+          "fr": "Oslo",
+          "ha": "Oslo",
+          "so": "Oslo"
+        },
+        "lat": 62.0,
+        "lng": 10.0
+      }
+    ]
+  },
+  {
+    "code": "PH",
+    "name": {
+      "ar": "الفلبين",
+      "en": "Philippines",
+      "fr": "Philippines",
+      "ha": "Philippines",
+      "so": "Philippines"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Manila",
+          "en": "Manila",
+          "fr": "Manila",
+          "ha": "Manila",
+          "so": "Manila"
+        },
+        "lat": 13.0,
+        "lng": 122.0
+      }
+    ]
+  },
+  {
+    "code": "PT",
+    "name": {
+      "ar": "البرتغال",
+      "en": "Portugal",
+      "fr": "Portugal",
+      "ha": "Portugal",
+      "so": "Portugal"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Lisbon",
+          "en": "Lisbon",
+          "fr": "Lisbon",
+          "ha": "Lisbon",
+          "so": "Lisbon"
+        },
+        "lat": 39.5,
+        "lng": -8.0
+      }
+    ]
+  },
+  {
+    "code": "PM",
+    "name": {
+      "ar": "القديس بيير وميكلون",
+      "en": "Saint Pierre and Miquelon",
+      "fr": "Saint-Pierre-et-Miquelon",
+      "ha": "Saint Pierre and Miquelon",
+      "so": "Saint Pierre and Miquelon"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Saint-Pierre",
+          "en": "Saint-Pierre",
+          "fr": "Saint-Pierre",
+          "ha": "Saint-Pierre",
+          "so": "Saint-Pierre"
+        },
+        "lat": 46.83333333,
+        "lng": -56.33333333
+      }
+    ]
+  },
+  {
+    "code": "VC",
+    "name": {
+      "ar": "القديس فنسنت وجرينادين",
+      "en": "Saint Vincent and the Grenadines",
+      "fr": "Saint-Vincent-et-les-Grenadines",
+      "ha": "Saint Vincent and the Grenadines",
+      "so": "Saint Vincent and the Grenadines"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Kingstown",
+          "en": "Kingstown",
+          "fr": "Kingstown",
+          "ha": "Kingstown",
+          "so": "Kingstown"
+        },
+        "lat": 13.25,
+        "lng": -61.2
+      }
+    ]
+  },
+  {
+    "code": "SE",
+    "name": {
+      "ar": "السويد",
+      "en": "Sweden",
+      "fr": "Suède",
+      "ha": "Sweden",
+      "so": "Sweden"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Stockholm",
+          "en": "Stockholm",
+          "fr": "Stockholm",
+          "ha": "Stockholm",
+          "so": "Stockholm"
+        },
+        "lat": 62.0,
+        "lng": 15.0
+      }
+    ]
+  },
+  {
+    "code": "UM",
+    "name": {
+      "ar": "الولايات المتحدة الجزر البعيدة الصغرى",
+      "en": "United States Minor Outlying Islands",
+      "fr": "Îles mineures éloignées des États-Unis",
+      "ha": "United States Minor Outlying Islands",
+      "so": "United States Minor Outlying Islands"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "United States Minor Outlying Islands",
+          "en": "United States Minor Outlying Islands",
+          "fr": "United States Minor Outlying Islands",
+          "ha": "United States Minor Outlying Islands",
+          "so": "United States Minor Outlying Islands"
+        },
+        "lat": 0.0,
+        "lng": 0.0
+      }
+    ]
+  },
+  {
+    "code": "UY",
+    "name": {
+      "ar": "الأوروغواي",
+      "en": "Uruguay",
+      "fr": "Uruguay",
+      "ha": "Uruguay",
+      "so": "Uruguay"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Montevideo",
+          "en": "Montevideo",
+          "fr": "Montevideo",
+          "ha": "Montevideo",
+          "so": "Montevideo"
+        },
+        "lat": -33.0,
+        "lng": -56.0
+      }
+    ]
+  },
+  {
+    "code": "EH",
+    "name": {
+      "ar": "الصحراء الغربية",
+      "en": "Western Sahara",
+      "fr": "Sahara Occidental",
+      "ha": "Western Sahara",
+      "so": "Western Sahara"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "El-Aaiun",
+          "en": "El-Aaiun",
+          "fr": "El-Aaiun",
+          "ha": "El-Aaiun",
+          "so": "El-Aaiun"
+        },
+        "lat": 24.5,
+        "lng": -13.0
+      }
+    ]
+  },
+  {
+    "code": "BD",
+    "name": {
+      "ar": "بنغلاديش",
+      "en": "Bangladesh",
+      "fr": "Bangladesh",
+      "ha": "Bangladesh",
+      "so": "Bangladesh"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Dhaka",
+          "en": "Dhaka",
+          "fr": "Dhaka",
+          "ha": "Dhaka",
+          "so": "Dhaka"
+        },
+        "lat": 24.0,
+        "lng": 90.0
+      }
+    ]
+  },
+  {
+    "code": "BB",
+    "name": {
+      "ar": "بربادوس",
+      "en": "Barbados",
+      "fr": "Barbade",
+      "ha": "Barbados",
+      "so": "Barbados"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Bridgetown",
+          "en": "Bridgetown",
+          "fr": "Bridgetown",
+          "ha": "Bridgetown",
+          "so": "Bridgetown"
+        },
+        "lat": 13.16666666,
+        "lng": -59.53333333
+      }
+    ]
+  },
+  {
+    "code": "BY",
+    "name": {
+      "ar": "بيلاروسيا",
+      "en": "Belarus",
+      "fr": "Biélorussie",
+      "ha": "Belarus",
+      "so": "Belarus"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Minsk",
+          "en": "Minsk",
+          "fr": "Minsk",
+          "ha": "Minsk",
+          "so": "Minsk"
+        },
+        "lat": 53.0,
+        "lng": 28.0
+      }
+    ]
+  },
+  {
+    "code": "BE",
+    "name": {
+      "ar": "بلجيكا",
+      "en": "Belgium",
+      "fr": "Belgique",
+      "ha": "Belgium",
+      "so": "Belgium"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Brussels",
+          "en": "Brussels",
+          "fr": "Brussels",
+          "ha": "Brussels",
+          "so": "Brussels"
+        },
+        "lat": 50.83333333,
+        "lng": 4.0
+      }
+    ]
+  },
+  {
+    "code": "BZ",
+    "name": {
+      "ar": "بليز",
+      "en": "Belize",
+      "fr": "Belize",
+      "ha": "Belize",
+      "so": "Belize"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Belmopan",
+          "en": "Belmopan",
+          "fr": "Belmopan",
+          "ha": "Belmopan",
+          "so": "Belmopan"
+        },
+        "lat": 17.25,
+        "lng": -88.75
+      }
+    ]
+  },
+  {
+    "code": "BJ",
+    "name": {
+      "ar": "بنين",
+      "en": "Benin",
+      "fr": "Bénin",
+      "ha": "Benin",
+      "so": "Benin"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Porto-Novo",
+          "en": "Porto-Novo",
+          "fr": "Porto-Novo",
+          "ha": "Porto-Novo",
+          "so": "Porto-Novo"
+        },
+        "lat": 9.5,
+        "lng": 2.25
+      }
+    ]
+  },
+  {
+    "code": "BM",
+    "name": {
+      "ar": "برمودا",
+      "en": "Bermuda",
+      "fr": "Bermudes",
+      "ha": "Bermuda",
+      "so": "Bermuda"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Hamilton",
+          "en": "Hamilton",
+          "fr": "Hamilton",
+          "ha": "Hamilton",
+          "so": "Hamilton"
+        },
+        "lat": 32.33333333,
+        "lng": -64.75
+      }
+    ]
+  },
+  {
+    "code": "BT",
+    "name": {
+      "ar": "بوتان",
+      "en": "Bhutan",
+      "fr": "Bhoutan",
+      "ha": "Bhutan",
+      "so": "Bhutan"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Thimphu",
+          "en": "Thimphu",
+          "fr": "Thimphu",
+          "ha": "Thimphu",
+          "so": "Thimphu"
+        },
+        "lat": 27.5,
+        "lng": 90.5
+      }
+    ]
+  },
+  {
+    "code": "BO",
+    "name": {
+      "ar": "بوليفيا",
+      "en": "Bolivia",
+      "fr": "Bolivie",
+      "ha": "Bolivia",
+      "so": "Bolivia"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Sucre",
+          "en": "Sucre",
+          "fr": "Sucre",
+          "ha": "Sucre",
+          "so": "Sucre"
+        },
+        "lat": -17.0,
+        "lng": -65.0
+      }
+    ]
+  },
+  {
+    "code": "BQ",
+    "name": {
+      "ar": "بونير، سينت أوستاتيوس وسابا",
+      "en": "Bonaire, Sint Eustatius and Saba",
+      "fr": "Bonaire, Saint-Eustache et Saba",
+      "ha": "Bonaire, Sint Eustatius and Saba",
+      "so": "Bonaire, Sint Eustatius and Saba"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Kralendijk",
+          "en": "Kralendijk",
+          "fr": "Kralendijk",
+          "ha": "Kralendijk",
+          "so": "Kralendijk"
+        },
+        "lat": 12.15,
+        "lng": -68.266667
+      }
+    ]
+  },
+  {
+    "code": "BW",
+    "name": {
+      "ar": "بوتسوانا",
+      "en": "Botswana",
+      "fr": "Botswana",
+      "ha": "Botswana",
+      "so": "Botswana"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Gaborone",
+          "en": "Gaborone",
+          "fr": "Gaborone",
+          "ha": "Gaborone",
+          "so": "Gaborone"
+        },
+        "lat": -22.0,
+        "lng": 24.0
+      }
+    ]
+  },
+  {
+    "code": "BN",
+    "name": {
+      "ar": "بروناي",
+      "en": "Brunei",
+      "fr": "Brunei",
+      "ha": "Brunei",
+      "so": "Brunei"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Bandar Seri Begawan",
+          "en": "Bandar Seri Begawan",
+          "fr": "Bandar Seri Begawan",
+          "ha": "Bandar Seri Begawan",
+          "so": "Bandar Seri Begawan"
+        },
+        "lat": 4.5,
+        "lng": 114.66666666
+      }
+    ]
+  },
+  {
+    "code": "BG",
+    "name": {
+      "ar": "بلغاريا",
+      "en": "Bulgaria",
+      "fr": "Bulgarie",
+      "ha": "Bulgaria",
+      "so": "Bulgaria"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Sofia",
+          "en": "Sofia",
+          "fr": "Sofia",
+          "ha": "Sofia",
+          "so": "Sofia"
+        },
+        "lat": 43.0,
+        "lng": 25.0
+      }
+    ]
+  },
+  {
+    "code": "BF",
+    "name": {
+      "ar": "بوركينا فاسو",
+      "en": "Burkina Faso",
+      "fr": "Burkina Faso",
+      "ha": "Burkina Faso",
+      "so": "Burkina Faso"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Ouagadougou",
+          "en": "Ouagadougou",
+          "fr": "Ouagadougou",
+          "ha": "Ouagadougou",
+          "so": "Ouagadougou"
+        },
+        "lat": 13.0,
+        "lng": -2.0
+      }
+    ]
+  },
+  {
+    "code": "BI",
+    "name": {
+      "ar": "بوروندي",
+      "en": "Burundi",
+      "fr": "Burundi",
+      "ha": "Burundi",
+      "so": "Burundi"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Bujumbura",
+          "en": "Bujumbura",
+          "fr": "Bujumbura",
+          "ha": "Bujumbura",
+          "so": "Bujumbura"
+        },
+        "lat": -3.5,
+        "lng": 30.0
+      }
+    ]
+  },
+  {
+    "code": "PF",
+    "name": {
+      "ar": "بولينيزيا الفرنسية",
+      "en": "French Polynesia",
+      "fr": "Polynésie française",
+      "ha": "French Polynesia",
+      "so": "French Polynesia"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Papeete",
+          "en": "Papeete",
+          "fr": "Papeete",
+          "ha": "Papeete",
+          "so": "Papeete"
+        },
+        "lat": -15.0,
+        "lng": -140.0
+      }
+    ]
+  },
+  {
+    "code": "PK",
+    "name": {
+      "ar": "باكستان",
+      "en": "Pakistan",
+      "fr": "Pakistan",
+      "ha": "Pakistan",
+      "so": "Pakistan"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Islamabad",
+          "en": "Islamabad",
+          "fr": "Islamabad",
+          "ha": "Islamabad",
+          "so": "Islamabad"
+        },
+        "lat": 30.0,
+        "lng": 70.0
+      }
+    ]
+  },
+  {
+    "code": "PW",
+    "name": {
+      "ar": "بالاو",
+      "en": "Palau",
+      "fr": "Palaos",
+      "ha": "Palau",
+      "so": "Palau"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Melekeok",
+          "en": "Melekeok",
+          "fr": "Melekeok",
+          "ha": "Melekeok",
+          "so": "Melekeok"
+        },
+        "lat": 7.5,
+        "lng": 134.5
+      }
+    ]
+  },
+  {
+    "code": "PA",
+    "name": {
+      "ar": "بنما",
+      "en": "Panama",
+      "fr": "Panama",
+      "ha": "Panama",
+      "so": "Panama"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Panama City",
+          "en": "Panama City",
+          "fr": "Panama City",
+          "ha": "Panama City",
+          "so": "Panama City"
+        },
+        "lat": 9.0,
+        "lng": -80.0
+      }
+    ]
+  },
+  {
+    "code": "PG",
+    "name": {
+      "ar": "بابوا غينيا الجديدة",
+      "en": "Papua New Guinea",
+      "fr": "Papouasie-Nouvelle-Guinée",
+      "ha": "Papua New Guinea",
+      "so": "Papua New Guinea"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Port Moresby",
+          "en": "Port Moresby",
+          "fr": "Port Moresby",
+          "ha": "Port Moresby",
+          "so": "Port Moresby"
+        },
+        "lat": -6.0,
+        "lng": 147.0
+      }
+    ]
+  },
+  {
+    "code": "PY",
+    "name": {
+      "ar": "باراغواي",
+      "en": "Paraguay",
+      "fr": "Paraguay",
+      "ha": "Paraguay",
+      "so": "Paraguay"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Asunción",
+          "en": "Asunción",
+          "fr": "Asunción",
+          "ha": "Asunción",
+          "so": "Asunción"
+        },
+        "lat": -23.0,
+        "lng": -58.0
+      }
+    ]
+  },
+  {
+    "code": "PE",
+    "name": {
+      "ar": "بيرو",
+      "en": "Peru",
+      "fr": "Pérou",
+      "ha": "Peru",
+      "so": "Peru"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Lima",
+          "en": "Lima",
+          "fr": "Lima",
+          "ha": "Lima",
+          "so": "Lima"
+        },
+        "lat": -10.0,
+        "lng": -76.0
+      }
+    ]
+  },
+  {
+    "code": "PL",
+    "name": {
+      "ar": "بولندا",
+      "en": "Poland",
+      "fr": "Pologne",
+      "ha": "Poland",
+      "so": "Poland"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Warsaw",
+          "en": "Warsaw",
+          "fr": "Warsaw",
+          "ha": "Warsaw",
+          "so": "Warsaw"
+        },
+        "lat": 52.0,
+        "lng": 20.0
+      }
+    ]
+  },
+  {
+    "code": "PR",
+    "name": {
+      "ar": "بورتوريكو",
+      "en": "Puerto Rico",
+      "fr": "Porto Rico",
+      "ha": "Puerto Rico",
+      "so": "Puerto Rico"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "San Juan",
+          "en": "San Juan",
+          "fr": "San Juan",
+          "ha": "San Juan",
+          "so": "San Juan"
+        },
+        "lat": 18.25,
+        "lng": -66.5
+      }
+    ]
+  },
+  {
+    "code": "CL",
+    "name": {
+      "ar": "تشيلي",
+      "en": "Chile",
+      "fr": "Chili",
+      "ha": "Chile",
+      "so": "Chile"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Santiago",
+          "en": "Santiago",
+          "fr": "Santiago",
+          "ha": "Santiago",
+          "so": "Santiago"
+        },
+        "lat": -30.0,
+        "lng": -71.0
+      }
+    ]
+  },
+  {
+    "code": "TW",
+    "name": {
+      "ar": "تايوان",
+      "en": "Taiwan",
+      "fr": "Taïwan",
+      "ha": "Taiwan",
+      "so": "Taiwan"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Taipei",
+          "en": "Taipei",
+          "fr": "Taipei",
+          "ha": "Taipei",
+          "so": "Taipei"
+        },
+        "lat": 23.5,
+        "lng": 121.0
+      }
+    ]
+  },
+  {
+    "code": "TZ",
+    "name": {
+      "ar": "تنزانيا",
+      "en": "Tanzania",
+      "fr": "Tanzanie",
+      "ha": "Tanzania",
+      "so": "Tanzania"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Dodoma",
+          "en": "Dodoma",
+          "fr": "Dodoma",
+          "ha": "Dodoma",
+          "so": "Dodoma"
+        },
+        "lat": -6.0,
+        "lng": 35.0
+      }
+    ]
+  },
+  {
+    "code": "TH",
+    "name": {
+      "ar": "تايلاند",
+      "en": "Thailand",
+      "fr": "Thaïlande",
+      "ha": "Thailand",
+      "so": "Thailand"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Bangkok",
+          "en": "Bangkok",
+          "fr": "Bangkok",
+          "ha": "Bangkok",
+          "so": "Bangkok"
+        },
+        "lat": 15.0,
+        "lng": 100.0
+      }
+    ]
+  },
+  {
+    "code": "TL",
+    "name": {
+      "ar": "تيمور الشرقية",
+      "en": "Timor-Leste",
+      "fr": "Timor oriental",
+      "ha": "Timor-Leste",
+      "so": "Timor-Leste"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Dili",
+          "en": "Dili",
+          "fr": "Dili",
+          "ha": "Dili",
+          "so": "Dili"
+        },
+        "lat": -8.83333333,
+        "lng": 125.91666666
+      }
+    ]
+  },
+  {
+    "code": "TG",
+    "name": {
+      "ar": "توغو",
+      "en": "Togo",
+      "fr": "Togo",
+      "ha": "Togo",
+      "so": "Togo"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Lome",
+          "en": "Lome",
+          "fr": "Lome",
+          "ha": "Lome",
+          "so": "Lome"
+        },
+        "lat": 8.0,
+        "lng": 1.16666666
+      }
+    ]
+  },
+  {
+    "code": "TK",
+    "name": {
+      "ar": "توكيلاو",
+      "en": "Tokelau",
+      "fr": "Tokelau",
+      "ha": "Tokelau",
+      "so": "Tokelau"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Tokelau",
+          "en": "Tokelau",
+          "fr": "Tokelau",
+          "ha": "Tokelau",
+          "so": "Tokelau"
+        },
+        "lat": -9.0,
+        "lng": -172.0
+      }
+    ]
+  },
+  {
+    "code": "TO",
+    "name": {
+      "ar": "تونغا",
+      "en": "Tonga",
+      "fr": "Tonga",
+      "ha": "Tonga",
+      "so": "Tonga"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Nuku'alofa",
+          "en": "Nuku'alofa",
+          "fr": "Nuku'alofa",
+          "ha": "Nuku'alofa",
+          "so": "Nuku'alofa"
+        },
+        "lat": -20.0,
+        "lng": -175.0
+      }
+    ]
+  },
+  {
+    "code": "TT",
+    "name": {
+      "ar": "ترينيداد وتوباغو",
+      "en": "Trinidad and Tobago",
+      "fr": "Trinité et Tobago",
+      "ha": "Trinidad and Tobago",
+      "so": "Trinidad and Tobago"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Port of Spain",
+          "en": "Port of Spain",
+          "fr": "Port of Spain",
+          "ha": "Port of Spain",
+          "so": "Port of Spain"
+        },
+        "lat": 11.0,
+        "lng": -61.0
+      }
+    ]
+  },
+  {
+    "code": "TM",
+    "name": {
+      "ar": "تركمانستان",
+      "en": "Turkmenistan",
+      "fr": "Turkménistan",
+      "ha": "Turkmenistan",
+      "so": "Turkmenistan"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Ashgabat",
+          "en": "Ashgabat",
+          "fr": "Ashgabat",
+          "ha": "Ashgabat",
+          "so": "Ashgabat"
+        },
+        "lat": 40.0,
+        "lng": 60.0
+      }
+    ]
+  },
+  {
+    "code": "TV",
+    "name": {
+      "ar": "توفالو",
+      "en": "Tuvalu",
+      "fr": "Tuvalu",
+      "ha": "Tuvalu",
+      "so": "Tuvalu"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Funafuti",
+          "en": "Funafuti",
+          "fr": "Funafuti",
+          "ha": "Funafuti",
+          "so": "Funafuti"
+        },
+        "lat": -8.0,
+        "lng": 178.0
+      }
+    ]
+  },
+  {
+    "code": "AX",
+    "name": {
+      "ar": "جزر آلاند",
+      "en": "Aland Islands",
+      "fr": "Åland",
+      "ha": "Aland Islands",
+      "so": "Aland Islands"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Mariehamn",
+          "en": "Mariehamn",
+          "fr": "Mariehamn",
+          "ha": "Mariehamn",
+          "so": "Mariehamn"
+        },
+        "lat": 60.116667,
+        "lng": 19.9
+      }
+    ]
+  },
+  {
+    "code": "BV",
+    "name": {
+      "ar": "جزيرة بوفيت",
+      "en": "Bouvet Island",
+      "fr": "Île Bouvet",
+      "ha": "Bouvet Island",
+      "so": "Bouvet Island"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Bouvet Island",
+          "en": "Bouvet Island",
+          "fr": "Bouvet Island",
+          "ha": "Bouvet Island",
+          "so": "Bouvet Island"
+        },
+        "lat": -54.43333333,
+        "lng": 3.4
+      }
+    ]
+  },
+  {
+    "code": "KY",
+    "name": {
+      "ar": "جزر كايمان",
+      "en": "Cayman Islands",
+      "fr": "Îles Caïmans",
+      "ha": "Cayman Islands",
+      "so": "Cayman Islands"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "George Town",
+          "en": "George Town",
+          "fr": "George Town",
+          "ha": "George Town",
+          "so": "George Town"
+        },
+        "lat": 19.5,
+        "lng": -80.5
+      }
+    ]
+  },
+  {
+    "code": "CF",
+    "name": {
+      "ar": "جمهورية أفريقيا الوسطى",
+      "en": "Central African Republic",
+      "fr": "République centrafricaine",
+      "ha": "Central African Republic",
+      "so": "Central African Republic"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Bangui",
+          "en": "Bangui",
+          "fr": "Bangui",
+          "ha": "Bangui",
+          "so": "Bangui"
+        },
+        "lat": 7.0,
+        "lng": 21.0
+      }
+    ]
+  },
+  {
+    "code": "CX",
+    "name": {
+      "ar": "جزيرة عيد الميلاد",
+      "en": "Christmas Island",
+      "fr": "Île Christmas",
+      "ha": "Christmas Island",
+      "so": "Christmas Island"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Flying Fish Cove",
+          "en": "Flying Fish Cove",
+          "fr": "Flying Fish Cove",
+          "ha": "Flying Fish Cove",
+          "so": "Flying Fish Cove"
+        },
+        "lat": -10.5,
+        "lng": 105.66666666
+      }
+    ]
+  },
+  {
+    "code": "CC",
+    "name": {
+      "ar": "جزر كوكوس (كيلينغ)",
+      "en": "Cocos (Keeling) Islands",
+      "fr": "Îles Cocos",
+      "ha": "Cocos (Keeling) Islands",
+      "so": "Cocos (Keeling) Islands"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "West Island",
+          "en": "West Island",
+          "fr": "West Island",
+          "ha": "West Island",
+          "so": "West Island"
+        },
+        "lat": -12.5,
+        "lng": 96.83333333
+      }
+    ]
+  },
+  {
+    "code": "KM",
+    "name": {
+      "ar": "جزر القمر",
+      "en": "Comoros",
+      "fr": "Comores",
+      "ha": "Comoros",
+      "so": "Comoros"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Moroni",
+          "en": "Moroni",
+          "fr": "Moroni",
+          "ha": "Moroni",
+          "so": "Moroni"
+        },
+        "lat": -12.16666666,
+        "lng": 44.25
+      }
+    ]
+  },
+  {
+    "code": "CD",
+    "name": {
+      "ar": "جمهورية الكونغو الديمقراطية",
+      "en": "Democratic Republic of the Congo",
+      "fr": "Congo (Rép. dém.)",
+      "ha": "Democratic Republic of the Congo",
+      "so": "Democratic Republic of the Congo"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Kinshasa",
+          "en": "Kinshasa",
+          "fr": "Kinshasa",
+          "ha": "Kinshasa",
+          "so": "Kinshasa"
+        },
+        "lat": 0.0,
+        "lng": 25.0
+      }
+    ]
+  },
+  {
+    "code": "DJ",
+    "name": {
+      "ar": "جيبوتي",
+      "en": "Djibouti",
+      "fr": "Djibouti",
+      "ha": "Djibouti",
+      "so": "Djibouti"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Djibouti",
+          "en": "Djibouti",
+          "fr": "Djibouti",
+          "ha": "Djibouti",
+          "so": "Djibouti"
+        },
+        "lat": 11.5,
+        "lng": 43.0
+      }
+    ]
+  },
+  {
+    "code": "DO",
+    "name": {
+      "ar": "جمهورية الدومينيكان",
+      "en": "Dominican Republic",
+      "fr": "République dominicaine",
+      "ha": "Dominican Republic",
+      "so": "Dominican Republic"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Santo Domingo",
+          "en": "Santo Domingo",
+          "fr": "Santo Domingo",
+          "ha": "Santo Domingo",
+          "so": "Santo Domingo"
+        },
+        "lat": 19.0,
+        "lng": -70.66666666
+      }
+    ]
+  },
+  {
+    "code": "FK",
+    "name": {
+      "ar": "جزر فوكلاند",
+      "en": "Falkland Islands",
+      "fr": "Îles Malouines",
+      "ha": "Falkland Islands",
+      "so": "Falkland Islands"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Stanley",
+          "en": "Stanley",
+          "fr": "Stanley",
+          "ha": "Stanley",
+          "so": "Stanley"
+        },
+        "lat": -51.75,
+        "lng": -59.0
+      }
+    ]
+  },
+  {
+    "code": "FO",
+    "name": {
+      "ar": "جزر فارو",
+      "en": "Faroe Islands",
+      "fr": "Îles Féroé",
+      "ha": "Faroe Islands",
+      "so": "Faroe Islands"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Torshavn",
+          "en": "Torshavn",
+          "fr": "Torshavn",
+          "ha": "Torshavn",
+          "so": "Torshavn"
+        },
+        "lat": 62.0,
+        "lng": -7.0
+      }
+    ]
+  },
+  {
+    "code": "FJ",
+    "name": {
+      "ar": "جزر فيجي",
+      "en": "Fiji Islands",
+      "fr": "Fidji",
+      "ha": "Fiji Islands",
+      "so": "Fiji Islands"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Suva",
+          "en": "Suva",
+          "fr": "Suva",
+          "ha": "Suva",
+          "so": "Suva"
+        },
+        "lat": -18.0,
+        "lng": 175.0
+      }
+    ]
+  },
+  {
+    "code": "GE",
+    "name": {
+      "ar": "جورجيا",
+      "en": "Georgia",
+      "fr": "Géorgie",
+      "ha": "Georgia",
+      "so": "Georgia"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Tbilisi",
+          "en": "Tbilisi",
+          "fr": "Tbilisi",
+          "ha": "Tbilisi",
+          "so": "Tbilisi"
+        },
+        "lat": 42.0,
+        "lng": 43.5
+      }
+    ]
+  },
+  {
+    "code": "GI",
+    "name": {
+      "ar": "جبل طارق",
+      "en": "Gibraltar",
+      "fr": "Gibraltar",
+      "ha": "Gibraltar",
+      "so": "Gibraltar"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Gibraltar",
+          "en": "Gibraltar",
+          "fr": "Gibraltar",
+          "ha": "Gibraltar",
+          "so": "Gibraltar"
+        },
+        "lat": 36.13333333,
+        "lng": -5.35
+      }
+    ]
+  },
+  {
+    "code": "JM",
+    "name": {
+      "ar": "جامايكا",
+      "en": "Jamaica",
+      "fr": "Jamaïque",
+      "ha": "Jamaica",
+      "so": "Jamaica"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Kingston",
+          "en": "Kingston",
+          "fr": "Kingston",
+          "ha": "Kingston",
+          "so": "Kingston"
+        },
+        "lat": 18.25,
+        "lng": -77.5
+      }
+    ]
+  },
+  {
+    "code": "JE",
+    "name": {
+      "ar": "جيرسي",
+      "en": "Jersey",
+      "fr": "Jersey",
+      "ha": "Jersey",
+      "so": "Jersey"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Saint Helier",
+          "en": "Saint Helier",
+          "fr": "Saint Helier",
+          "ha": "Saint Helier",
+          "so": "Saint Helier"
+        },
+        "lat": 49.25,
+        "lng": -2.16666666
+      }
+    ]
+  },
+  {
+    "code": "MH",
+    "name": {
+      "ar": "جزر مارشال",
+      "en": "Marshall Islands",
+      "fr": "Îles Marshall",
+      "ha": "Marshall Islands",
+      "so": "Marshall Islands"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Majuro",
+          "en": "Majuro",
+          "fr": "Majuro",
+          "ha": "Majuro",
+          "so": "Majuro"
+        },
+        "lat": 9.0,
+        "lng": 168.0
+      }
+    ]
+  },
+  {
+    "code": "NF",
+    "name": {
+      "ar": "جزيرة نورفولك",
+      "en": "Norfolk Island",
+      "fr": "Île de Norfolk",
+      "ha": "Norfolk Island",
+      "so": "Norfolk Island"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Kingston",
+          "en": "Kingston",
+          "fr": "Kingston",
+          "ha": "Kingston",
+          "so": "Kingston"
+        },
+        "lat": -29.03333333,
+        "lng": 167.95
+      }
+    ]
+  },
+  {
+    "code": "MP",
+    "name": {
+      "ar": "جزر ماريانا الشمالية",
+      "en": "Northern Mariana Islands",
+      "fr": "Îles Mariannes du Nord",
+      "ha": "Northern Mariana Islands",
+      "so": "Northern Mariana Islands"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Saipan",
+          "en": "Saipan",
+          "fr": "Saipan",
+          "ha": "Saipan",
+          "so": "Saipan"
+        },
+        "lat": 15.2,
+        "lng": 145.75
+      }
+    ]
+  },
+  {
+    "code": "PN",
+    "name": {
+      "ar": "جزيرة بيتكيرن",
+      "en": "Pitcairn Island",
+      "fr": "Îles Pitcairn",
+      "ha": "Pitcairn Island",
+      "so": "Pitcairn Island"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Adamstown",
+          "en": "Adamstown",
+          "fr": "Adamstown",
+          "ha": "Adamstown",
+          "so": "Adamstown"
+        },
+        "lat": -25.06666666,
+        "lng": -130.1
+      }
+    ]
+  },
+  {
+    "code": "RE",
+    "name": {
+      "ar": "جمع شمل",
+      "en": "Reunion",
+      "fr": "Réunion",
+      "ha": "Reunion",
+      "so": "Reunion"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Saint-Denis",
+          "en": "Saint-Denis",
+          "fr": "Saint-Denis",
+          "ha": "Saint-Denis",
+          "so": "Saint-Denis"
+        },
+        "lat": -21.15,
+        "lng": 55.5
+      }
+    ]
+  },
+  {
+    "code": "SB",
+    "name": {
+      "ar": "جزر سليمان",
+      "en": "Solomon Islands",
+      "fr": "Îles Salomon",
+      "ha": "Solomon Islands",
+      "so": "Solomon Islands"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Honiara",
+          "en": "Honiara",
+          "fr": "Honiara",
+          "ha": "Honiara",
+          "so": "Honiara"
+        },
+        "lat": -8.0,
+        "lng": 159.0
+      }
+    ]
+  },
+  {
+    "code": "ZA",
+    "name": {
+      "ar": "جنوب أفريقيا",
+      "en": "South Africa",
+      "fr": "Afrique du Sud",
+      "ha": "South Africa",
+      "so": "South Africa"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Pretoria",
+          "en": "Pretoria",
+          "fr": "Pretoria",
+          "ha": "Pretoria",
+          "so": "Pretoria"
+        },
+        "lat": -29.0,
+        "lng": 24.0
+      }
+    ]
+  },
+  {
+    "code": "GS",
+    "name": {
+      "ar": "جنوب جورجيا",
+      "en": "South Georgia",
+      "fr": "Géorgie du Sud-et-les Îles Sandwich du Sud",
+      "ha": "South Georgia",
+      "so": "South Georgia"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Grytviken",
+          "en": "Grytviken",
+          "fr": "Grytviken",
+          "ha": "Grytviken",
+          "so": "Grytviken"
+        },
+        "lat": -54.5,
+        "lng": -37.0
+      }
+    ]
+  },
+  {
+    "code": "SS",
+    "name": {
+      "ar": "جنوب السودان",
+      "en": "South Sudan",
+      "fr": "Soudan du Sud",
+      "ha": "South Sudan",
+      "so": "South Sudan"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Juba",
+          "en": "Juba",
+          "fr": "Juba",
+          "ha": "Juba",
+          "so": "Juba"
+        },
+        "lat": 7.0,
+        "lng": 30.0
+      }
+    ]
+  },
+  {
+    "code": "SJ",
+    "name": {
+      "ar": "جزر سفالبارد وجان ماين",
+      "en": "Svalbard and Jan Mayen Islands",
+      "fr": "Svalbard et Jan Mayen",
+      "ha": "Svalbard and Jan Mayen Islands",
+      "so": "Svalbard and Jan Mayen Islands"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Longyearbyen",
+          "en": "Longyearbyen",
+          "fr": "Longyearbyen",
+          "ha": "Longyearbyen",
+          "so": "Longyearbyen"
+        },
+        "lat": 78.0,
+        "lng": 20.0
+      }
+    ]
+  },
+  {
+    "code": "BS",
+    "name": {
+      "ar": "جزر البهاما",
+      "en": "The Bahamas",
+      "fr": "Bahamas",
+      "ha": "The Bahamas",
+      "so": "The Bahamas"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Nassau",
+          "en": "Nassau",
+          "fr": "Nassau",
+          "ha": "Nassau",
+          "so": "Nassau"
+        },
+        "lat": 24.25,
+        "lng": -76.0
+      }
+    ]
+  },
+  {
+    "code": "TC",
+    "name": {
+      "ar": "جزر الأتراك وكايكوس",
+      "en": "Turks and Caicos Islands",
+      "fr": "Îles Turques-et-Caïques",
+      "ha": "Turks and Caicos Islands",
+      "so": "Turks and Caicos Islands"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Cockburn Town",
+          "en": "Cockburn Town",
+          "fr": "Cockburn Town",
+          "ha": "Cockburn Town",
+          "so": "Cockburn Town"
+        },
+        "lat": 21.75,
+        "lng": -71.58333333
+      }
+    ]
+  },
+  {
+    "code": "VG",
+    "name": {
+      "ar": "جزر فيرجن (البريطانية)",
+      "en": "Virgin Islands (British)",
+      "fr": "Îles Vierges britanniques",
+      "ha": "Virgin Islands (British)",
+      "so": "Virgin Islands (British)"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Road Town",
+          "en": "Road Town",
+          "fr": "Road Town",
+          "ha": "Road Town",
+          "so": "Road Town"
+        },
+        "lat": 18.431383,
+        "lng": -64.62305
+      }
+    ]
+  },
+  {
+    "code": "VI",
+    "name": {
+      "ar": "جزر فيرجن (الولايات المتحدة)",
+      "en": "Virgin Islands (US)",
+      "fr": "Îles Vierges des États-Unis",
+      "ha": "Virgin Islands (US)",
+      "so": "Virgin Islands (US)"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Charlotte Amalie",
+          "en": "Charlotte Amalie",
+          "fr": "Charlotte Amalie",
+          "ha": "Charlotte Amalie",
+          "so": "Charlotte Amalie"
+        },
+        "lat": 18.34,
+        "lng": -64.93
+      }
+    ]
+  },
+  {
+    "code": "WF",
+    "name": {
+      "ar": "جزر واليس وفوتونا",
+      "en": "Wallis and Futuna Islands",
+      "fr": "Wallis-et-Futuna",
+      "ha": "Wallis and Futuna Islands",
+      "so": "Wallis and Futuna Islands"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Mata Utu",
+          "en": "Mata Utu",
+          "fr": "Mata Utu",
+          "ha": "Mata Utu",
+          "so": "Mata Utu"
+        },
+        "lat": -13.3,
+        "lng": -176.2
+      }
+    ]
+  },
+  {
+    "code": "DM",
+    "name": {
+      "ar": "دومينيكا",
+      "en": "Dominica",
+      "fr": "Dominique",
+      "ha": "Dominica",
+      "so": "Dominica"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Roseau",
+          "en": "Roseau",
+          "fr": "Roseau",
+          "ha": "Roseau",
+          "so": "Roseau"
+        },
+        "lat": 15.41666666,
+        "lng": -61.33333333
+      }
+    ]
+  },
+  {
+    "code": "IM",
+    "name": {
+      "ar": "رجل (جزيرة)",
+      "en": "Man (Isle of)",
+      "fr": "Île de Man",
+      "ha": "Man (Isle of)",
+      "so": "Man (Isle of)"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Douglas, Isle of Man",
+          "en": "Douglas, Isle of Man",
+          "fr": "Douglas, Isle of Man",
+          "ha": "Douglas, Isle of Man",
+          "so": "Douglas, Isle of Man"
+        },
+        "lat": 54.25,
+        "lng": -4.5
+      }
+    ]
+  },
+  {
+    "code": "RO",
+    "name": {
+      "ar": "رومانيا",
+      "en": "Romania",
+      "fr": "Roumanie",
+      "ha": "Romania",
+      "so": "Romania"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Bucharest",
+          "en": "Bucharest",
+          "fr": "Bucharest",
+          "ha": "Bucharest",
+          "so": "Bucharest"
+        },
+        "lat": 46.0,
+        "lng": 25.0
+      }
+    ]
+  },
+  {
+    "code": "RU",
+    "name": {
+      "ar": "روسيا",
+      "en": "Russia",
+      "fr": "Russie",
+      "ha": "Russia",
+      "so": "Russia"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Moscow",
+          "en": "Moscow",
+          "fr": "Moscow",
+          "ha": "Moscow",
+          "so": "Moscow"
+        },
+        "lat": 60.0,
+        "lng": 100.0
+      }
+    ]
+  },
+  {
+    "code": "RW",
+    "name": {
+      "ar": "رواندا",
+      "en": "Rwanda",
+      "fr": "Rwanda",
+      "ha": "Rwanda",
+      "so": "Rwanda"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Kigali",
+          "en": "Kigali",
+          "fr": "Kigali",
+          "ha": "Kigali",
+          "so": "Kigali"
+        },
+        "lat": -2.0,
+        "lng": 30.0
+      }
+    ]
+  },
+  {
+    "code": "ZM",
+    "name": {
+      "ar": "زامبيا",
+      "en": "Zambia",
+      "fr": "Zambie",
+      "ha": "Zambia",
+      "so": "Zambia"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Lusaka",
+          "en": "Lusaka",
+          "fr": "Lusaka",
+          "ha": "Lusaka",
+          "so": "Lusaka"
+        },
+        "lat": -15.0,
+        "lng": 30.0
+      }
+    ]
+  },
+  {
+    "code": "ZW",
+    "name": {
+      "ar": "زيمبابوي",
+      "en": "Zimbabwe",
+      "fr": "Zimbabwe",
+      "ha": "Zimbabwe",
+      "so": "Zimbabwe"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Harare",
+          "en": "Harare",
+          "fr": "Harare",
+          "ha": "Harare",
+          "so": "Harare"
+        },
+        "lat": -20.0,
+        "lng": 30.0
+      }
+    ]
+  },
+  {
+    "code": "AS",
+    "name": {
+      "ar": "ساموا الأمريكية",
+      "en": "American Samoa",
+      "fr": "Samoa américaines",
+      "ha": "American Samoa",
+      "so": "American Samoa"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Pago Pago",
+          "en": "Pago Pago",
+          "fr": "Pago Pago",
+          "ha": "Pago Pago",
+          "so": "Pago Pago"
+        },
+        "lat": -14.33333333,
+        "lng": -170.0
+      }
+    ]
+  },
+  {
+    "code": "HM",
+    "name": {
+      "ar": "سمعت جزيرة وجزر ماكدونالد",
+      "en": "Heard Island and McDonald Islands",
+      "fr": "Îles Heard-et-MacDonald",
+      "ha": "Heard Island and McDonald Islands",
+      "so": "Heard Island and McDonald Islands"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Heard Island and McDonald Islands",
+          "en": "Heard Island and McDonald Islands",
+          "fr": "Heard Island and McDonald Islands",
+          "ha": "Heard Island and McDonald Islands",
+          "so": "Heard Island and McDonald Islands"
+        },
+        "lat": -53.1,
+        "lng": 72.51666666
+      }
+    ]
+  },
+  {
+    "code": "CI",
+    "name": {
+      "ar": "ساحل العاج",
+      "en": "Ivory Coast",
+      "fr": "Côte d'Ivoire",
+      "ha": "Ivory Coast",
+      "so": "Ivory Coast"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Yamoussoukro",
+          "en": "Yamoussoukro",
+          "fr": "Yamoussoukro",
+          "ha": "Yamoussoukro",
+          "so": "Yamoussoukro"
+        },
+        "lat": 8.0,
+        "lng": -5.0
+      }
+    ]
+  },
+  {
+    "code": "SH",
+    "name": {
+      "ar": "سانت هيلانة",
+      "en": "Saint Helena",
+      "fr": "Sainte-Hélène",
+      "ha": "Saint Helena",
+      "so": "Saint Helena"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Jamestown",
+          "en": "Jamestown",
+          "fr": "Jamestown",
+          "ha": "Jamestown",
+          "so": "Jamestown"
+        },
+        "lat": -15.95,
+        "lng": -5.7
+      }
+    ]
+  },
+  {
+    "code": "KN",
+    "name": {
+      "ar": "سانت كيتس ونيفيس",
+      "en": "Saint Kitts and Nevis",
+      "fr": "Saint-Christophe-et-Niévès",
+      "ha": "Saint Kitts and Nevis",
+      "so": "Saint Kitts and Nevis"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Basseterre",
+          "en": "Basseterre",
+          "fr": "Basseterre",
+          "ha": "Basseterre",
+          "so": "Basseterre"
+        },
+        "lat": 17.33333333,
+        "lng": -62.75
+      }
+    ]
+  },
+  {
+    "code": "LC",
+    "name": {
+      "ar": "سانت لوسيا",
+      "en": "Saint Lucia",
+      "fr": "Saint-Lucie",
+      "ha": "Saint Lucia",
+      "so": "Saint Lucia"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Castries",
+          "en": "Castries",
+          "fr": "Castries",
+          "ha": "Castries",
+          "so": "Castries"
+        },
+        "lat": 13.88333333,
+        "lng": -60.96666666
+      }
+    ]
+  },
+  {
+    "code": "BL",
+    "name": {
+      "ar": "سان بارثيليمي",
+      "en": "Saint-Barthelemy",
+      "fr": "Saint-Barthélemy",
+      "ha": "Saint-Barthelemy",
+      "so": "Saint-Barthelemy"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Gustavia",
+          "en": "Gustavia",
+          "fr": "Gustavia",
+          "ha": "Gustavia",
+          "so": "Gustavia"
+        },
+        "lat": 18.5,
+        "lng": -63.41666666
+      }
+    ]
+  },
+  {
+    "code": "MF",
+    "name": {
+      "ar": "سان مارتن (الجزء الفرنسي)",
+      "en": "Saint-Martin (French part)",
+      "fr": "Saint-Martin",
+      "ha": "Saint-Martin (French part)",
+      "so": "Saint-Martin (French part)"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Marigot",
+          "en": "Marigot",
+          "fr": "Marigot",
+          "ha": "Marigot",
+          "so": "Marigot"
+        },
+        "lat": 18.08333333,
+        "lng": -63.95
+      }
+    ]
+  },
+  {
+    "code": "WS",
+    "name": {
+      "ar": "ساموا",
+      "en": "Samoa",
+      "fr": "Samoa",
+      "ha": "Samoa",
+      "so": "Samoa"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Apia",
+          "en": "Apia",
+          "fr": "Apia",
+          "ha": "Apia",
+          "so": "Apia"
+        },
+        "lat": -13.58333333,
+        "lng": -172.33333333
+      }
+    ]
+  },
+  {
+    "code": "SM",
+    "name": {
+      "ar": "سان مارينو",
+      "en": "San Marino",
+      "fr": "Saint-Marin",
+      "ha": "San Marino",
+      "so": "San Marino"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "San Marino",
+          "en": "San Marino",
+          "fr": "San Marino",
+          "ha": "San Marino",
+          "so": "San Marino"
+        },
+        "lat": 43.76666666,
+        "lng": 12.41666666
+      }
+    ]
+  },
+  {
+    "code": "ST",
+    "name": {
+      "ar": "ساو تومي وبرينسيبي",
+      "en": "Sao Tome and Principe",
+      "fr": "Sao Tomé-et-Principe",
+      "ha": "Sao Tome and Principe",
+      "so": "Sao Tome and Principe"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Sao Tome",
+          "en": "Sao Tome",
+          "fr": "Sao Tome",
+          "ha": "Sao Tome",
+          "so": "Sao Tome"
+        },
+        "lat": 1.0,
+        "lng": 7.0
+      }
+    ]
+  },
+  {
+    "code": "SC",
+    "name": {
+      "ar": "سيشيل",
+      "en": "Seychelles",
+      "fr": "Seychelles",
+      "ha": "Seychelles",
+      "so": "Seychelles"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Victoria",
+          "en": "Victoria",
+          "fr": "Victoria",
+          "ha": "Victoria",
+          "so": "Victoria"
+        },
+        "lat": -4.6574977,
+        "lng": 55.4540146
+      }
+    ]
+  },
+  {
+    "code": "SL",
+    "name": {
+      "ar": "سيراليون",
+      "en": "Sierra Leone",
+      "fr": "Sierra Leone",
+      "ha": "Sierra Leone",
+      "so": "Sierra Leone"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Freetown",
+          "en": "Freetown",
+          "fr": "Freetown",
+          "ha": "Freetown",
+          "so": "Freetown"
+        },
+        "lat": 8.5,
+        "lng": -11.5
+      }
+    ]
+  },
+  {
+    "code": "SG",
+    "name": {
+      "ar": "سنغافورة",
+      "en": "Singapore",
+      "fr": "Singapour",
+      "ha": "Singapore",
+      "so": "Singapore"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Singapur",
+          "en": "Singapur",
+          "fr": "Singapur",
+          "ha": "Singapur",
+          "so": "Singapur"
+        },
+        "lat": 1.36666666,
+        "lng": 103.8
+      }
+    ]
+  },
+  {
+    "code": "SX",
+    "name": {
+      "ar": "سينت مارتن (الجزء الهولندي)",
+      "en": "Sint Maarten (Dutch part)",
+      "fr": "Saint Martin (partie néerlandaise)",
+      "ha": "Sint Maarten (Dutch part)",
+      "so": "Sint Maarten (Dutch part)"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Philipsburg",
+          "en": "Philipsburg",
+          "fr": "Philipsburg",
+          "ha": "Philipsburg",
+          "so": "Philipsburg"
+        },
+        "lat": 18.033333,
+        "lng": -63.05
+      }
+    ]
+  },
+  {
+    "code": "SK",
+    "name": {
+      "ar": "سلوفاكيا",
+      "en": "Slovakia",
+      "fr": "Slovaquie",
+      "ha": "Slovakia",
+      "so": "Slovakia"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Bratislava",
+          "en": "Bratislava",
+          "fr": "Bratislava",
+          "ha": "Bratislava",
+          "so": "Bratislava"
+        },
+        "lat": 48.66666666,
+        "lng": 19.5
+      }
+    ]
+  },
+  {
+    "code": "SI",
+    "name": {
+      "ar": "سلوفينيا",
+      "en": "Slovenia",
+      "fr": "Slovénie",
+      "ha": "Slovenia",
+      "so": "Slovenia"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Ljubljana",
+          "en": "Ljubljana",
+          "fr": "Ljubljana",
+          "ha": "Ljubljana",
+          "so": "Ljubljana"
+        },
+        "lat": 46.11666666,
+        "lng": 14.81666666
+      }
+    ]
+  },
+  {
+    "code": "LK",
+    "name": {
+      "ar": "سريلانكا",
+      "en": "Sri Lanka",
+      "fr": "Sri Lanka",
+      "ha": "Sri Lanka",
+      "so": "Sri Lanka"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Colombo",
+          "en": "Colombo",
+          "fr": "Colombo",
+          "ha": "Colombo",
+          "so": "Colombo"
+        },
+        "lat": 7.0,
+        "lng": 81.0
+      }
+    ]
+  },
+  {
+    "code": "SR",
+    "name": {
+      "ar": "سورينام",
+      "en": "Suriname",
+      "fr": "Surinam",
+      "ha": "Suriname",
+      "so": "Suriname"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Paramaribo",
+          "en": "Paramaribo",
+          "fr": "Paramaribo",
+          "ha": "Paramaribo",
+          "so": "Paramaribo"
+        },
+        "lat": 4.0,
+        "lng": -56.0
+      }
+    ]
+  },
+  {
+    "code": "CH",
+    "name": {
+      "ar": "سويسرا",
+      "en": "Switzerland",
+      "fr": "Suisse",
+      "ha": "Switzerland",
+      "so": "Switzerland"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Bern",
+          "en": "Bern",
+          "fr": "Bern",
+          "ha": "Bern",
+          "so": "Bern"
+        },
+        "lat": 47.0,
+        "lng": 8.0
+      }
+    ]
+  },
+  {
+    "code": "RS",
+    "name": {
+      "ar": "صربيا",
+      "en": "Serbia",
+      "fr": "Serbie",
+      "ha": "Serbia",
+      "so": "Serbia"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Belgrade",
+          "en": "Belgrade",
+          "fr": "Belgrade",
+          "ha": "Belgrade",
+          "so": "Belgrade"
+        },
+        "lat": 44.0,
+        "lng": 21.0
+      }
+    ]
+  },
+  {
+    "code": "TJ",
+    "name": {
+      "ar": "طاجيكستان",
+      "en": "Tajikistan",
+      "fr": "Tadjikistan",
+      "ha": "Tajikistan",
+      "so": "Tajikistan"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Dushanbe",
+          "en": "Dushanbe",
+          "fr": "Dushanbe",
+          "ha": "Dushanbe",
+          "so": "Dushanbe"
+        },
+        "lat": 39.0,
+        "lng": 71.0
+      }
+    ]
+  },
+  {
+    "code": "GQ",
+    "name": {
+      "ar": "غينيا الاستوائية",
+      "en": "Equatorial Guinea",
+      "fr": "Guinée-Équatoriale",
+      "ha": "Equatorial Guinea",
+      "so": "Equatorial Guinea"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Malabo",
+          "en": "Malabo",
+          "fr": "Malabo",
+          "ha": "Malabo",
+          "so": "Malabo"
+        },
+        "lat": 2.0,
+        "lng": 10.0
+      }
+    ]
+  },
+  {
+    "code": "GF",
+    "name": {
+      "ar": "غويانا الفرنسية",
+      "en": "French Guiana",
+      "fr": "Guayane",
+      "ha": "French Guiana",
+      "so": "French Guiana"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Cayenne",
+          "en": "Cayenne",
+          "fr": "Cayenne",
+          "ha": "Cayenne",
+          "so": "Cayenne"
+        },
+        "lat": 4.0,
+        "lng": -53.0
+      }
+    ]
+  },
+  {
+    "code": "GH",
+    "name": {
+      "ar": "غانا",
+      "en": "Ghana",
+      "fr": "Ghana",
+      "ha": "Ghana",
+      "so": "Ghana"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Accra",
+          "en": "Accra",
+          "fr": "Accra",
+          "ha": "Accra",
+          "so": "Accra"
+        },
+        "lat": 8.0,
+        "lng": -2.0
+      }
+    ]
+  },
+  {
+    "code": "GL",
+    "name": {
+      "ar": "غرينلاند",
+      "en": "Greenland",
+      "fr": "Groenland",
+      "ha": "Greenland",
+      "so": "Greenland"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Nuuk",
+          "en": "Nuuk",
+          "fr": "Nuuk",
+          "ha": "Nuuk",
+          "so": "Nuuk"
+        },
+        "lat": 72.0,
+        "lng": -40.0
+      }
+    ]
+  },
+  {
+    "code": "GD",
+    "name": {
+      "ar": "غرينادا",
+      "en": "Grenada",
+      "fr": "Grenade",
+      "ha": "Grenada",
+      "so": "Grenada"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "St. George's",
+          "en": "St. George's",
+          "fr": "St. George's",
+          "ha": "St. George's",
+          "so": "St. George's"
+        },
+        "lat": 12.11666666,
+        "lng": -61.66666666
+      }
+    ]
+  },
+  {
+    "code": "GP",
+    "name": {
+      "ar": "غواديلوب",
+      "en": "Guadeloupe",
+      "fr": "Guadeloupe",
+      "ha": "Guadeloupe",
+      "so": "Guadeloupe"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Basse-Terre",
+          "en": "Basse-Terre",
+          "fr": "Basse-Terre",
+          "ha": "Basse-Terre",
+          "so": "Basse-Terre"
+        },
+        "lat": 16.25,
+        "lng": -61.583333
+      }
+    ]
+  },
+  {
+    "code": "GU",
+    "name": {
+      "ar": "غوام",
+      "en": "Guam",
+      "fr": "Guam",
+      "ha": "Guam",
+      "so": "Guam"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Hagatna",
+          "en": "Hagatna",
+          "fr": "Hagatna",
+          "ha": "Hagatna",
+          "so": "Hagatna"
+        },
+        "lat": 13.46666666,
+        "lng": 144.78333333
+      }
+    ]
+  },
+  {
+    "code": "GT",
+    "name": {
+      "ar": "غواتيمالا",
+      "en": "Guatemala",
+      "fr": "Guatemala",
+      "ha": "Guatemala",
+      "so": "Guatemala"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Guatemala City",
+          "en": "Guatemala City",
+          "fr": "Guatemala City",
+          "ha": "Guatemala City",
+          "so": "Guatemala City"
+        },
+        "lat": 15.5,
+        "lng": -90.25
+      }
+    ]
+  },
+  {
+    "code": "GG",
+    "name": {
+      "ar": "غيرنسي",
+      "en": "Guernsey",
+      "fr": "Guernesey",
+      "ha": "Guernsey",
+      "so": "Guernsey"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "St Peter Port",
+          "en": "St Peter Port",
+          "fr": "St Peter Port",
+          "ha": "St Peter Port",
+          "so": "St Peter Port"
+        },
+        "lat": 49.46666666,
+        "lng": -2.58333333
+      }
+    ]
+  },
+  {
+    "code": "GN",
+    "name": {
+      "ar": "غينيا",
+      "en": "Guinea",
+      "fr": "Guinée",
+      "ha": "Guinea",
+      "so": "Guinea"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Conakry",
+          "en": "Conakry",
+          "fr": "Conakry",
+          "ha": "Conakry",
+          "so": "Conakry"
+        },
+        "lat": 11.0,
+        "lng": -10.0
+      }
+    ]
+  },
+  {
+    "code": "GW",
+    "name": {
+      "ar": "غينيا بيساو",
+      "en": "Guinea-Bissau",
+      "fr": "Guinée-Bissau",
+      "ha": "Guinea-Bissau",
+      "so": "Guinea-Bissau"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Bissau",
+          "en": "Bissau",
+          "fr": "Bissau",
+          "ha": "Bissau",
+          "so": "Bissau"
+        },
+        "lat": 12.0,
+        "lng": -15.0
+      }
+    ]
+  },
+  {
+    "code": "GY",
+    "name": {
+      "ar": "غيانا",
+      "en": "Guyana",
+      "fr": "Guyane",
+      "ha": "Guyana",
+      "so": "Guyana"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Georgetown",
+          "en": "Georgetown",
+          "fr": "Georgetown",
+          "ha": "Georgetown",
+          "so": "Georgetown"
+        },
+        "lat": 5.0,
+        "lng": -59.0
+      }
+    ]
+  },
+  {
+    "code": "GM",
+    "name": {
+      "ar": "غامبيا",
+      "en": "The Gambia",
+      "fr": "Gambie",
+      "ha": "The Gambia",
+      "so": "The Gambia"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Banjul",
+          "en": "Banjul",
+          "fr": "Banjul",
+          "ha": "Banjul",
+          "so": "Banjul"
+        },
+        "lat": 13.46666666,
+        "lng": -16.56666666
+      }
+    ]
+  },
+  {
+    "code": "FI",
+    "name": {
+      "ar": "فنلندا",
+      "en": "Finland",
+      "fr": "Finlande",
+      "ha": "Finland",
+      "so": "Finland"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Helsinki",
+          "en": "Helsinki",
+          "fr": "Helsinki",
+          "ha": "Helsinki",
+          "so": "Helsinki"
+        },
+        "lat": 64.0,
+        "lng": 26.0
+      }
+    ]
+  },
+  {
+    "code": "VU",
+    "name": {
+      "ar": "فانواتو",
+      "en": "Vanuatu",
+      "fr": "Vanuatu",
+      "ha": "Vanuatu",
+      "so": "Vanuatu"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Port Vila",
+          "en": "Port Vila",
+          "fr": "Port Vila",
+          "ha": "Port Vila",
+          "so": "Port Vila"
+        },
+        "lat": -16.0,
+        "lng": 167.0
+      }
+    ]
+  },
+  {
+    "code": "VE",
+    "name": {
+      "ar": "فنزويلا",
+      "en": "Venezuela",
+      "fr": "Venezuela",
+      "ha": "Venezuela",
+      "so": "Venezuela"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Caracas",
+          "en": "Caracas",
+          "fr": "Caracas",
+          "ha": "Caracas",
+          "so": "Caracas"
+        },
+        "lat": 8.0,
+        "lng": -66.0
+      }
+    ]
+  },
+  {
+    "code": "VN",
+    "name": {
+      "ar": "فيتنام",
+      "en": "Vietnam",
+      "fr": "Viêt Nam",
+      "ha": "Vietnam",
+      "so": "Vietnam"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Hanoi",
+          "en": "Hanoi",
+          "fr": "Hanoi",
+          "ha": "Hanoi",
+          "so": "Hanoi"
+        },
+        "lat": 16.16666666,
+        "lng": 107.83333333
+      }
+    ]
+  },
+  {
+    "code": "CY",
+    "name": {
+      "ar": "قبرص",
+      "en": "Cyprus",
+      "fr": "Chypre",
+      "ha": "Cyprus",
+      "so": "Cyprus"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Nicosia",
+          "en": "Nicosia",
+          "fr": "Nicosia",
+          "ha": "Nicosia",
+          "so": "Nicosia"
+        },
+        "lat": 35.0,
+        "lng": 33.0
+      }
+    ]
+  },
+  {
+    "code": "KG",
+    "name": {
+      "ar": "قيرغيزستان",
+      "en": "Kyrgyzstan",
+      "fr": "Kirghizistan",
+      "ha": "Kyrgyzstan",
+      "so": "Kyrgyzstan"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Bishkek",
+          "en": "Bishkek",
+          "fr": "Bishkek",
+          "ha": "Bishkek",
+          "so": "Bishkek"
+        },
+        "lat": 41.0,
+        "lng": 75.0
+      }
+    ]
+  },
+  {
+    "code": "KH",
+    "name": {
+      "ar": "كمبوديا",
+      "en": "Cambodia",
+      "fr": "Cambodge",
+      "ha": "Cambodia",
+      "so": "Cambodia"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Phnom Penh",
+          "en": "Phnom Penh",
+          "fr": "Phnom Penh",
+          "ha": "Phnom Penh",
+          "so": "Phnom Penh"
+        },
+        "lat": 13.0,
+        "lng": 105.0
+      }
+    ]
+  },
+  {
+    "code": "CA",
+    "name": {
+      "ar": "كندا",
+      "en": "Canada",
+      "fr": "Canada",
+      "ha": "Canada",
+      "so": "Canada"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Ottawa",
+          "en": "Ottawa",
+          "fr": "Ottawa",
+          "ha": "Ottawa",
+          "so": "Ottawa"
+        },
+        "lat": 60.0,
+        "lng": -95.0
+      }
+    ]
+  },
+  {
+    "code": "CO",
+    "name": {
+      "ar": "كولومبيا",
+      "en": "Colombia",
+      "fr": "Colombie",
+      "ha": "Colombia",
+      "so": "Colombia"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Bogotá",
+          "en": "Bogotá",
+          "fr": "Bogotá",
+          "ha": "Bogotá",
+          "so": "Bogotá"
+        },
+        "lat": 4.0,
+        "lng": -72.0
+      }
+    ]
+  },
+  {
+    "code": "CK",
+    "name": {
+      "ar": "كوك جزر",
+      "en": "Cook Islands",
+      "fr": "Îles Cook",
+      "ha": "Cook Islands",
+      "so": "Cook Islands"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Avarua",
+          "en": "Avarua",
+          "fr": "Avarua",
+          "ha": "Avarua",
+          "so": "Avarua"
+        },
+        "lat": -21.23333333,
+        "lng": -159.76666666
+      }
+    ]
+  },
+  {
+    "code": "CR",
+    "name": {
+      "ar": "كوستاريكا",
+      "en": "Costa Rica",
+      "fr": "Costa Rica",
+      "ha": "Costa Rica",
+      "so": "Costa Rica"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "San Jose",
+          "en": "San Jose",
+          "fr": "San Jose",
+          "ha": "San Jose",
+          "so": "San Jose"
+        },
+        "lat": 10.0,
+        "lng": -84.0
+      }
+    ]
+  },
+  {
+    "code": "HR",
+    "name": {
+      "ar": "كرواتيا",
+      "en": "Croatia",
+      "fr": "Croatie",
+      "ha": "Croatia",
+      "so": "Croatia"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Zagreb",
+          "en": "Zagreb",
+          "fr": "Zagreb",
+          "ha": "Zagreb",
+          "so": "Zagreb"
+        },
+        "lat": 45.16666666,
+        "lng": 15.5
+      }
+    ]
+  },
+  {
+    "code": "CU",
+    "name": {
+      "ar": "كوبا",
+      "en": "Cuba",
+      "fr": "Cuba",
+      "ha": "Cuba",
+      "so": "Cuba"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Havana",
+          "en": "Havana",
+          "fr": "Havana",
+          "ha": "Havana",
+          "so": "Havana"
+        },
+        "lat": 21.5,
+        "lng": -80.0
+      }
+    ]
+  },
+  {
+    "code": "CW",
+    "name": {
+      "ar": "كوراساو",
+      "en": "Curaçao",
+      "fr": "Curaçao",
+      "ha": "Curaçao",
+      "so": "Curaçao"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Willemstad",
+          "en": "Willemstad",
+          "fr": "Willemstad",
+          "ha": "Willemstad",
+          "so": "Willemstad"
+        },
+        "lat": 12.116667,
+        "lng": -68.933333
+      }
+    ]
+  },
+  {
+    "code": "KZ",
+    "name": {
+      "ar": "كازاخستان",
+      "en": "Kazakhstan",
+      "fr": "Kazakhstan",
+      "ha": "Kazakhstan",
+      "so": "Kazakhstan"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Astana",
+          "en": "Astana",
+          "fr": "Astana",
+          "ha": "Astana",
+          "so": "Astana"
+        },
+        "lat": 48.0,
+        "lng": 68.0
+      }
+    ]
+  },
+  {
+    "code": "KI",
+    "name": {
+      "ar": "كيريباتي",
+      "en": "Kiribati",
+      "fr": "Kiribati",
+      "ha": "Kiribati",
+      "so": "Kiribati"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Tarawa",
+          "en": "Tarawa",
+          "fr": "Tarawa",
+          "ha": "Tarawa",
+          "so": "Tarawa"
+        },
+        "lat": 1.41666666,
+        "lng": 173.0
+      }
+    ]
+  },
+  {
+    "code": "XK",
+    "name": {
+      "ar": "كوسوفو",
+      "en": "Kosovo",
+      "fr": "Kosovo",
+      "ha": "Kosovo",
+      "so": "Kosovo"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Pristina",
+          "en": "Pristina",
+          "fr": "Pristina",
+          "ha": "Pristina",
+          "so": "Pristina"
+        },
+        "lat": 42.5612909,
+        "lng": 20.3403035
+      }
+    ]
+  },
+  {
+    "code": "NC",
+    "name": {
+      "ar": "كاليدونيا الجديدة",
+      "en": "New Caledonia",
+      "fr": "Nouvelle-Calédonie",
+      "ha": "New Caledonia",
+      "so": "New Caledonia"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Noumea",
+          "en": "Noumea",
+          "fr": "Noumea",
+          "ha": "Noumea",
+          "so": "Noumea"
+        },
+        "lat": -21.5,
+        "lng": 165.5
+      }
+    ]
+  },
+  {
+    "code": "KP",
+    "name": {
+      "ar": "كوريا الشمالية",
+      "en": "North Korea",
+      "fr": "Corée du Nord",
+      "ha": "North Korea",
+      "so": "North Korea"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Pyongyang",
+          "en": "Pyongyang",
+          "fr": "Pyongyang",
+          "ha": "Pyongyang",
+          "so": "Pyongyang"
+        },
+        "lat": 40.0,
+        "lng": 127.0
+      }
+    ]
+  },
+  {
+    "code": "KR",
+    "name": {
+      "ar": "كوريا الجنوبية",
+      "en": "South Korea",
+      "fr": "Corée du Sud",
+      "ha": "South Korea",
+      "so": "South Korea"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Seoul",
+          "en": "Seoul",
+          "fr": "Seoul",
+          "ha": "Seoul",
+          "so": "Seoul"
+        },
+        "lat": 37.0,
+        "lng": 127.5
+      }
+    ]
+  },
+  {
+    "code": "LA",
+    "name": {
+      "ar": "لاوس",
+      "en": "Laos",
+      "fr": "Laos",
+      "ha": "Laos",
+      "so": "Laos"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Vientiane",
+          "en": "Vientiane",
+          "fr": "Vientiane",
+          "ha": "Vientiane",
+          "so": "Vientiane"
+        },
+        "lat": 18.0,
+        "lng": 105.0
+      }
+    ]
+  },
+  {
+    "code": "LV",
+    "name": {
+      "ar": "لاتفيا",
+      "en": "Latvia",
+      "fr": "Lettonie",
+      "ha": "Latvia",
+      "so": "Latvia"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Riga",
+          "en": "Riga",
+          "fr": "Riga",
+          "ha": "Riga",
+          "so": "Riga"
+        },
+        "lat": 57.0,
+        "lng": 25.0
+      }
+    ]
+  },
+  {
+    "code": "LS",
+    "name": {
+      "ar": "ليسوتو",
+      "en": "Lesotho",
+      "fr": "Lesotho",
+      "ha": "Lesotho",
+      "so": "Lesotho"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Maseru",
+          "en": "Maseru",
+          "fr": "Maseru",
+          "ha": "Maseru",
+          "so": "Maseru"
+        },
+        "lat": -29.5,
+        "lng": 28.5
+      }
+    ]
+  },
+  {
+    "code": "LR",
+    "name": {
+      "ar": "ليبيريا",
+      "en": "Liberia",
+      "fr": "Liberia",
+      "ha": "Liberia",
+      "so": "Liberia"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Monrovia",
+          "en": "Monrovia",
+          "fr": "Monrovia",
+          "ha": "Monrovia",
+          "so": "Monrovia"
+        },
+        "lat": 6.5,
+        "lng": -9.5
+      }
+    ]
+  },
+  {
+    "code": "LI",
+    "name": {
+      "ar": "ليختنشتاين",
+      "en": "Liechtenstein",
+      "fr": "Liechtenstein",
+      "ha": "Liechtenstein",
+      "so": "Liechtenstein"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Vaduz",
+          "en": "Vaduz",
+          "fr": "Vaduz",
+          "ha": "Vaduz",
+          "so": "Vaduz"
+        },
+        "lat": 47.26666666,
+        "lng": 9.53333333
+      }
+    ]
+  },
+  {
+    "code": "LT",
+    "name": {
+      "ar": "ليتوانيا",
+      "en": "Lithuania",
+      "fr": "Lituanie",
+      "ha": "Lithuania",
+      "so": "Lithuania"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Vilnius",
+          "en": "Vilnius",
+          "fr": "Vilnius",
+          "ha": "Vilnius",
+          "so": "Vilnius"
+        },
+        "lat": 56.0,
+        "lng": 24.0
+      }
+    ]
+  },
+  {
+    "code": "LU",
+    "name": {
+      "ar": "لوكسمبورغ",
+      "en": "Luxembourg",
+      "fr": "Luxembourg",
+      "ha": "Luxembourg",
+      "so": "Luxembourg"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Luxembourg",
+          "en": "Luxembourg",
+          "fr": "Luxembourg",
+          "ha": "Luxembourg",
+          "so": "Luxembourg"
+        },
+        "lat": 49.75,
+        "lng": 6.16666666
+      }
+    ]
+  },
+  {
+    "code": "MO",
+    "name": {
+      "ar": "ماكاو س.",
+      "en": "Macau S.A.R.",
+      "fr": "Macao",
+      "ha": "Macau S.A.R.",
+      "so": "Macau S.A.R."
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Macao",
+          "en": "Macao",
+          "fr": "Macao",
+          "ha": "Macao",
+          "so": "Macao"
+        },
+        "lat": 22.16666666,
+        "lng": 113.55
+      }
+    ]
+  },
+  {
+    "code": "MG",
+    "name": {
+      "ar": "مدغشقر",
+      "en": "Madagascar",
+      "fr": "Madagascar",
+      "ha": "Madagascar",
+      "so": "Madagascar"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Antananarivo",
+          "en": "Antananarivo",
+          "fr": "Antananarivo",
+          "ha": "Antananarivo",
+          "so": "Antananarivo"
+        },
+        "lat": -20.0,
+        "lng": 47.0
+      }
+    ]
+  },
+  {
+    "code": "MW",
+    "name": {
+      "ar": "ملاوي",
+      "en": "Malawi",
+      "fr": "Malawi",
+      "ha": "Malawi",
+      "so": "Malawi"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Lilongwe",
+          "en": "Lilongwe",
+          "fr": "Lilongwe",
+          "ha": "Lilongwe",
+          "so": "Lilongwe"
+        },
+        "lat": -13.5,
+        "lng": 34.0
+      }
+    ]
+  },
+  {
+    "code": "MY",
+    "name": {
+      "ar": "ماليزيا",
+      "en": "Malaysia",
+      "fr": "Malaisie",
+      "ha": "Malaysia",
+      "so": "Malaysia"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Kuala Lumpur",
+          "en": "Kuala Lumpur",
+          "fr": "Kuala Lumpur",
+          "ha": "Kuala Lumpur",
+          "so": "Kuala Lumpur"
+        },
+        "lat": 2.5,
+        "lng": 112.5
+      }
+    ]
+  },
+  {
+    "code": "ML",
+    "name": {
+      "ar": "مالي",
+      "en": "Mali",
+      "fr": "Mali",
+      "ha": "Mali",
+      "so": "Mali"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Bamako",
+          "en": "Bamako",
+          "fr": "Bamako",
+          "ha": "Bamako",
+          "so": "Bamako"
+        },
+        "lat": 17.0,
+        "lng": -4.0
+      }
+    ]
+  },
+  {
+    "code": "MT",
+    "name": {
+      "ar": "مالطا",
+      "en": "Malta",
+      "fr": "Malte",
+      "ha": "Malta",
+      "so": "Malta"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Valletta",
+          "en": "Valletta",
+          "fr": "Valletta",
+          "ha": "Valletta",
+          "so": "Valletta"
+        },
+        "lat": 35.83333333,
+        "lng": 14.58333333
+      }
+    ]
+  },
+  {
+    "code": "MQ",
+    "name": {
+      "ar": "مارتينيك",
+      "en": "Martinique",
+      "fr": "Martinique",
+      "ha": "Martinique",
+      "so": "Martinique"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Fort-de-France",
+          "en": "Fort-de-France",
+          "fr": "Fort-de-France",
+          "ha": "Fort-de-France",
+          "so": "Fort-de-France"
+        },
+        "lat": 14.666667,
+        "lng": -61.0
+      }
+    ]
+  },
+  {
+    "code": "MR",
+    "name": {
+      "ar": "موريتانيا",
+      "en": "Mauritania",
+      "fr": "Mauritanie",
+      "ha": "Mauritania",
+      "so": "Mauritania"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Nouakchott",
+          "en": "Nouakchott",
+          "fr": "Nouakchott",
+          "ha": "Nouakchott",
+          "so": "Nouakchott"
+        },
+        "lat": 20.0,
+        "lng": -12.0
+      }
+    ]
+  },
+  {
+    "code": "MU",
+    "name": {
+      "ar": "موريشيوس",
+      "en": "Mauritius",
+      "fr": "Île Maurice",
+      "ha": "Mauritius",
+      "so": "Mauritius"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Port Louis",
+          "en": "Port Louis",
+          "fr": "Port Louis",
+          "ha": "Port Louis",
+          "so": "Port Louis"
+        },
+        "lat": -20.28333333,
+        "lng": 57.55
+      }
+    ]
+  },
+  {
+    "code": "YT",
+    "name": {
+      "ar": "مايوت",
+      "en": "Mayotte",
+      "fr": "Mayotte",
+      "ha": "Mayotte",
+      "so": "Mayotte"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Mamoudzou",
+          "en": "Mamoudzou",
+          "fr": "Mamoudzou",
+          "ha": "Mamoudzou",
+          "so": "Mamoudzou"
+        },
+        "lat": -12.83333333,
+        "lng": 45.16666666
+      }
+    ]
+  },
+  {
+    "code": "FM",
+    "name": {
+      "ar": "ميكرونيسيا",
+      "en": "Micronesia",
+      "fr": "Micronésie",
+      "ha": "Micronesia",
+      "so": "Micronesia"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Palikir",
+          "en": "Palikir",
+          "fr": "Palikir",
+          "ha": "Palikir",
+          "so": "Palikir"
+        },
+        "lat": 6.91666666,
+        "lng": 158.25
+      }
+    ]
+  },
+  {
+    "code": "MD",
+    "name": {
+      "ar": "مولدوفا",
+      "en": "Moldova",
+      "fr": "Moldavie",
+      "ha": "Moldova",
+      "so": "Moldova"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Chisinau",
+          "en": "Chisinau",
+          "fr": "Chisinau",
+          "ha": "Chisinau",
+          "so": "Chisinau"
+        },
+        "lat": 47.0,
+        "lng": 29.0
+      }
+    ]
+  },
+  {
+    "code": "MC",
+    "name": {
+      "ar": "موناكو",
+      "en": "Monaco",
+      "fr": "Monaco",
+      "ha": "Monaco",
+      "so": "Monaco"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Monaco",
+          "en": "Monaco",
+          "fr": "Monaco",
+          "ha": "Monaco",
+          "so": "Monaco"
+        },
+        "lat": 43.73333333,
+        "lng": 7.4
+      }
+    ]
+  },
+  {
+    "code": "MN",
+    "name": {
+      "ar": "منغوليا",
+      "en": "Mongolia",
+      "fr": "Mongolie",
+      "ha": "Mongolia",
+      "so": "Mongolia"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Ulan Bator",
+          "en": "Ulan Bator",
+          "fr": "Ulan Bator",
+          "ha": "Ulan Bator",
+          "so": "Ulan Bator"
+        },
+        "lat": 46.0,
+        "lng": 105.0
+      }
+    ]
+  },
+  {
+    "code": "MS",
+    "name": {
+      "ar": "مونتسيرات",
+      "en": "Montserrat",
+      "fr": "Montserrat",
+      "ha": "Montserrat",
+      "so": "Montserrat"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Plymouth",
+          "en": "Plymouth",
+          "fr": "Plymouth",
+          "ha": "Plymouth",
+          "so": "Plymouth"
+        },
+        "lat": 16.75,
+        "lng": -62.2
+      }
+    ]
+  },
+  {
+    "code": "MZ",
+    "name": {
+      "ar": "موزمبيق",
+      "en": "Mozambique",
+      "fr": "Mozambique",
+      "ha": "Mozambique",
+      "so": "Mozambique"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Maputo",
+          "en": "Maputo",
+          "fr": "Maputo",
+          "ha": "Maputo",
+          "so": "Maputo"
+        },
+        "lat": -18.25,
+        "lng": 35.0
+      }
+    ]
+  },
+  {
+    "code": "MM",
+    "name": {
+      "ar": "ميانمار",
+      "en": "Myanmar",
+      "fr": "Myanmar",
+      "ha": "Myanmar",
+      "so": "Myanmar"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Nay Pyi Taw",
+          "en": "Nay Pyi Taw",
+          "fr": "Nay Pyi Taw",
+          "ha": "Nay Pyi Taw",
+          "so": "Nay Pyi Taw"
+        },
+        "lat": 22.0,
+        "lng": 98.0
+      }
+    ]
+  },
+  {
+    "code": "MK",
+    "name": {
+      "ar": "مقدونيا الشمالية",
+      "en": "North Macedonia",
+      "fr": "Macédoine du Nord",
+      "ha": "North Macedonia",
+      "so": "North Macedonia"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Skopje",
+          "en": "Skopje",
+          "fr": "Skopje",
+          "ha": "Skopje",
+          "so": "Skopje"
+        },
+        "lat": 41.83333333,
+        "lng": 22.0
+      }
+    ]
+  },
+  {
+    "code": "NA",
+    "name": {
+      "ar": "ناميبيا",
+      "en": "Namibia",
+      "fr": "Namibie",
+      "ha": "Namibia",
+      "so": "Namibia"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Windhoek",
+          "en": "Windhoek",
+          "fr": "Windhoek",
+          "ha": "Windhoek",
+          "so": "Windhoek"
+        },
+        "lat": -22.0,
+        "lng": 17.0
+      }
+    ]
+  },
+  {
+    "code": "NR",
+    "name": {
+      "ar": "ناورو",
+      "en": "Nauru",
+      "fr": "Nauru",
+      "ha": "Nauru",
+      "so": "Nauru"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Yaren",
+          "en": "Yaren",
+          "fr": "Yaren",
+          "ha": "Yaren",
+          "so": "Yaren"
+        },
+        "lat": -0.53333333,
+        "lng": 166.91666666
+      }
+    ]
+  },
+  {
+    "code": "NP",
+    "name": {
+      "ar": "نيبال",
+      "en": "Nepal",
+      "fr": "Népal",
+      "ha": "Nepal",
+      "so": "Nepal"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Kathmandu",
+          "en": "Kathmandu",
+          "fr": "Kathmandu",
+          "ha": "Kathmandu",
+          "so": "Kathmandu"
+        },
+        "lat": 28.0,
+        "lng": 84.0
+      }
+    ]
+  },
+  {
+    "code": "NZ",
+    "name": {
+      "ar": "نيوزيلندا",
+      "en": "New Zealand",
+      "fr": "Nouvelle-Zélande",
+      "ha": "New Zealand",
+      "so": "New Zealand"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Wellington",
+          "en": "Wellington",
+          "fr": "Wellington",
+          "ha": "Wellington",
+          "so": "Wellington"
+        },
+        "lat": -41.0,
+        "lng": 174.0
+      }
+    ]
+  },
+  {
+    "code": "NI",
+    "name": {
+      "ar": "نيكاراغوا",
+      "en": "Nicaragua",
+      "fr": "Nicaragua",
+      "ha": "Nicaragua",
+      "so": "Nicaragua"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Managua",
+          "en": "Managua",
+          "fr": "Managua",
+          "ha": "Managua",
+          "so": "Managua"
+        },
+        "lat": 13.0,
+        "lng": -85.0
+      }
+    ]
+  },
+  {
+    "code": "NU",
+    "name": {
+      "ar": "نيو",
+      "en": "Niue",
+      "fr": "Niue",
+      "ha": "Niue",
+      "so": "Niue"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Alofi",
+          "en": "Alofi",
+          "fr": "Alofi",
+          "ha": "Alofi",
+          "so": "Alofi"
+        },
+        "lat": -19.03333333,
+        "lng": -169.86666666
+      }
+    ]
+  },
+  {
+    "code": "HT",
+    "name": {
+      "ar": "هايتي",
+      "en": "Haiti",
+      "fr": "Haïti",
+      "ha": "Haiti",
+      "so": "Haiti"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Port-au-Prince",
+          "en": "Port-au-Prince",
+          "fr": "Port-au-Prince",
+          "ha": "Port-au-Prince",
+          "so": "Port-au-Prince"
+        },
+        "lat": 19.0,
+        "lng": -72.41666666
+      }
+    ]
+  },
+  {
+    "code": "HN",
+    "name": {
+      "ar": "هندوراس",
+      "en": "Honduras",
+      "fr": "Honduras",
+      "ha": "Honduras",
+      "so": "Honduras"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Tegucigalpa",
+          "en": "Tegucigalpa",
+          "fr": "Tegucigalpa",
+          "ha": "Tegucigalpa",
+          "so": "Tegucigalpa"
+        },
+        "lat": 15.0,
+        "lng": -86.5
+      }
+    ]
+  },
+  {
+    "code": "HK",
+    "name": {
+      "ar": "هونغ كونغ س.",
+      "en": "Hong Kong S.A.R.",
+      "fr": "Hong Kong",
+      "ha": "Hong Kong S.A.R.",
+      "so": "Hong Kong S.A.R."
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Hong Kong",
+          "en": "Hong Kong",
+          "fr": "Hong Kong",
+          "ha": "Hong Kong",
+          "so": "Hong Kong"
+        },
+        "lat": 22.25,
+        "lng": 114.16666666
+      }
+    ]
+  },
+  {
+    "code": "NL",
+    "name": {
+      "ar": "هولندا",
+      "en": "Netherlands",
+      "fr": "Pays-Bas",
+      "ha": "Netherlands",
+      "so": "Netherlands"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Amsterdam",
+          "en": "Amsterdam",
+          "fr": "Amsterdam",
+          "ha": "Amsterdam",
+          "so": "Amsterdam"
+        },
+        "lat": 52.5,
+        "lng": 5.75
+      }
+    ]
+  },
+  {
+    "code": "VA",
+    "name": {
+      "ar": "ولاية مدينة الفاتيكان (الكرسي الرسولي)",
+      "en": "Vatican City State (Holy See)",
+      "fr": "voir Saint",
+      "ha": "Vatican City State (Holy See)",
+      "so": "Vatican City State (Holy See)"
+    },
+    "cities": [
+      {
+        "name": {
+          "ar": "Vatican City",
+          "en": "Vatican City",
+          "fr": "Vatican City",
+          "ha": "Vatican City",
+          "so": "Vatican City"
+        },
+        "lat": 41.9,
+        "lng": 12.45
+      }
+    ]
+  }
+];
+
+// لاباركوه صلاة - بيانات الدول (كل العالم) + الترجمات
+// نستخدم WORLD_COUNTRIES من world_data.js كأساس ونضيف مدناً مهمة
+
+
+// مدن إضافية ومساجد للدول الأفريقية المهمة
+const EXTRA_CITIES = {
+  "TD": [ // تشاد
+    { name: { ar: "نجامينا", en: "N'Djamena", fr: "N'Djaména", ha: "Njamena", so: "Njaameena" }, lat: 12.1348, lng: 15.0557,
+      mosques: ["المسجد الكبير بنجامينا", "مسجد الملك فيصل", "مسجد الفتح"] },
+    { name: { ar: "أبشي", en: "Abéché", fr: "Abéché", ha: "Abeche", so: "Abeche" }, lat: 13.8291, lng: 20.8324,
+      mosques: ["المسجد الكبير بأبشي"] },
+    { name: { ar: "موندو", en: "Moundou", fr: "Moundou", ha: "Moundou", so: "Muunduu" }, lat: 8.5667, lng: 16.0833,
+      mosques: ["مسجد موندو المركزي"] },
+    { name: { ar: "سار", en: "Sarh", fr: "Sarh", ha: "Sarh", so: "Sarh" }, lat: 9.1429, lng: 18.3923,
+      mosques: ["المسجد الكبير بسار"] }
+  ],
+  "NG": [ // نيجيريا
+    { name: { ar: "أبوجا", en: "Abuja", fr: "Abuja", ha: "Abuja", so: "Abuja" }, lat: 9.0765, lng: 7.3986,
+      mosques: ["المسجد الوطني بنيجيريا", "مسجد أبوجا المركزي"] },
+    { name: { ar: "لاغوس", en: "Lagos", fr: "Lagos", ha: "Lagos", so: "Lagos" }, lat: 6.5244, lng: 3.3792,
+      mosques: ["مسجد لاغوس المركزي", "مسجد جامعة لاغوس"] },
+    { name: { ar: "كانو", en: "Kano", fr: "Kano", ha: "Kano", so: "Kano" }, lat: 12.0022, lng: 8.5920,
+      mosques: ["مسجد كانو الكبير", "مسجد غورون دوتسي"] },
+    { name: { ar: "إيبادان", en: "Ibadan", fr: "Ibadan", ha: "Ibadan", so: "Ibadan" }, lat: 7.3775, lng: 3.9470,
+      mosques: ["مسجد إيبادان المركزي"] },
+    { name: { ar: "كادونا", en: "Kaduna", fr: "Kaduna", ha: "Kaduna", so: "Kaduna" }, lat: 10.5105, lng: 7.4165,
+      mosques: ["مسجد كادونا الكبير"] }
+  ],
+  "EG": [
+    { name: { ar: "القاهرة", en: "Cairo", fr: "Le Caire", ha: "Kairo", so: "Qaahira" }, lat: 30.0444, lng: 31.2357,
+      mosques: ["مسجد الأزهر", "مسجد عمرو بن العاص", "مسجد السلطان حسن", "مسجد محمد علي"] },
+    { name: { ar: "الإسكندرية", en: "Alexandria", fr: "Alexandrie", ha: "Iskandariya", so: "Iskandariya" }, lat: 31.2001, lng: 29.9187,
+      mosques: ["مسجد أبو العباس المرسي", "مسجد القائد إبراهيم"] },
+    { name: { ar: "الجيزة", en: "Giza", fr: "Gizeh", ha: "Giza", so: "Giza" }, lat: 30.0131, lng: 31.2089,
+      mosques: ["مسجد الفتوح"] },
+    { name: { ar: "أسوان", en: "Aswan", fr: "Assouan", ha: "Aswan", so: "Aswan" }, lat: 24.0889, lng: 32.8998,
+      mosques: ["مسجد أسوان الكبير"] }
+  ],
+  "MA": [
+    { name: { ar: "الرباط", en: "Rabat", fr: "Rabat", ha: "Rabat", so: "Rabat" }, lat: 34.0209, lng: -6.8416,
+      mosques: ["مسجد حسان", "المسجد الكبير بالرباط"] },
+    { name: { ar: "الدار البيضاء", en: "Casablanca", fr: "Casablanca", ha: "Kasablanka", so: "Casablanca" }, lat: 33.5731, lng: -7.5898,
+      mosques: ["مسجد الحسن الثاني"] },
+    { name: { ar: "مراكش", en: "Marrakech", fr: "Marrakech", ha: "Marrakish", so: "Marrakech" }, lat: 31.6295, lng: -7.9811,
+      mosques: ["مسجد الكتبية", "مسجد بن يوسف"] },
+    { name: { ar: "فاس", en: "Fes", fr: "Fès", ha: "Fes", so: "Fes" }, lat: 34.0181, lng: -5.0078,
+      mosques: ["جامع القرويين"] }
+  ],
+  "DZ": [
+    { name: { ar: "الجزائر", en: "Algiers", fr: "Alger", ha: "Algiers", so: "Algiers" }, lat: 36.7538, lng: 3.0588,
+      mosques: ["المسجد الكبير بالجزائر", "مسجد كتشاوة"] },
+    { name: { ar: "وهران", en: "Oran", fr: "Oran", ha: "Oran", so: "Oran" }, lat: 35.6969, lng: -0.6331,
+      mosques: ["مسجد وهران الكبير"] },
+    { name: { ar: "قسنطينة", en: "Constantine", fr: "Constantine", ha: "Constantine", so: "Constantine" }, lat: 36.3650, lng: 6.6147,
+      mosques: ["مسجد الأمير عبد القادر"] }
+  ],
+  "SN": [
+    { name: { ar: "داكار", en: "Dakar", fr: "Dakar", ha: "Dakar", so: "Dakaar" }, lat: 14.7167, lng: -17.4677,
+      mosques: ["المسجد الكبير بداكار", "مسجد المدينة"] },
+    { name: { ar: "تييس", en: "Thiès", fr: "Thiès", ha: "Thies", so: "Thiès" }, lat: 14.7886, lng: -16.9260,
+      mosques: ["مسجد تييس"] }
+  ],
+  "ML": [
+    { name: { ar: "باماكو", en: "Bamako", fr: "Bamako", ha: "Bamako", so: "Bamako" }, lat: 12.6392, lng: -8.0029,
+      mosques: ["المسجد الكبير بباماكو"] },
+    { name: { ar: "تمبكتو", en: "Timbuktu", fr: "Tombouctou", ha: "Timbuktu", so: "Timbuktu" }, lat: 16.7666, lng: -3.0026,
+      mosques: ["مسجد جينغيريبر", "مسجد سانكوري"] }
+  ],
+  "NE": [
+    { name: { ar: "نيامي", en: "Niamey", fr: "Niamey", ha: "Niamey", so: "Niamey" }, lat: 13.5116, lng: 2.1254,
+      mosques: ["المسجد الكبير بنيامي"] }
+  ],
+  "SD": [
+    { name: { ar: "الخرطوم", en: "Khartoum", fr: "Khartoum", ha: "Khartoum", so: "Khartoum" }, lat: 15.5007, lng: 32.5599,
+      mosques: ["المسجد الكبير بالخرطوم", "مسجد النيلين"] },
+    { name: { ar: "أم درمان", en: "Omdurman", fr: "Omdurman", ha: "Omdurman", so: "Umm Durman" }, lat: 15.6445, lng: 32.4777,
+      mosques: ["مسجد أم درمان الكبير"] }
+  ],
+  "SO": [
+    { name: { ar: "مقديشو", en: "Mogadishu", fr: "Mogadiscio", ha: "Mogadishu", so: "Muqdisho" }, lat: 2.0469, lng: 45.3182,
+      mosques: ["مسجد إسماعيل", "المسجد الكبير بمقديشو"] },
+    { name: { ar: "هرجيسا", en: "Hargeisa", fr: "Hargeisa", ha: "Hargeisa", so: "Hargeysa" }, lat: 9.5600, lng: 44.0650,
+      mosques: ["مسجد هرجيسا الكبير"] }
+  ],
+  "KE": [
+    { name: { ar: "نairobi", en: "Nairobi", fr: "Nairobi", ha: "Nairobi", so: "Nairobi" }, lat: -1.2921, lng: 36.8219,
+      mosques: ["مسجد جامع نيروبي", "مسجد بارك رودز"] },
+    { name: { ar: "مومباسا", en: "Mombasa", fr: "Mombasa", ha: "Mombasa", so: "Mombasa" }, lat: -4.0435, lng: 39.6682,
+      mosques: ["مسجد مندا", "مسجد كيبوكي"] }
+  ],
+  "TZ": [
+    { name: { ar: "دار السلام", en: "Dar es Salaam", fr: "Dar es Salaam", ha: "Dar es Salaam", so: "Dar es Salaam" }, lat: -6.7924, lng: 39.2083,
+      mosques: ["المسجد الكبير بدار السلام"] },
+    { name: { ar: "زنجبار", en: "Zanzibar", fr: "Zanzibar", ha: "Zanzibar", so: "Zanjibaar" }, lat: -6.1659, lng: 39.2026,
+      mosques: ["مسجد جمعية زنجبار"] }
+  ],
+  "ET": [
+    { name: { ar: "أديس أبابا", en: "Addis Ababa", fr: "Addis-Abeba", ha: "Addis Ababa", so: "Addis Abeba" }, lat: 9.0320, lng: 38.7469,
+      mosques: ["المسجد الكبير بأديس أبابا", "مسجد أنور"] }
+  ],
+  "GH": [
+    { name: { ar: "أكرا", en: "Accra", fr: "Accra", ha: "Accra", so: "Accra" }, lat: 5.6037, lng: -0.1870,
+      mosques: ["المسجد المركزي بأكرا"] }
+  ],
+  "CI": [
+    { name: { ar: "أبيدجان", en: "Abidjan", fr: "Abidjan", ha: "Abidjan", so: "Abidjan" }, lat: 5.3600, lng: -4.0083,
+      mosques: ["المسجد الكبير بأبيدجان"] }
+  ],
+  "CM": [
+    { name: { ar: "ياوندي", en: "Yaoundé", fr: "Yaoundé", ha: "Yaounde", so: "Yaounde" }, lat: 3.8480, lng: 11.5021,
+      mosques: ["المسجد المركزي بياوندي"] },
+    { name: { ar: "دوالا", en: "Douala", fr: "Douala", ha: "Douala", so: "Douala" }, lat: 4.0511, lng: 9.7679,
+      mosques: ["مسجد دوالا"] }
+  ],
+  "SA": [
+    { name: { ar: "مكة المكرمة", en: "Makkah", fr: "La Mecque", ha: "Makka", so: "Makka" }, lat: 21.4225, lng: 39.8262,
+      mosques: ["المسجد الحرام"] },
+    { name: { ar: "المدينة المنورة", en: "Madinah", fr: "Médine", ha: "Madina", so: "Madiina" }, lat: 24.4672, lng: 39.6111,
+      mosques: ["المسجد النبوي"] },
+    { name: { ar: "الرياض", en: "Riyadh", fr: "Riyad", ha: "Riyad", so: "Riyad" }, lat: 24.7136, lng: 46.6753,
+      mosques: ["جامع الإمام بن عبدالوهاب", "مسجد الراجحي"] },
+    { name: { ar: "جدة", en: "Jeddah", fr: "Djeddah", ha: "Jidda", so: "Jiddah" }, lat: 21.5433, lng: 39.1728,
+      mosques: ["مسجد الملك سعود", "مسجد الجفالي"] }
+  ]
+  ,
+  "AE": [ // الإمارات
+    { name: { ar: "أبو ظبي", en: "Abu Dhabi", fr: "Abou Dabi", ha: "Abu Dhabi", so: "Abu Dhabi" }, lat: 24.4539, lng: 54.3773,
+      mosques: ["مسجد الشيخ زايد الكبير", "مسجد المدينة"] },
+    { name: { ar: "دبي", en: "Dubai", fr: "Dubaï", ha: "Dubai", so: "Dubai" }, lat: 25.2048, lng: 55.2708,
+      mosques: ["مسجد جميرا", "مسجدグランド"] },
+    { name: { ar: "الشارقة", en: "Sharjah", fr: "Charjah", ha: "Sharjah", so: "Sharjah" }, lat: 25.3463, lng: 55.4209,
+      mosques: ["مسجد الشارقة الكبير"] }
+  ],
+  "QA": [ // قطر
+    { name: { ar: "الدوحة", en: "Doha", fr: "Doha", ha: "Doha", so: "Doha" }, lat: 25.2854, lng: 51.5310,
+      mosques: ["مسجد الإمام بن عبد الوهاب", "مسجد الإمام علي"] },
+    { name: { ar: "الخور", en: "Al Khor", fr: "Al Khor", ha: "Al Khor", so: "Al Khor" }, lat: 25.6804, lng: 51.5058,
+      mosques: ["مسجد الخور"] }
+  ],
+  "KW": [ // الكويت
+    { name: { ar: "الكويت", en: "Kuwait City", fr: "Koweït", ha: "Kuwait", so: "Kuwait" }, lat: 29.3759, lng: 47.9774,
+      mosques: ["المسجد الكبير بالكويت", "مسجد الدولة"] },
+    { name: { ar: "حولي", en: "Hawalli", fr: "Hawalli", ha: "Hawalli", so: "Hawalli" }, lat: 29.3328, lng: 48.0281,
+      mosques: ["مسجد حولي"] }
+  ],
+  "BH": [ // البحرين
+    { name: { ar: "المنامة", en: "Manama", fr: "Manama", ha: "Manama", so: "Manama" }, lat: 26.2285, lng: 50.5860,
+      mosques: ["مسجد الفاتح", "مسجد الخميس"] }
+  ],
+  "OM": [ // عمان
+    { name: { ar: "مسقط", en: "Muscat", fr: "Mascate", ha: "Muscat", so: "Muscat" }, lat: 23.5880, lng: 58.3829,
+      mosques: ["مسجد السلطان قابوس الأكبر"] },
+    { name: { ar: "صلالة", en: "Salalah", fr: "Salalah", ha: "Salalah", so: "Salalah" }, lat: 17.0151, lng: 54.0924,
+      mosques: ["مسجد صلالة"] }
+  ],
+  "IQ": [ // العراق
+    { name: { ar: "بغداد", en: "Baghdad", fr: "Bagdad", ha: "Baghdad", so: "Baghdad" }, lat: 33.3152, lng: 44.3661,
+      mosques: ["مسجد الإمام الأعظم", "جامع الخلفاء"] },
+    { name: { ar: "البصرة", en: "Basra", fr: "Basra", ha: "Basra", so: "Basra" }, lat: 30.5085, lng: 47.7804,
+      mosques: ["مسجد البصرة الكبير"] },
+    { name: { ar: "النجف", en: "Najaf", fr: "Nadjaf", ha: "Najaf", so: "Najaf" }, lat: 31.9996, lng: 44.3333,
+      mosques: ["حرم الإمام علي"] }
+  ],
+  "JO": [ // الأردن
+    { name: { ar: "عمان", en: "Amman", fr: "Amman", ha: "Amman", so: "Amman" }, lat: 31.9454, lng: 35.9284,
+      mosques: ["المسجد الكبير بعمان", "مسجد الملك عبد الله"] },
+    { name: { ar: "إربد", en: "Irbid", fr: "Irbid", ha: "Irbid", so: "Irbid" }, lat: 32.5556, lng: 35.8500,
+      mosques: ["مسجد إربد الكبير"] }
+  ],
+  "TR": [ // تركيا
+    { name: { ar: "إسطنبول", en: "Istanbul", fr: "Istanbul", ha: "Istanbul", so: "Istanbul" }, lat: 41.0082, lng: 28.9784,
+      mosques: ["آيا صوفيا", "الجامع الأزرق", "مسجد سليمانية"] },
+    { name: { ar: "أنقرة", en: "Ankara", fr: "Ankara", ha: "Ankara", so: "Ankara" }, lat: 39.9334, lng: 32.8597,
+      mosques: ["مسجد كوجاتبه"] },
+    { name: { ar: "بورصة", en: "Bursa", fr: "Bursa", ha: "Bursa", so: "Bursa" }, lat: 40.1885, lng: 29.0610,
+      mosques: ["الجامع الكبير ببورصة"] }
+  ],
+  "FR": [ // فرنسا
+    { name: { ar: "باريس", en: "Paris", fr: "Paris", ha: "Paris", so: "Paris" }, lat: 48.8566, lng: 2.3522,
+      mosques: ["المسجد الكبير بباريس", "مسجد فرنسا"] },
+    { name: { ar: "مارسيليا", en: "Marseille", fr: "Marseille", ha: "Marseille", so: "Marseille" }, lat: 43.2965, lng: 5.3698,
+      mosques: ["مسجد مارسيليا"] },
+    { name: { ar: "ليون", en: "Lyon", fr: "Lyon", ha: "Lyon", so: "Lyon" }, lat: 45.7640, lng: 4.8357,
+      mosques: ["مسجد ليون الكبير"] }
+  ],
+  "GB": [ // بريطانيا
+    { name: { ar: "لندن", en: "London", fr: "Londres", ha: "London", so: "London" }, lat: 51.5074, lng: -0.1278,
+      mosques: ["المسجد المركزي بلندن", "مسجد شرق لندن"] },
+    { name: { ar: "برمنغهام", en: "Birmingham", fr: "Birmingham", ha: "Birmingham", so: "Birmingham" }, lat: 52.4862, lng: -1.8904,
+      mosques: ["المسجد المركزي ببرمنغهام"] },
+    { name: { ar: "مانشستر", en: "Manchester", fr: "Manchester", ha: "Manchester", so: "Manchester" }, lat: 53.4808, lng: -2.2426,
+      mosques: ["مسجد مانشستر المركزي"] }
+  ],
+  "DE": [ // ألمانيا
+    { name: { ar: "برلين", en: "Berlin", fr: "Berlin", ha: "Berlin", so: "Berlin" }, lat: 52.5200, lng: 13.4050,
+      mosques: ["مسجد برلين المركزي"] },
+    { name: { ar: "كولونيا", en: "Cologne", fr: "Cologne", ha: "Cologne", so: "Cologne" }, lat: 50.9375, lng: 6.9603,
+      mosques: ["المسجد المركزي بكولونيا"] },
+    { name: { ar: "هامبورغ", en: "Hamburg", fr: "Hambourg", ha: "Hamburg", so: "Hamburg" }, lat: 53.5511, lng: 9.9937,
+      mosques: ["مسجد هامبورغ"] }
+  ],
+  "NL": [
+    { name: { ar: "أمستردام", en: "Amsterdam", fr: "Amsterdam", ha: "Amsterdam", so: "Amsterdam" }, lat: 52.3676, lng: 4.9041,
+      mosques: ["المسجد الكبير بأمستردام"] }
+  ],
+  "BE": [
+    { name: { ar: "بروكسل", en: "Brussels", fr: "Bruxelles", ha: "Brussels", so: "Brussels" }, lat: 50.8503, lng: 4.3517,
+      mosques: ["المسجد الكبير بروكسل"] }
+  ],
+  "IT": [
+    { name: { ar: "روما", en: "Rome", fr: "Rome", ha: "Rome", so: "Rome" }, lat: 41.9028, lng: 12.4964,
+      mosques: ["المسجد الكبير بروما"] },
+    { name: { ar: "ميلانو", en: "Milan", fr: "Milan", ha: "Milan", so: "Milan" }, lat: 45.4642, lng: 9.1900,
+      mosques: ["مسجد ميلانو"] }
+  ],
+  "ES": [
+    { name: { ar: "مدريد", en: "Madrid", fr: "Madrid", ha: "Madrid", so: "Madrid" }, lat: 40.4168, lng: -3.7038,
+      mosques: ["مسجد مدريد الإسلامي"] },
+    { name: { ar: "برشلونة", en: "Barcelona", fr: "Barcelone", ha: "Barcelona", so: "Barcelona" }, lat: 41.3874, lng: 2.1686,
+      mosques: ["مسجد برشلونة"] }
+  ],
+  "SE": [
+    { name: { ar: "ستوكهولم", en: "Stockholm", fr: "Stockholm", ha: "Stockholm", so: "Stockholm" }, lat: 59.3293, lng: 18.0686,
+      mosques: ["مسجد ستوكهولم"] }
+  ],
+  "ID": [ // إندونيسيا
+    { name: { ar: "جاكرتا", en: "Jakarta", fr: "Jakarta", ha: "Jakarta", so: "Jakarta" }, lat: -6.2088, lng: 106.8456,
+      mosques: ["المسجد الاستقلالي", "مسجد الأزهر"] },
+    { name: { ar: "سورابايا", en: "Surabaya", fr: "Surabaya", ha: "Surabaya", so: "Surabaya" }, lat: -7.2575, lng: 112.7521,
+      mosques: ["المسجد الكبير بسورابايا"] }
+  ],
+  "MY": [ // ماليزيا
+    { name: { ar: "كوالالمبور", en: "Kuala Lumpur", fr: "Kuala Lumpur", ha: "Kuala Lumpur", so: "Kuala Lumpur" }, lat: 3.1390, lng: 101.6869,
+      mosques: ["المسجد الوطني", "مسجد جامة كريس"] }
+  ],
+  "PK": [ // باكستان
+    { name: { ar: "إسلام آباد", en: "Islamabad", fr: "Islamabad", ha: "Islamabad", so: "Islamabad" }, lat: 33.6844, lng: 73.0479,
+      mosques: ["المسجد فيصل"] },
+    { name: { ar: "كراتشي", en: "Karachi", fr: "Karachi", ha: "Karachi", so: "Karachi" }, lat: 24.8607, lng: 67.0011,
+      mosques: ["مسجد مزار قائداعظم"] },
+    { name: { ar: "لاهور", en: "Lahore", fr: "Lahore", ha: "Lahore", so: "Lahore" }, lat: 31.5204, lng: 74.3587,
+      mosques: ["المسجد الملكي", "مسجد بادشاهي"] }
+  ],
+  "BD": [
+    { name: { ar: "دكا", en: "Dhaka", fr: "Dacca", ha: "Dhaka", so: "Dhaka" }, lat: 23.8103, lng: 90.4125,
+      mosques: ["المسجد الوطني بيت المكرم"] }
+  ],
+  "IN": [
+    { name: { ar: "دلهي", en: "Delhi", fr: "Delhi", ha: "Delhi", so: "Delhi" }, lat: 28.7041, lng: 77.1025,
+      mosques: ["المسجد الجامع بدلهي"] },
+    { name: { ar: "مومباي", en: "Mumbai", fr: "Mumbai", ha: "Mumbai", so: "Mumbai" }, lat: 19.0760, lng: 72.8777,
+      mosques: ["مسجد حاجي علي"] }
+  ],
+  "CN": [
+    { name: { ar: "بكين", en: "Beijing", fr: "Pékin", ha: "Beijing", so: "Beijing" }, lat: 39.9042, lng: 116.4074,
+      mosques: ["مسجد نيوجيه"] },
+    { name: { ar: "أورومتشي", en: "Urumqi", fr: "Ürümqi", ha: "Urumqi", so: "Urumqi" }, lat: 43.8256, lng: 87.6168,
+      mosques: ["المسجد الكبير بأورومتشي"] }
+  ],
+  "JP": [
+    { name: { ar: "طوكيو", en: "Tokyo", fr: "Tokyo", ha: "Tokyo", so: "Tokyo" }, lat: 35.6762, lng: 139.6503,
+      mosques: ["مسجد طوكيو"] }
+  ],
+  "KR": [
+    { name: { ar: "سيول", en: "Seoul", fr: "Séoul", ha: "Seoul", so: "Seoul" }, lat: 37.5665, lng: 126.9780,
+      mosques: ["مسجد سيول المركزي"] }
+  ],
+  "RU": [
+    { name: { ar: "موسكو", en: "Moscow", fr: "Moscou", ha: "Moscow", so: "Moscow" }, lat: 55.7558, lng: 37.6173,
+      mosques: ["المسجد الكبير بموسكو"] },
+    { name: { ar: "قازان", en: "Kazan", fr: "Kazan", ha: "Kazan", so: "Kazan" }, lat: 55.8304, lng: 49.0661,
+      mosques: ["مسجد قل شريف"] }
+  ],
+  "US": [
+    { name: { ar: "نيويورك", en: "New York", fr: "New York", ha: "New York", so: "New York" }, lat: 40.7128, lng: -74.0060,
+      mosques: ["المسجد الإسلامي بنيويورك"] },
+    { name: { ar: "شيكاغو", en: "Chicago", fr: "Chicago", ha: "Chicago", so: "Chicago" }, lat: 41.8781, lng: -87.6298,
+      mosques: ["مسجد شيكاغو"] },
+    { name: { ar: "لوس أنجلوس", en: "Los Angeles", fr: "Los Angeles", ha: "Los Angeles", so: "Los Angeles" }, lat: 34.0522, lng: -118.2437,
+      mosques: ["المسجد الإسلامي بلوس أنجلوس"] }
+  ],
+  "CA": [
+    { name: { ar: "تورونتو", en: "Toronto", fr: "Toronto", ha: "Toronto", so: "Toronto" }, lat: 43.6532, lng: -79.3832,
+      mosques: ["المسجد الإسلامي بتورونتو"] },
+    { name: { ar: "مونتريال", en: "Montreal", fr: "Montréal", ha: "Montreal", so: "Montreal" }, lat: 45.5017, lng: -73.5673,
+      mosques: ["مسجد مونتريال"] }
+  ]
+
+};
+
+const COUNTRIES = (typeof WORLD_COUNTRIES !== 'undefined' ? WORLD_COUNTRIES : []).map(c => {
+  if (typeof EXTRA_CITIES !== 'undefined' && EXTRA_CITIES[c.code]) {
+    return { ...c, cities: EXTRA_CITIES[c.code] };
+  }
+  // تأكد من وجود mosques فارغة للعواصم
+  if (c.cities && c.cities.length) {
+    c.cities = c.cities.map(city => ({ ...city, mosques: city.mosques || ["كل المساجد"] }));
+  }
+  return c;
+});
+
+// ترجمات الواجهة
+const I18N = {
+  ar: {
+    app_title: "لاباركوه لأوقات الصلاة",
+    app_subtitle: "أوقات الصلاة",
+    prayer_times: "أوقات الصلاة",
+    next_prayer: "الصلاة القادمة",
+    search_country: "ابحث عن دولة...",
+    adhkar_title: "الأذكار",
+    adhkar_daily: "يومية",
+    adhkar_ramadan: "رمضان",
+    adhkar_hajj: "الحج",
+    adhkar_arafa: "عرفة",
+    adhkar_ashura: "عاشوراء",
+    nearest_mosque: "اقتراح أقرب مسجد تلقائياً",
+    fajr: "الفجر",
+    sunrise: "الشروق",
+    dhuhr: "الظهر",
+    asr: "العصر",
+    maghrib: "المغرب",
+    isha: "العشاء",
+    now: "الآن",
+    select_country: "اختر الدولة",
+    select_city: "اختر المدينة",
+    select_mosque: "اختر المسجد",
+    all_mosques: "كل المساجد",
+    show: "عرض",
+    use_my_location: "استخدم موقعي",
+    notify_before: "تنبيه قبل الأذان",
+    none: "بدون",
+    quarter: "ربع ساعة",
+    search: "بحث",
+    search_placeholder: "ابحث بأي مدينة في العالم",
+    map: "الخريطة",
+    qibla: "القبلة"
+  },
+  en: {
+    app_title: "Labarkouh Salat",
+    app_subtitle: "Prayer Times",
+    prayer_times: "Prayer Times",
+    next_prayer: "Next Prayer",
+    search_country: "Search country...",
+    adhkar_title: "Adhkar",
+    adhkar_daily: "Daily",
+    adhkar_ramadan: "Ramadan",
+    adhkar_hajj: "Hajj",
+    adhkar_arafa: "Arafa",
+    adhkar_ashura: "Ashura",
+    nearest_mosque: "Suggest nearest mosque automatically",
+    fajr: "Fajr",
+    sunrise: "Sunrise",
+    dhuhr: "Dhuhr",
+    asr: "Asr",
+    maghrib: "Maghrib",
+    isha: "Isha",
+    now: "Now",
+    select_country: "Select Country",
+    select_city: "Select City",
+    select_mosque: "Select Mosque",
+    all_mosques: "All Mosques",
+    show: "Show",
+    use_my_location: "Use My Location",
+    notify_before: "Notify Before Adhan",
+    none: "None",
+    quarter: "15 min",
+    search: "Search",
+    search_placeholder: "Search any city in the world",
+    map: "Map",
+    qibla: "Qibla"
+  },
+  fr: {
+    app_title: "Labarkouh Salat",
+    app_subtitle: "Horaires de prière",
+    prayer_times: "Horaires de prière",
+    next_prayer: "Prochaine prière",
+    search_country: "Rechercher un pays...",
+    adhkar_title: "Adhkars",
+    adhkar_daily: "Quotidien",
+    adhkar_ramadan: "Ramadan",
+    adhkar_hajj: "Hajj",
+    adhkar_arafa: "Arafa",
+    adhkar_ashura: "Achoura",
+    fajr: "Fajr",
+    sunrise: "Lever du soleil",
+    dhuhr: "Dhuhr",
+    asr: "Asr",
+    maghrib: "Maghrib",
+    isha: "Isha",
+    now: "Maintenant",
+    select_country: "Choisir le pays",
+    select_city: "Choisir la ville",
+    select_mosque: "Choisir la mosquée",
+    all_mosques: "Toutes les mosquées",
+    show: "Afficher",
+    use_my_location: "Utiliser ma position",
+    notify_before: "Notification avant l'Adhan",
+    none: "Aucun",
+    quarter: "15 min",
+    search: "Rechercher",
+    search_placeholder: "Rechercher une ville dans le monde",
+    map: "Carte",
+    qibla: "Qibla"
+  },
+  ha: {
+    app_title: "Labarkouh Salat",
+    app_subtitle: "Lokutan Salla",
+    prayer_times: "Lokutan Salla",
+    next_prayer: "Salla Mai Zuwa",
+    search_country: "Nemo ƙasa...",
+    adhkar_title: "Adhkar",
+    adhkar_daily: "Yau da kullum",
+    adhkar_ramadan: "Ramadan",
+    adhkar_hajj: "Hajj",
+    adhkar_arafa: "Arafa",
+    adhkar_ashura: "Ashura",
+    fajr: "Alfajir",
+    sunrise: "Fitowar Rana",
+    dhuhr: "Azahar",
+    asr: "Asar",
+    maghrib: "Magariba",
+    isha: "Isha'i",
+    now: "Yanzu",
+    select_country: "Zaɓi Ƙasa",
+    select_city: "Zaɓi Gari",
+    select_mosque: "Zaɓi Masallaci",
+    all_mosques: "Duk Masallatai",
+    show: "Nuna",
+    use_my_location: "Yi amfani da wurina",
+    notify_before: "Sanarwa kafin Adhan",
+    none: "Babu",
+    quarter: "Mintuna 15",
+    search: "Nema",
+    search_placeholder: "Nemo kowace gari a duniya",
+    map: "Taswira",
+    qibla: "Kibla"
+  },
+  so: {
+    app_title: "Labarkouh Salat",
+    app_subtitle: "Waqtiyada Salaadda",
+    prayer_times: "Waqtiyada Salaadda",
+    next_prayer: "Salaadda Xiga",
+    search_country: "Raadi waddan...",
+    adhkar_title: "Xusuus",
+    adhkar_daily: "Maalinle",
+    adhkar_ramadan: "Ramadaan",
+    adhkar_hajj: "Xajka",
+    adhkar_arafa: "Carafo",
+    adhkar_ashura: "Caashuuraa",
+    fajr: "Subax",
+    sunrise: "Qorrax soo bax",
+    dhuhr: "Duhur",
+    asr: "Casar",
+    maghrib: "Maqrib",
+    isha: "Cisha",
+    now: "Hadda",
+    select_country: "Dooro Waddanka",
+    select_city: "Dooro Magaalada",
+    select_mosque: "Dooro Masjidka",
+    all_mosques: "Dhammaan Masaajidda",
+    show: "Muuji",
+    use_my_location: "Isticmaal Goobteyda",
+    notify_before: "Ogeysiis ka hor Adhaan",
+    none: "Midna",
+    quarter: "15 daqiiqo",
+    search: "Raadi",
+    search_placeholder: "Raadi magaalada adduunka",
+    map: "Khariidadda",
+    qibla: "Qibla"
+  }
+,
+
+  tr: {
+    app_title: "Labarkouh Salat", app_subtitle: "Namaz Vakitleri",
+    prayer_times: "Namaz Vakitleri", next_prayer: "Sonraki Namaz",
+    fajr: "İmsak", sunrise: "Güneş", dhuhr: "Öğle", asr: "İkindi", maghrib: "Akşam", isha: "Yatsı",
+    now: "Şimdi", select_country: "Ülke seç", select_city: "Şehir seç", select_mosque: "Cami seç",
+    all_mosques: "Tüm camiler", show: "Göster", use_my_location: "Konumumu kullan",
+    notify_before: "Ezan öncesi uyarı", none: "Yok", quarter: "15 dk",
+    search: "Ara", search_placeholder: "Şehir ara", map: "Harita", qibla: "Kıble",
+    adhkar_title: "Zikirler", adhkar_daily: "Günlük", adhkar_ramadan: "Ramazan",
+    adhkar_hajj: "Hac", adhkar_arafa: "Arefe", adhkar_ashura: "Aşure"
+  },
+  ur: {
+    app_title: "لابارکوہ صلاة", app_subtitle: "اوقات نماز",
+    prayer_times: "اوقات نماز", next_prayer: "اگلی نماز",
+    fajr: "فجر", sunrise: "طلوع", dhuhr: "ظہر", asr: "عصر", maghrib: "مغرب", isha: "عشاء",
+    now: "اب", select_country: "ملک منتخب کریں", select_city: "شہر منتخب کریں", select_mosque: "مسجد منتخب کریں",
+    all_mosques: "تمام مساجد", show: "دکھائیں", use_my_location: "میرا مقام استعمال کریں",
+    notify_before: "اذان سے پہلے اطلاع", none: "نہیں", quarter: "15 منٹ",
+    search: "تلاش", search_placeholder: "شہر تلاش کریں", map: "نقشہ", qibla: "قبلہ",
+    adhkar_title: "اذکار", adhkar_daily: "روزانہ", adhkar_ramadan: "رمضان",
+    adhkar_hajj: "حج", adhkar_arafa: "عرفہ", adhkar_ashura: "عاشورہ"
+  },
+  id: {
+    app_title: "Labarkouh Salat", app_subtitle: "Waktu Shalat",
+    prayer_times: "Waktu Shalat", next_prayer: "Shalat Berikutnya",
+    fajr: "Subuh", sunrise: "Terbit", dhuhr: "Dzuhur", asr: "Ashar", maghrib: "Maghrib", isha: "Isya",
+    now: "Sekarang", select_country: "Pilih negara", select_city: "Pilih kota", select_mosque: "Pilih masjid",
+    all_mosques: "Semua masjid", show: "Tampilkan", use_my_location: "Gunakan lokasi saya",
+    notify_before: "Pemberitahuan sebelum adzan", none: "Tidak", quarter: "15 mnt",
+    search: "Cari", search_placeholder: "Cari kota", map: "Peta", qibla: "Kiblat",
+    adhkar_title: "Dzikir", adhkar_daily: "Harian", adhkar_ramadan: "Ramadan",
+    adhkar_hajj: "Haji", adhkar_arafa: "Arafah", adhkar_ashura: "Asyura"
+  },
+  de: {
+    app_title: "Labarkouh Salat", app_subtitle: "Gebetszeiten",
+    prayer_times: "Gebetszeiten", next_prayer: "Nächstes Gebet",
+    fajr: "Fajr", sunrise: "Sonnenaufgang", dhuhr: "Dhuhr", asr: "Asr", maghrib: "Maghrib", isha: "Isha",
+    now: "Jetzt", select_country: "Land wählen", select_city: "Stadt wählen", select_mosque: "Moschee wählen",
+    all_mosques: "Alle Moscheen", show: "Anzeigen", use_my_location: "Meinen Standort nutzen",
+    notify_before: "Erinnerung vor Adhan", none: "Keine", quarter: "15 Min",
+    search: "Suchen", search_placeholder: "Stadt suchen", map: "Karte", qibla: "Qibla",
+    adhkar_title: "Adhkar", adhkar_daily: "Täglich", adhkar_ramadan: "Ramadan",
+    adhkar_hajj: "Hajj", adhkar_arafa: "Arafa", adhkar_ashura: "Ashura"
+  },
+  es: {
+    app_title: "Labarkouh Salat", app_subtitle: "Horarios de oración",
+    prayer_times: "Horarios de oración", next_prayer: "Próxima oración",
+    fajr: "Fajr", sunrise: "Amanecer", dhuhr: "Dhuhr", asr: "Asr", maghrib: "Maghrib", isha: "Isha",
+    now: "Ahora", select_country: "Elegir país", select_city: "Elegir ciudad", select_mosque: "Elegir mezquita",
+    all_mosques: "Todas las mezquitas", show: "Mostrar", use_my_location: "Usar mi ubicación",
+    notify_before: "Aviso antes del Adhan", none: "Ninguno", quarter: "15 min",
+    search: "Buscar", search_placeholder: "Buscar ciudad", map: "Mapa", qibla: "Qibla",
+    adhkar_title: "Adhkar", adhkar_daily: "Diario", adhkar_ramadan: "Ramadán",
+    adhkar_hajj: "Hajj", adhkar_arafa: "Arafa", adhkar_ashura: "Ashura"
+  },
+  ru: {
+    app_title: "Labarkouh Salat", app_subtitle: "Время намаза",
+    prayer_times: "Время намаза", next_prayer: "Следующий намаз",
+    fajr: "Фаджр", sunrise: "Восход", dhuhr: "Зухр", asr: "Аср", maghrib: "Магриб", isha: "Иша",
+    now: "Сейчас", select_country: "Выберите страну", select_city: "Выберите город", select_mosque: "Выберите мечеть",
+    all_mosques: "Все мечети", show: "Показать", use_my_location: "Использовать моё местоположение",
+    notify_before: "Напоминание до азана", none: "Нет", quarter: "15 мин",
+    search: "Поиск", search_placeholder: "Поиск города", map: "Карта", qibla: "Кибла",
+    adhkar_title: "Азкары", adhkar_daily: "Ежедневные", adhkar_ramadan: "Рамадан",
+    adhkar_hajj: "Хадж", adhkar_arafa: "Арафа", adhkar_ashura: "Ашура"
+  },
+  bn: {
+    app_title: "Labarkouh Salat", app_subtitle: "নামাজের সময়",
+    prayer_times: "নামাজের সময়", next_prayer: "পরবর্তী নামাজ",
+    fajr: "ফজর", sunrise: "সূর্যোদয়", dhuhr: "যোহর", asr: "আসর", maghrib: "মাগরিব", isha: "ইশা",
+    now: "এখন", select_country: "দেশ নির্বাচন", select_city: "শহর নির্বাচন", select_mosque: "মসজিদ নির্বাচন",
+    all_mosques: "সব মসজিদ", show: "দেখান", use_my_location: "আমার অবস্থান ব্যবহার করুন",
+    notify_before: "আজানের আগে সতর্কতা", none: "না", quarter: "১৫ মি",
+    search: "অনুসন্ধান", search_placeholder: "শহর খুঁজুন", map: "মানচিত্র", qibla: "কিবলা",
+    adhkar_title: "আযকার", adhkar_daily: "দৈনিক", adhkar_ramadan: "রমজান",
+    adhkar_hajj: "হজ", adhkar_arafa: "আরাফা", adhkar_ashura: "আশুরা"
+  },
+  fa: {
+    app_title: "لابارکوه صلاة", app_subtitle: "اوقات شرعی",
+    prayer_times: "اوقات شرعی", next_prayer: "نماز بعدی",
+    fajr: "صبح", sunrise: "طلوع", dhuhr: "ظهر", asr: "عصر", maghrib: "مغرب", isha: "عشا",
+    now: "اکنون", select_country: "انتخاب کشور", select_city: "انتخاب شهر", select_mosque: "انتخاب مسجد",
+    all_mosques: "همه مساجد", show: "نمایش", use_my_location: "استفاده از موقعیت من",
+    notify_before: "هشدار قبل از اذان", none: "هیچ", quarter: "۱۵ دقیقه",
+    search: "جستجو", search_placeholder: "جستجوی شهر", map: "نقشه", qibla: "قبله",
+    adhkar_title: "اذکار", adhkar_daily: "روزانه", adhkar_ramadan: "رمضان",
+    adhkar_hajj: "حج", adhkar_arafa: "عرفه", adhkar_ashura: "عاشورا"
+  },
+  it: {
+    app_title: "Labarkouh Salat", app_subtitle: "Orari di preghiera",
+    prayer_times: "Orari di preghiera", next_prayer: "Prossima preghiera",
+    fajr: "Fajr", sunrise: "Alba", dhuhr: "Dhuhr", asr: "Asr", maghrib: "Maghrib", isha: "Isha",
+    now: "Ora", select_country: "Seleziona paese", select_city: "Seleziona città", select_mosque: "Seleziona moschea",
+    all_mosques: "Tutte le moschee", show: "Mostra", use_my_location: "Usa la mia posizione",
+    notify_before: "Avviso prima dell'Adhan", none: "Nessuno", quarter: "15 min",
+    search: "Cerca", search_placeholder: "Cerca città", map: "Mappa", qibla: "Qibla",
+    adhkar_title: "Adhkar", adhkar_daily: "Giornalieri", adhkar_ramadan: "Ramadan",
+    adhkar_hajj: "Hajj", adhkar_arafa: "Arafa", adhkar_ashura: "Ashura"
+  },
+  nl: {
+    app_title: "Labarkouh Salat", app_subtitle: "Gebedstijden",
+    prayer_times: "Gebedstijden", next_prayer: "Volgend gebed",
+    fajr: "Fajr", sunrise: "Zonsopgang", dhuhr: "Dhuhr", asr: "Asr", maghrib: "Maghrib", isha: "Isha",
+    now: "Nu", select_country: "Kies land", select_city: "Kies stad", select_mosque: "Kies moskee",
+    all_mosques: "Alle moskeeën", show: "Tonen", use_my_location: "Mijn locatie gebruiken",
+    notify_before: "Melding voor Adhan", none: "Geen", quarter: "15 min",
+    search: "Zoeken", search_placeholder: "Zoek stad", map: "Kaart", qibla: "Qibla",
+    adhkar_title: "Adhkar", adhkar_daily: "Dagelijks", adhkar_ramadan: "Ramadan",
+    adhkar_hajj: "Hajj", adhkar_arafa: "Arafa", adhkar_ashura: "Ashura"
+  },
+  pt: {
+    app_title: "Labarkouh Salat", app_subtitle: "Horários de oração",
+    prayer_times: "Horários de oração", next_prayer: "Próxima oração",
+    fajr: "Fajr", sunrise: "Nascer do sol", dhuhr: "Dhuhr", asr: "Asr", maghrib: "Maghrib", isha: "Isha",
+    now: "Agora", select_country: "Escolher país", select_city: "Escolher cidade", select_mosque: "Escolher mesquita",
+    all_mosques: "Todas as mesquitas", show: "Mostrar", use_my_location: "Usar minha localização",
+    notify_before: "Aviso antes do Adhan", none: "Nenhum", quarter: "15 min",
+    search: "Pesquisar", search_placeholder: "Pesquisar cidade", map: "Mapa", qibla: "Qibla",
+    adhkar_title: "Adhkar", adhkar_daily: "Diário", adhkar_ramadan: "Ramadã",
+    adhkar_hajj: "Hajj", adhkar_arafa: "Arafa", adhkar_ashura: "Ashura"
+  },
+
+};
+
+// لاباركوه صلاة - تطبيق أوقات الصلاة
+(function () {
+  "use strict";
+
+  // الحالة
+  let currentLang = "ar";
+  let currentCountryIdx = 0;
+  let currentCityIdx = 0;
+  let currentLat = 21.4225;
+  let currentLng = 39.8262;
+  let currentTheme = "green";
+  let currentLayout = "grid";
+  let prayerTimes = null;
+  let hijriDate = "";
+  let map = null;
+  let marker = null;
+  let notifyMinutes = 5;
+  let countdownInterval = null;
+  let clockInterval = null;
+
+  // عناصر DOM
+  const $ = (sel) => document.querySelector(sel);
+  const $$ = (sel) => document.querySelectorAll(sel);
+
+
+  // ========== بيانات الأذكار ==========
+  const ADHKAR = {
+    daily: [
+      { text: "أَصْبَحْنَا وَأَصْبَحَ الْمُلْكُ لِلَّهِ، وَالْحَمْدُ لِلَّهِ، لا إِلَهَ إِلاَّ اللَّهُ وَحْدَهُ لا شَرِيكَ لَهُ، لَهُ الْمُلْكُ وَلَهُ الْحَمْدُ وَهُوَ عَلَى كُلِّ شَيْءٍ قَدِيرٌ.", count: 1, ref: "أذكار الصباح" },
+      { text: "اللَّهُمَّ بِكَ أَصْبَحْنَا، وَبِكَ أَمْسَيْنَا، وَبِكَ نَحْيَا، وَبِكَ نَمُوتُ، وَإِلَيْكَ النُّشُورُ.", count: 1, ref: "أذكار الصباح" },
+      { text: "سُبْحَانَ اللَّهِ وَبِحَمْدِهِ.", count: 100, ref: "من قالها مئة مرة" },
+      { text: "لا إِلَهَ إِلاَّ اللَّهُ وَحْدَهُ لا شَرِيكَ لَهُ، لَهُ الْمُلْكُ وَلَهُ الْحَمْدُ وَهُوَ عَلَى كُلِّ شَيْءٍ قَدِيرٌ.", count: 10, ref: "أذكار الصباح والمساء" },
+      { text: "أَعُوذُ بِكَلِمَاتِ اللَّهِ التَّامَّاتِ مِنْ شَرِّ مَا خَلَقَ.", count: 3, ref: "أذكار المساء" },
+      { text: "بِسْمِ اللَّهِ الَّذِي لا يَضُرُّ مَعَ اسْمِهِ شَيْءٌ فِي الأَرْضِ وَلا فِي السَّمَاءِ وَهُوَ السَّمِيعُ الْعَلِيمُ.", count: 3, ref: "أذكار الصباح والمساء" },
+      { text: "اللَّهُمَّ صَلِّ وَسَلِّمْ عَلَى نَبِيِّنَا مُحَمَّدٍ.", count: 10, ref: "صلاة على النبي" },
+      { text: "أَسْتَغْفِرُ اللَّهَ الْعَظِيمَ الَّذِي لا إِلَهَ إِلاَّ هُوَ الْحَيُّ الْقَيُّومُ وَأَتُوبُ إِلَيْهِ.", count: 3, ref: "الاستغفار" }
+    ],
+    ramadan: [
+      { text: "اللَّهُمَّ إِنَّكَ عَفُوٌّ تُحِبُّ الْعَفْوَ فَاعْفُ عَنِّي.", count: 1, ref: "دعاء ليلة القدر" },
+      { text: "اللَّهُمَّ بَلِّغْنَا رَمَضَانَ وَتَقَبَّلْ مِنَّا الصِّيَامَ وَالْقِيَامَ.", count: 1, ref: "دعاء استقبال رمضان" },
+      { text: "ذَهَبَ الظَّمَأُ وَابْتَلَّتِ الْعُرُوقُ وَثَبَتَ الأَجْرُ إِنْ شَاءَ اللَّهُ.", count: 1, ref: "دعاء الإفطار" },
+      { text: "اللَّهُمَّ لَكَ صُمْتُ وَعَلَى رِزْقِكَ أَفْطَرْتُ.", count: 1, ref: "دعاء الإفطار" },
+      { text: "اللَّهُمَّ إِنِّي أَسْأَلُكَ بِرَحْمَتِكَ الَّتِي وَسِعَتْ كُلَّ شَيْءٍ أَنْ تَغْفِرَ لِي.", count: 1, ref: "من أدعية رمضان" },
+      { text: "سُبْحَانَ مَنْ لا يَنَامُ وَلا يَنْبَغِي لَهُ أَنْ يَنَامَ.", count: 1, ref: "من أذكار الليل" }
+    ],
+    hajj: [
+      { text: "لَبَّيْكَ اللَّهُمَّ لَبَّيْكَ، لَبَّيْكَ لا شَرِيكَ لَكَ لَبَّيْكَ، إِنَّ الْحَمْدَ وَالنِّعْمَةَ لَكَ وَالْمُلْكَ، لا شَرِيكَ لَكَ.", count: 1, ref: "التلبية" },
+      { text: "اللَّهُمَّ حَجَّةً لا رِيَاءَ فِيهَا وَلا سُمْعَةَ.", count: 1, ref: "دعاء النية للحج" },
+      { text: "رَبَّنَا آتِنَا فِي الدُّنْيَا حَسَنَةً وَفِي الآخِرَةِ حَسَنَةً وَقِنَا عَذَابَ النَّارِ.", count: 1, ref: "بين الركنين" },
+      { text: "اللَّهُمَّ اجْعَلْهُ حَجًّا مَبْرُورًا وَسَعْيًا مَشْكُورًا وَذَنْبًا مَغْفُورًا.", count: 1, ref: "دعاء الحج" },
+      { text: "لا إِلَهَ إِلاَّ اللَّهُ وَحْدَهُ لا شَرِيكَ لَهُ، لَهُ الْمُلْكُ وَلَهُ الْحَمْدُ وَهُوَ عَلَى كُلِّ شَيْءٍ قَدِيرٌ.", count: 1, ref: "يوم النحر وغيره" }
+    ],
+    arafa: [
+      { text: "لا إِلَهَ إِلاَّ اللَّهُ وَحْدَهُ لا شَرِيكَ لَهُ، لَهُ الْمُلْكُ وَلَهُ الْحَمْدُ وَهُوَ عَلَى كُلِّ شَيْءٍ قَدِيرٌ.", count: 100, ref: "خير الدعاء يوم عرفة" },
+      { text: "اللَّهُمَّ لَكَ الْحَمْدُ كَالَّذِي تَقُولُ وَخَيْرًا مِمَّا نَقُولُ.", count: 1, ref: "من أدعية عرفة" },
+      { text: "سُبْحَانَ اللَّهِ وَالْحَمْدُ لِلَّهِ وَلا إِلَهَ إِلاَّ اللَّهُ وَاللَّهُ أَكْبَرُ.", count: 100, ref: "يوم عرفة" },
+      { text: "اللَّهُمَّ إِنِّي أَسْأَلُكَ الْجَنَّةَ وَأَعُوذُ بِكَ مِنَ النَّارِ.", count: 1, ref: "دعاء يوم عرفة" },
+      { text: "رَبَّنَا آتِنَا فِي الدُّنْيَا حَسَنَةً وَفِي الآخِرَةِ حَسَنَةً وَقِنَا عَذَابَ النَّارِ.", count: 1, ref: "من جوامع الدعاء" }
+    ],
+    ashura: [
+      { text: "اللَّهُمَّ صُمْتُ لَكَ وَبِكَ آمَنْتُ وَعَلَيْكَ تَوَكَّلْتُ وَعَلَى رِزْقِكَ أَفْطَرْتُ.", count: 1, ref: "دعاء صيام عاشوراء" },
+      { text: "سُبْحَانَ اللَّهِ وَبِحَمْدِهِ سُبْحَانَ اللَّهِ الْعَظِيمِ.", count: 100, ref: "ذكر مطلق" },
+      { text: "لا إِلَهَ إِلاَّ اللَّهُ وَحْدَهُ لا شَرِيكَ لَهُ، لَهُ الْمُلْكُ وَلَهُ الْحَمْدُ وَهُوَ عَلَى كُلِّ شَيْءٍ قَدِيرٌ.", count: 10, ref: "من الأذكار المأثورة" },
+      { text: "اللَّهُمَّ إِنِّي أَسْأَلُكَ مِنْ فَضْلِكَ وَرَحْمَتِكَ، فَإِنَّهُ لا يَمْلِكُهَا إِلاَّ أَنْتَ.", count: 1, ref: "دعاء عام" },
+      { text: "أَسْتَغْفِرُ اللَّهَ الَّذِي لا إِلَهَ إِلاَّ هُوَ الْحَيُّ الْقَيُّومُ وَأَتُوبُ إِلَيْهِ.", count: 100, ref: "الاستغفار يوم عاشوراء" }
+    ]
+  };
+
+  function renderAdhkar(cat) {
+    const list = document.getElementById("adhkarList");
+    if (!list) return;
+    const items = ADHKAR[cat] || ADHKAR.daily;
+    list.innerHTML = items.map(item => `
+      <div class="adhkar-item">
+        <div class="adhkar-text">${item.text}</div>
+        <span class="adhkar-count">${item.count}×</span>
+        <div class="adhkar-ref">${item.ref}</div>
+      </div>
+    `).join("");
+  }
+
+
+  function applyTheme(theme) {
+    currentTheme = theme || "green";
+    document.body.className = document.body.className.replace(/theme-\w+/g, "");
+    document.body.classList.add("theme-" + currentTheme);
+    $$(".theme-dot").forEach(d => d.classList.toggle("active", d.dataset.theme === currentTheme));
+    saveLocation();
+  }
+
+  function applyLayout(layout) {
+    currentLayout = layout || "grid";
+    const grid = document.getElementById("prayersGrid");
+    if (!grid) return;
+    grid.classList.remove("layout-list", "layout-compact", "layout-large");
+    if (currentLayout === "list") grid.classList.add("layout-list");
+    else if (currentLayout === "compact") grid.classList.add("layout-compact");
+    else if (currentLayout === "large") grid.classList.add("layout-large");
+    saveLocation();
+  }
+
+  function cycleLayout() {
+    const order = ["grid", "list", "compact", "large"];
+    const i = order.indexOf(currentLayout);
+    applyLayout(order[(i + 1) % order.length]);
+    const names = { grid: "شبكة", list: "قائمة", compact: "مضغوط", large: "كبير" };
+    alert("شكل العرض: " + (names[currentLayout] || currentLayout));
+  }
+
+  // ========== التهيئة ==========
+  function init() {
+    // استعادة آخر اختيار من localStorage
+    try {
+      const saved = JSON.parse(localStorage.getItem("labarkouh_location") || "null");
+      if (saved && typeof saved.lat === "number") {
+        currentLat = saved.lat;
+        currentLng = saved.lng;
+        if (saved.countryCode) {
+          currentCountryIdx = findCountryIdxByCode(saved.countryCode);
+          currentCityIdx = findCityIdx(currentCountryIdx, saved.cityNameEn);
+        } else {
+          currentCountryIdx = saved.countryIdx || 0;
+          currentCityIdx = saved.cityIdx || 0;
+        }
+      }
+      currentTheme = localStorage.getItem("labarkouh_theme") || "green";
+      currentLayout = localStorage.getItem("labarkouh_layout") || "grid";
+    } catch (e) {}
+
+    bindEvents();
+    setLanguage(localStorage.getItem("labarkouh_lang") || "ar");
+    populateCountries();
+    populateCities();
+
+    // محاولة استخدام الموقع الحالي إذا لم يكن هناك حفظ سابق قوي
+    const hasSaved = !!localStorage.getItem("labarkouh_location");
+    if (!hasSaved && navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (pos) => {
+          currentLat = pos.coords.latitude;
+          currentLng = pos.coords.longitude;
+          currentCountryIdx = 0;
+          currentCityIdx = 0;
+          loadTimes();
+          saveLocation();
+        },
+        () => { loadTimes(); },
+        { timeout: 8000 }
+      );
+    } else {
+      loadTimes();
+    }
+
+    startClock();
+    initMap();
+    renderAdhkar("daily");
+    applyTheme(currentTheme);
+    applyLayout(currentLayout);
+    updateLocationLabel();
+  }
+
+  function saveLocation() {
+    try {
+      const country = COUNTRIES[currentCountryIdx] || {};
+      const city = (country.cities || [])[currentCityIdx] || {};
+      localStorage.setItem("labarkouh_location", JSON.stringify({
+        lat: currentLat,
+        lng: currentLng,
+        countryCode: country.code || "",
+        cityNameEn: (city.name && (city.name.en || city.name.ar)) || "",
+        countryIdx: currentCountryIdx,
+        cityIdx: currentCityIdx
+      }));
+      localStorage.setItem("labarkouh_lang", currentLang);
+      localStorage.setItem("labarkouh_theme", currentTheme || "green");
+      localStorage.setItem("labarkouh_layout", currentLayout || "grid");
+    } catch (e) {}
+  }
+
+  function findCountryIdxByCode(code) {
+    if (!code) return 0;
+    const i = COUNTRIES.findIndex(c => c.code === code);
+    return i >= 0 ? i : 0;
+  }
+
+  function findCityIdx(countryIdx, nameEn) {
+    const cities = (COUNTRIES[countryIdx] || {}).cities || [];
+    if (!nameEn) return 0;
+    const i = cities.findIndex(c => (c.name.en || c.name.ar || "") === nameEn);
+    return i >= 0 ? i : 0;
+  }
+
+  // ========== اللغات ==========
+  function setLanguage(lang) {
+    currentLang = lang;
+    document.documentElement.lang = lang;
+    document.documentElement.dir = lang === "ar" ? "rtl" : "ltr";
+
+    $$("#langTabs button").forEach((btn) => {
+      btn.classList.toggle("active", btn.dataset.lang === lang);
+    });
+
+    // تحديث النصوص
+    const t = I18N[lang] || I18N.ar;
+    $$("[data-i18n]").forEach((el) => {
+      const key = el.dataset.i18n;
+      if (t[key]) el.textContent = t[key];
+    });
+    $$("[data-i18n-placeholder]").forEach((el) => {
+      const key = el.dataset.i18nPlaceholder;
+      if (t[key]) el.placeholder = t[key];
+    });
+
+    // عنوان التطبيق
+    const titleEl = document.getElementById("appTitle");
+    const subEl = document.getElementById("appSubtitle");
+    if (titleEl && t.app_title) titleEl.textContent = t.app_title;
+    if (subEl && t.app_subtitle) subEl.textContent = t.app_subtitle;
+
+    // placeholder البحث
+    const searchEl = document.getElementById("countrySearch");
+    if (searchEl && t.search_country) searchEl.placeholder = t.search_country;
+
+    // تحديث قوائم الدول والمدن مرتبة حسب اللغة
+    populateCountries();
+    populateCities();
+    updateLocationLabel();
+    updateNextPrayer(); // لتحديث اسم الصلاة حسب اللغة
+  }
+
+  // ========== الدول والمدن ==========
+  function populateCountries(filterText) {
+    const select = $("#countrySelect");
+    if (!select) return;
+    select.innerHTML = "";
+
+    // ترتيب أبجدي حسب اللغة الحالية
+    const indexed = COUNTRIES.map((c, i) => ({ c, i, label: (c.name[currentLang] || c.name.en || c.name.ar || "").toString() }));
+    indexed.sort((a, b) => a.label.localeCompare(b.label, currentLang === "ar" ? "ar" : "en", { sensitivity: "base" }));
+
+    const filter = (filterText || "").trim().toLowerCase();
+    let firstMatchIdx = -1;
+
+    indexed.forEach(({ c, i, label }) => {
+      if (filter && !label.toLowerCase().includes(filter)) return;
+      const opt = document.createElement("option");
+      opt.value = i;
+      opt.textContent = label;
+      if (i === currentCountryIdx) {
+        opt.selected = true;
+        firstMatchIdx = i;
+      }
+      select.appendChild(opt);
+    });
+
+    // إذا لم يكن المحدد ظاهرًا بعد الفلتر، اختر أول نتيجة
+    if (filter && select.options.length && firstMatchIdx === -1) {
+      select.selectedIndex = 0;
+    }
+  }
+
+  function populateCities() {
+    const select = $("#citySelect");
+    if (!select) return;
+    select.innerHTML = "";
+    const country = COUNTRIES[currentCountryIdx];
+    const cities = (country && country.cities) ? country.cities : [];
+    cities.forEach((c, i) => {
+      const opt = document.createElement("option");
+      opt.value = i;
+      opt.textContent = c.name[currentLang] || c.name.ar || c.name.en;
+      if (i === currentCityIdx) opt.selected = true;
+      select.appendChild(opt);
+    });
+    populateMosques();
+  }
+
+  function populateMosques() {
+    const select = $("#mosqueSelect");
+    if (!select) return;
+    select.innerHTML = "";
+    const country = COUNTRIES[currentCountryIdx];
+    const city = country && country.cities && country.cities[currentCityIdx];
+    const mosques = (city && city.mosques) ? city.mosques : ["كل المساجد"];
+    // خيار كل المساجد أولاً
+    const allOpt = document.createElement("option");
+    allOpt.value = "all";
+    allOpt.textContent = (I18N[currentLang] && I18N[currentLang].all_mosques) || "كل المساجد";
+    select.appendChild(allOpt);
+    mosques.forEach((m, i) => {
+      if (m === "كل المساجد") return;
+      const opt = document.createElement("option");
+      opt.value = i;
+      opt.textContent = m;
+      select.appendChild(opt);
+    });
+  }
+
+  function updateLocationLabel() {
+    let cityName = "—";
+    try {
+      const country = COUNTRIES[currentCountryIdx];
+      if (country && country.cities && country.cities[currentCityIdx]) {
+        const city = country.cities[currentCityIdx];
+        cityName = city.name[currentLang] || city.name.ar || city.name.en || "—";
+      }
+    } catch(e) {}
+    ["cityName", "cityName2"].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.textContent = cityName;
+    });
+    const coordsEl = document.getElementById("coords");
+    if (coordsEl) coordsEl.textContent = `${Number(currentLat).toFixed(3)}°, ${Number(currentLng).toFixed(3)}°`;
+  }
+
+  // ========== جلب أوقات الصلاة ==========
+  async function loadTimes() {
+    document.body.classList.add("loading");
+    try {
+      // استخدام AlAdhan API
+      const url = `https://api.aladhan.com/v1/timings?latitude=${currentLat}&longitude=${currentLng}&method=3&school=0`;
+      const res = await fetch(url);
+      const data = await res.json();
+
+      if (data.code === 200) {
+        const t = data.data.timings;
+        prayerTimes = {
+          Fajr: t.Fajr,
+          Sunrise: t.Sunrise,
+          Dhuhr: t.Dhuhr,
+          Asr: t.Asr,
+          Maghrib: t.Maghrib,
+          Isha: t.Isha
+        };
+
+        // التاريخ الهجري
+        const hijri = data.data.date.hijri;
+        const greg = data.data.date.gregorian;
+        hijriDate = formatHijri(hijri, greg);
+
+        renderTimes();
+        updateNextPrayer();
+        updateQibla();
+        updateMap();
+      }
+    } catch (err) {
+      console.error("خطأ في جلب الأوقات:", err);
+      // fallback بسيط
+      alert(currentLang === "ar" ? "تعذر جلب الأوقات. تحقق من الاتصال." : "Failed to load times.");
+    }
+    document.body.classList.remove("loading");
+  }
+
+  function formatHijri(hijri, greg) {
+    const weekdays = {
+      ar: ["الأحد","الإثنين","الثلاثاء","الأربعاء","الخميس","الجمعة","السبت"],
+      en: ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],
+      fr: ["Dimanche","Lundi","Mardi","Mercredi","Jeudi","Vendredi","Samedi"],
+      ha: ["Lahadi","Litinin","Talata","Laraba","Alhamis","Jumma'a","Asabar"],
+      so: ["Axad","Isniin","Talaado","Arbaco","Khamiis","Jimco","Sabti"],
+      tr: ["Pazar","Pazartesi","Salı","Çarşamba","Perşembe","Cuma","Cumartesi"],
+      de: ["Sonntag","Montag","Dienstag","Mittwoch","Donnerstag","Freitag","Samstag"],
+      es: ["Domingo","Lunes","Martes","Miércoles","Jueves","Viernes","Sábado"],
+      id: ["Minggu","Senin","Selasa","Rabu","Kamis","Jumat","Sabtu"],
+      ur: ["اتوار","پیر","منگل","بدھ","جمعرات","جمعہ","ہفتہ"],
+      ru: ["Воскресенье","Понедельник","Вторник","Среда","Четверг","Пятница","Суббота"],
+      it: ["Domenica","Lunedì","Martedì","Mercoledì","Giovedì","Venerdì","Sabato"],
+      nl: ["Zondag","Maandag","Dinsdag","Woensdag","Donderdag","Vrijdag","Zaterdag"],
+      pt: ["Domingo","Segunda","Terça","Quarta","Quinta","Sexta","Sábado"],
+      bn: ["রবিবার","সোমবার","মঙ্গলবার","বুধবার","বৃহস্পতিবার","শুক্রবার","শনিবার"],
+      fa: ["یکشنبه","دوشنبه","سه‌شنبه","چهارشنبه","پنجشنبه","جمعه","شنبه"]
+    };
+    const monthsG = {
+      ar: ["يناير","فبراير","مارس","أبريل","مايو","يونيو","يوليو","أغسطس","سبتمبر","أكتوبر","نوفمبر","ديسمبر"],
+      en: ["January","February","March","April","May","June","July","August","September","October","November","December"],
+      fr: ["janvier","février","mars","avril","mai","juin","juillet","août","septembre","octobre","novembre","décembre"],
+      tr: ["Ocak","Şubat","Mart","Nisan","Mayıs","Haziran","Temmuz","Ağustos","Eylül","Ekim","Kasım","Aralık"],
+      de: ["Januar","Februar","März","April","Mai","Juni","Juli","August","September","Oktober","November","Dezember"],
+      es: ["enero","febrero","marzo","abril","mayo","junio","julio","agosto","septiembre","octubre","noviembre","diciembre"],
+      id: ["Januari","Februari","Maret","April","Mei","Juni","Juli","Agustus","September","Oktober","November","Desember"],
+      ur: ["جنوری","فروری","مارچ","اپریل","مئی","جون","جولائی","اگست","ستمبر","اکتوبر","نومبر","دسمبر"],
+      ru: ["января","февраля","марта","апреля","мая","июня","июля","августа","сентября","октября","ноября","декабря"]
+    };
+    const dayIdx = new Date().getDay();
+    const lang = currentLang in weekdays ? currentLang : "en";
+    const dayName = weekdays[lang][dayIdx];
+    const hDay = hijri.day;
+    const hMonth = (hijri.month && (hijri.month.ar || hijri.month.en)) || "";
+    const hYear = hijri.year;
+    const gDay = greg.day;
+    const gMonthIdx = parseInt(greg.month.number || 1, 10) - 1;
+    const gMonth = (monthsG[lang] || monthsG.en)[gMonthIdx] || greg.month.en;
+    const gYear = greg.year;
+
+    if (lang === "ar") {
+      return `${dayName} ${gDay} ${gMonth} ${gYear} · ${hDay} ${hMonth} ${hYear} هـ`;
+    }
+    return `${dayName} ${gDay} ${gMonth} ${gYear} · ${hDay} ${hMonth} ${hYear} AH`;
+  }
+
+  function renderTimes() {
+    if (!prayerTimes) return;
+    const set = (id, val) => { const el = document.getElementById(id); if (el) el.textContent = val; };
+    set("timeFajr", prayerTimes.Fajr.slice(0, 5));
+    set("timeSunrise", prayerTimes.Sunrise.slice(0, 5));
+    set("timeDhuhr", prayerTimes.Dhuhr.slice(0, 5));
+    set("timeAsr", prayerTimes.Asr.slice(0, 5));
+    set("timeMaghrib", prayerTimes.Maghrib.slice(0, 5));
+    set("timeIsha", prayerTimes.Isha.slice(0, 5));
+    set("dateLine", hijriDate || "—");
+    updateLocationLabel();
+  }
+
+  // ========== الصلاة القادمة والعد التنازلي ==========
+  function updateNextPrayer() {
+    if (!prayerTimes) return;
+
+    const now = new Date();
+    const prayers = [
+      { name: "Fajr", time: prayerTimes.Fajr, label: I18N[currentLang].fajr },
+      { name: "Sunrise", time: prayerTimes.Sunrise, label: I18N[currentLang].sunrise },
+      { name: "Dhuhr", time: prayerTimes.Dhuhr, label: I18N[currentLang].dhuhr },
+      { name: "Asr", time: prayerTimes.Asr, label: I18N[currentLang].asr },
+      { name: "Maghrib", time: prayerTimes.Maghrib, label: I18N[currentLang].maghrib },
+      { name: "Isha", time: prayerTimes.Isha, label: I18N[currentLang].isha }
+    ];
+
+    // تحويل إلى دقائق من منتصف الليل
+    function toMinutes(t) {
+      const [h, m] = t.split(":").map(Number);
+      return h * 60 + m;
+    }
+
+    const nowMin = now.getHours() * 60 + now.getMinutes();
+    let next = null;
+    let nextDate = null;
+
+    for (const p of prayers) {
+      const pMin = toMinutes(p.time);
+      if (pMin > nowMin) {
+        next = p;
+        nextDate = new Date(now);
+        nextDate.setHours(Math.floor(pMin / 60), pMin % 60, 0, 0);
+        break;
+      }
+    }
+
+    // إذا انتهت كل الصلوات، الفجر غداً
+    if (!next) {
+      next = prayers[0];
+      nextDate = new Date(now);
+      nextDate.setDate(nextDate.getDate() + 1);
+      const pMin = toMinutes(next.time);
+      nextDate.setHours(Math.floor(pMin / 60), pMin % 60, 0, 0);
+    }
+
+    $("#nextPrayerName").textContent = next.label;
+    $("#nextPrayerTime").textContent = next.time.slice(0, 5);
+
+    // تمييز الصلاة الحالية
+    $$(".prayer-box").forEach((box) => box.classList.remove("active"));
+    const activeBox = $(`.prayer-box[data-prayer="${next.name}"]`);
+    if (activeBox) activeBox.classList.add("active");
+
+    // شارة "الآن" للعشاء إذا كان الوقت الحالي بعده
+    const ishaMin = toMinutes(prayerTimes.Isha);
+    const badge = $("#nowBadge");
+    if (nowMin >= ishaMin) {
+      badge.style.display = "inline-block";
+    } else {
+      badge.style.display = "none";
+    }
+
+    // العد التنازلي
+    if (countdownInterval) clearInterval(countdownInterval);
+    function tick() {
+      const diff = nextDate - new Date();
+      if (diff <= 0) {
+        updateNextPrayer();
+        return;
+      }
+      const h = Math.floor(diff / 3600000);
+      const m = Math.floor((diff % 3600000) / 60000);
+      const s = Math.floor((diff % 60000) / 1000);
+      $("#countdown").textContent =
+        String(h).padStart(2, "0") + ":" +
+        String(m).padStart(2, "0") + ":" +
+        String(s).padStart(2, "0");
+    }
+    tick();
+    countdownInterval = setInterval(tick, 1000);
+  }
+
+  // ========== الساعة الحالية ==========
+  function startClock() {
+    function update() {
+      const now = new Date();
+      const h = String(now.getHours()).padStart(2, "0");
+      const m = String(now.getMinutes()).padStart(2, "0");
+      const s = String(now.getSeconds()).padStart(2, "0");
+      $("#currentTime").textContent = `${h}:${m}:${s}`;
+    }
+    update();
+    clockInterval = setInterval(update, 1000);
+  }
+
+  // ========== القبلة ==========
+  function calculateQibla(lat, lng) {
+    // إحداثيات الكعبة
+    const kaabaLat = 21.4225;
+    const kaabaLng = 39.8262;
+
+    const φ1 = (lat * Math.PI) / 180;
+    const φ2 = (kaabaLat * Math.PI) / 180;
+    const Δλ = ((kaabaLng - lng) * Math.PI) / 180;
+
+    const y = Math.sin(Δλ) * Math.cos(φ2);
+    const x = Math.cos(φ1) * Math.sin(φ2) - Math.sin(φ1) * Math.cos(φ2) * Math.cos(Δλ);
+    let qibla = (Math.atan2(y, x) * 180) / Math.PI;
+    qibla = (qibla + 360) % 360;
+    return Math.round(qibla * 10) / 10;
+  }
+
+  function updateQibla() {
+    const q = calculateQibla(currentLat, currentLng);
+    $("#qiblaBadge").textContent = `${I18N[currentLang].qibla} ${q}°`;
+    const cityName = COUNTRIES[currentCountryIdx].cities[currentCityIdx].name[currentLang];
+    $("#qiblaText").textContent = `${I18N[currentLang].qibla} • ${cityName}`;
+  }
+
+  // ========== الخريطة ==========
+  function initMap() {
+    map = L.map("map", {
+      zoomControl: true,
+      attributionControl: true
+    }).setView([currentLat, currentLng], 11);
+
+    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+      attribution: "© OpenStreetMap"
+    }).addTo(map);
+
+    marker = L.marker([currentLat, currentLng]).addTo(map);
+  }
+
+  function updateMap() {
+    if (!map) return;
+    map.setView([currentLat, currentLng], 12);
+    if (marker) {
+      marker.setLatLng([currentLat, currentLng]);
+    } else {
+      marker = L.marker([currentLat, currentLng]).addTo(map);
+    }
+  }
+
+  // ========== الأحداث ==========
+  function bindEvents() {
+    // اللغات
+    $$("#langTabs button").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        setLanguage(btn.dataset.lang);
+        saveLocation();
+      });
+    });
+
+    // قائمة النقاط الثلاث
+    const menuBtn = document.getElementById("menuBtn");
+    const menuDropdown = document.getElementById("menuDropdown");
+    if (menuBtn && menuDropdown) {
+      menuBtn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        menuDropdown.classList.toggle("open");
+      });
+      document.addEventListener("click", () => menuDropdown.classList.remove("open"));
+      menuDropdown.addEventListener("click", (e) => e.stopPropagation());
+    }
+    $$(".theme-dot").forEach(dot => {
+      dot.addEventListener("click", () => applyTheme(dot.dataset.theme));
+    });
+    const menuLayout = document.getElementById("menuLayout");
+    if (menuLayout) menuLayout.addEventListener("click", cycleLayout);
+    const menuWidget = document.getElementById("menuWidget");
+    if (menuWidget) menuWidget.addEventListener("click", () => {
+      alert(currentLang === "ar"
+        ? "لإضافة التطبيق كـ Widget:\n1. من متصفح كروم اضغط ⋮\n2. اختر \"إضافة إلى الشاشة الرئيسية\"\n3. سيظهر كأيقونة تطبيق"
+        : "To add as Widget: use browser menu → Add to Home Screen");
+    });
+
+
+    // country search removed
+
+    // الدولة
+    $("#countrySelect").addEventListener("change", (e) => {
+      const val = parseInt(e.target.value);
+      if (isNaN(val)) return;
+      currentCountryIdx = val;
+      currentCityIdx = 0;
+      const country = COUNTRIES[currentCountryIdx];
+      if (country && country.cities && country.cities.length) {
+        currentLat = country.cities[0].lat;
+        currentLng = country.cities[0].lng;
+      }
+      populateCities();
+      updateLocationLabel();
+    });
+
+    // المدينة
+    $("#citySelect").addEventListener("change", (e) => {
+      const val = parseInt(e.target.value);
+      if (isNaN(val)) return;
+      currentCityIdx = val;
+      const city = COUNTRIES[currentCountryIdx] && COUNTRIES[currentCountryIdx].cities[currentCityIdx];
+      if (city) {
+        currentLat = city.lat;
+        currentLng = city.lng;
+      }
+      updateLocationLabel();
+    });
+
+    // زر عرض
+    $("#showBtn").addEventListener("click", () => {
+      // تحديث الفهارس من القوائم
+      const cSel = $("#countrySelect");
+      const citySel = $("#citySelect");
+      if (cSel && cSel.value !== "") currentCountryIdx = parseInt(cSel.value);
+      if (citySel && citySel.value !== "") currentCityIdx = parseInt(citySel.value);
+      const city = COUNTRIES[currentCountryIdx] && COUNTRIES[currentCountryIdx].cities[currentCityIdx];
+      if (city) {
+        currentLat = city.lat;
+        currentLng = city.lng;
+      }
+      saveLocation();
+      loadTimes();
+    });
+
+    // موقعي
+    $("#useLocationBtn").addEventListener("click", () => {
+      if (!navigator.geolocation) {
+        alert(currentLang === "ar" ? "المتصفح لا يدعم تحديد الموقع" : "Geolocation not supported");
+        return;
+      }
+      navigator.geolocation.getCurrentPosition(
+        (pos) => {
+          currentLat = pos.coords.latitude;
+          currentLng = pos.coords.longitude;
+          currentCountryIdx = 0;
+          currentCityIdx = 0;
+          saveLocation();
+          loadTimes();
+        },
+        () => {
+          alert(currentLang === "ar" ? "تعذر الحصول على الموقع" : "Could not get location");
+        },
+        { enableHighAccuracy: true, timeout: 10000 }
+      );
+    });
+
+    // تبويبات الأذكار
+    $$("#adhkarTabs .adhkar-tab").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        $$("#adhkarTabs .adhkar-tab").forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+        renderAdhkar(btn.dataset.cat);
+      });
+    });
+
+    
+    const nmToggle = document.getElementById("nearestMosqueToggle");
+    if (nmToggle) {
+      nmToggle.checked = localStorage.getItem("labarkouh_nearest") === "1";
+      nmToggle.addEventListener("change", () => {
+        localStorage.setItem("labarkouh_nearest", nmToggle.checked ? "1" : "0");
+        if (nmToggle.checked && navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(pos => {
+            currentLat = pos.coords.latitude;
+            currentLng = pos.coords.longitude;
+            saveLocation();
+            loadTimes();
+            alert(currentLang === "ar" ? "تم تفعيل أقرب موقع لمسجد حسب موقعك الحالي" : "Nearest location enabled using your GPS");
+          });
+        }
+      });
+    }
+
+    // تنبيهات
+    $$(".notif-btn").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        $$(".notif-btn").forEach((b) => b.classList.remove("active"));
+        btn.classList.add("active");
+        notifyMinutes = parseInt(btn.dataset.min);
+      });
+    });
+
+    // بحث
+    $("#searchBtn").addEventListener("click", searchCity);
+    $("#searchInput").addEventListener("keypress", (e) => {
+      if (e.key === "Enter") searchCity();
+    });
+  }
+
+  async function searchCity() {
+    const q = $("#searchInput").value.trim();
+    if (!q) return;
+
+    try {
+      // استخدام Nominatim للبحث
+      const res = await fetch(
+        `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(q)}&format=json&limit=1`
+      );
+      const data = await res.json();
+      if (data && data[0]) {
+        currentLat = parseFloat(data[0].lat);
+        currentLng = parseFloat(data[0].lon);
+        $("#cityName").textContent = data[0].display_name.split(",")[0];
+        loadTimes();
+      } else {
+        alert(currentLang === "ar" ? "لم يتم العثور على المدينة" : "City not found");
+      }
+    } catch (err) {
+      console.error(err);
+      alert(currentLang === "ar" ? "خطأ في البحث" : "Search error");
+    }
+  }
+
+  // تشغيل
+  document.addEventListener("DOMContentLoaded", init);
+})();
+
+</script>
+</body>
+</html>
